@@ -45,11 +45,6 @@ A number of cards that the player held, drawn from the deck of cards.
 
 <pre>
 One possible idea:
-Create a card game.
-Possible cards:
-    - `Slash`: attack card, needs `Dodge` to deflect, or used in `duel` or `savage`
-    - `Dodge`: defence card, can't be used directly, can deflect `Dodge` or used in `archery`
-    - `peach`: healing card, can be used by player in action phase or when just got killed
 </pre>
 
 ## Program Purpose
