@@ -22,9 +22,9 @@ In this phase, the player in this turn can play cards to attack, heal, or use `t
 In this phase, the player in this turn discards his(her) [`hand cards`](#hand-cards) so that the number of `hand cards` is equal to the player's current [`health points`](#health-points)(if number of current hand cards is greater than the player's health points).
 ### Types of Cards
 **Basic Cards:**  
-- **`Slash`**: attack card, needs `Dodge` to deflect, or used in `duel` or `savage`
+- **`Slash`**: attack card, needs `Dodge` to deflect, if opponent player didn't dodge, the opponent lose `1` health point. It can also used in `duel` or `savage`
 - **`Dodge`**: defence card, can't be used directly, can deflect `Dodge` or used in `archery`
-- **`Peach`**: healing card, can be used by player in action phase or when just got killed  
+- **`Peach`**: healing card, can be used by player in action phase to heal `1` health point or when just got killed  
   
 **Equipment Cards:**  
 - **`Crossbow`**: a player equipted with this weapen can use [`Slash`](#types-of-cards) infinite times in his handcard.
