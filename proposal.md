@@ -20,7 +20,7 @@ In this phase, the player in this turn draws `2` cards from the top of the deck 
 In this phase, the player in this turn can play cards to attack, heal, or use `trick cards` ([More information about types of cards](#types-of-cards)). If other player(s) got attacked, they can choose to play certain cards to defend.
 3. <b>Discard Phase</b>
 In this phase, the player in this turn discards his(her) [`hand cards`](#hand-cards) so that the number of `hand cards` is equal to the player's current [`health points`](#health-points)(if number of current hand cards is greater than the player's health points).
-### Types Of Cards
+### Types of Cards
 **Basic Cards:**  
     - `Slash`: attack card, needs `Dodge` to deflect, or used in `duel` or `savage`
     - `Dodge`: defence card, can't be used directly, can deflect `Dodge` or used in `archery`
@@ -29,7 +29,13 @@ In this phase, the player in this turn discards his(her) [`hand cards`](#hand-ca
     - `Crossbow`: a player equipted with this weapen can use [`Slash`](#types-of-cards) infinite times in his handcard.
     - `Doubleblade`: a player equipted with this weapen can use `Slash` as [`Dodge`](#types-of-cards) and use `Dodge` as `Slash`
 **Trick Cards:**
-    - `Duel`:
+    - `Duel`: the player who play this card chooses a target player, the target must respond first by playing a `Slash` card. If they play a `Slash`, then the player must play a Slash. This process continues until one player cannot or chooses not to play a Slash and loses **`1`** health point.  
+    - `Dismantle`: the player who play this card can remove one card from a target player's `handcard` or [`equipment area`](#equipment-area).
+    - `Snatch`: the player who play this card can take one card from a target player's `handcard` or `equipment area` and add it to the player's `handcard`.
+    - `Archery`: when a player play this card, every player(including the player himself) needs to play an `Dodge`. Those who cannot or choose not to will loose **`1`** health point.
+    - `Savage`: when a player play this card, every player(including the player himself) needs to play an `Slash`. Those who cannot or choose not to will loose **`1`** health point.
+    - `Benevolence`: the player who play this card draws two cards from the deck of cards immediately and add them to the player's `handcard`.
+    - `Negate`: this card can be used to deflect any other `trick` card aimed at you(ex: `Duel`, `Snatch`, `Archery`, etc).
 <pre>
 One possible idea:
 Create a card game.
