@@ -41,7 +41,7 @@ In this phase, the player in this turn discards his(her) [`hand cards`](#hand-ca
 
 ### Handcard
 A number of cards that the player held, drawn from the deck of cards.  
-
+A player's handcard can't be seen by any other player.
 ### Equipment Area
 The place where players can equip their `Equipment Cards`, which doesn't take up handcard number limit at the `discard phase`.
 Cards equiped in this area are targets of `Dismantle` and `Snatch`.  
