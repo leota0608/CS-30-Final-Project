@@ -13,7 +13,7 @@
 - [Example Catch Phrases](#example-catch-phrases)
 - [Target Users](#target-users)
 ## General Overview
-The plan is to create a main game including several mini games.
+The plan is to create a game including several mini games, where the player can move in the map to choose different games to play.
 
 ## Game 1
 <b>What is looks like:</b>  
@@ -53,15 +53,24 @@ A player's handcard can't be seen by any other player.
 The place where players can equip their `Equipment Cards`, which doesn't take up handcard number limit at the `discard phase`.
 Cards equiped in this area are targets of `Dismantle` and `Snatch`.  
 
-<pre>
-One possible idea:
-</pre>
-
+## Coding preparation
+The classes and external files in the program will be explained as the following, taking Game 1 as an example.
+### Classes
+The code will achieve a game between a human player and one of more robot using rule based algorithms.
+Some possible classes and external files:
+- `Player` class and external file: this class will include some basic moves a player would need, such as drawing cards, and data like `health`, `name` and `hadncards`.
+- `Bot` class and external file: this class will be a `children class` of the Player class, having new methods like evluateing moves, making decision on it self on what card to play.
+- `Format` external file: this file will include functions or classes to improve UI, such as makign new lines, outputing card shapes...
+- `Deck` class and external file: this class will be stroing all the cards. It will have methods like randomizing  cards, and drawing a certain number of cards.
+- `Card` class and external file: this class have attributes like [card types](#types-of-cards) and card name
+- `Choose` class: this class will handle all user inputs, including exceptions, confirmation, and checking input range.
+- `Main` class: this class will run the game.
 ## Program Purpose
 
 
+
 ## Story Line
-In a carsino, a card game player can choose.
+In a casino, a card game player can choose.
 
 ## Program Theme
 
