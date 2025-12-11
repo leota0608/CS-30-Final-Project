@@ -54,7 +54,7 @@ One possible idea:
 
 
 ## Story Line
-
+In a carsino, a card game player can choose.
 
 ## Program Theme
 
