@@ -12,7 +12,7 @@
 <b>What is looks like:</b>  
 Two or more people can play the game. For each turn, there are [three phases](#game-phases) for each player, and players take turns to play. The last player alive is the winner. The game requires combat, strategy, and thinking.
 
-
+Initially, each player draws **`4`** cards from the deck of cards and add them to their `handcard`. Each player has an initial max health points of **`4`**. When a player's health points equal to `0`, the player loses unless the player uses a [`Peach`](#types-of-cards).
 ### Game Phases
 1. <b>Draw Phase</b>
 In this phase, the player in this turn draws `2` cards from the top of the deck of cards, and add them to the player's [`hand cards`](#hand-cards).
