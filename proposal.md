@@ -14,11 +14,11 @@ Two or more people can play the game. For each turn, there are [three phases](#g
 
 Initially, each player draws **`4`** cards from the deck of cards and add them to their `handcard`. Each player has an initial max health points of **`4`**. When a player's health points equal to `0`, the player loses unless the player uses a [`Peach`](#types-of-cards).
 ### Game Phases
-1. <b>Draw Phase</b>
+1. <b>Draw Phase</b>  
 In this phase, the player in this turn draws `2` cards from the top of the deck of cards, and add them to the player's [`hand cards`](#hand-cards).
-2. <b>Action Phase</b>
+2. <b>Action Phase</b>  
 In this phase, the player in this turn can play cards to attack, heal, or use `trick cards` ([More information about types of cards](#types-of-cards)). If other player(s) got attacked, they can choose to play certain cards to defend.
-3. <b>Discard Phase</b>
+3. <b>Discard Phase</b>  
 In this phase, the player in this turn discards his(her) [`hand cards`](#hand-cards) so that the number of `hand cards` is equal to the player's current [`health points`](#health-points)(if number of current hand cards is greater than the player's health points).
 ### Types of Cards
 **Basic Cards:**  
