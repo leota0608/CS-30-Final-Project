@@ -2,13 +2,20 @@
 **Contributors: `Leo`, `Amir`**  
   
 **Table of Contents:**
-- [General Overview](#general-overview)  
+- [General Overview](#general-overview)
+    + [Game 1](#game-1)
+    + [Game 2](#game-2)
+    + [Game 3](#game-3)
+    + [Game 4](#game-4)
 - [Program Purpose](#program-purpose)
 - [Story Line](#story-line)
 - [Program Theme](#program-theme)
 - [Example Catch Phrases](#example-catch-phrases)
 - [Target Users](#target-users)
 ## General Overview
+
+
+## Game 1
 <b>What is looks like:</b>  
 Two or more people can play the game. For each turn, there are [three phases](#game-phases) for each player, and players take turns to play. The last player alive is the winner. The game requires combat, strategy, and thinking.
 
