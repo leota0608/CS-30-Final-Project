@@ -13,7 +13,7 @@
 - [Example Catch Phrases](#example-catch-phrases)
 - [Target Users](#target-users)
 ## General Overview
-
+The plan is to create a main game including several mini games.
 
 ## Game 1
 <b>What is looks like:</b>  
