@@ -85,7 +85,9 @@ Some possible classes and external files:
 
 
 
-## Story Line
+## Story 
+Main Character enters a casino with ``
+
 In a casino, a card game player can choose.
 
 ## Program Theme
