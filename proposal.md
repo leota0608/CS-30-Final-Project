@@ -14,6 +14,7 @@
 - [Target Users](#target-users)
 ## General Overview
 The plan is to create a game including several mini games, where the player can move in the map to choose different games to play.
+<hr>
 
 ## Game 1
 <b>What is looks like:</b>  
@@ -52,6 +53,21 @@ A player's handcard can't be seen by any other player.
 ### Equipment Area
 The place where players can equip their `Equipment Cards`, which doesn't take up handcard number limit at the `discard phase`.
 Cards equiped in this area are targets of `Dismantle` and `Snatch`.  
+<hr>
+
+## Game 2: Black Jack
+
+<hr>
+
+## Game 3: ???
+
+<hr>
+
+## Game 4: ???
+
+
+> Maybe more?
+
 
 ## Coding preparation
 The classes and external files in the program will be explained as the following, taking Game 1 as an example.
