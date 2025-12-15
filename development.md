@@ -2,16 +2,27 @@
 <br><br>
 
 # Development Work
-- []
-
+- [Code Planning](#code-planning)
+- [Tasks To Be Completed](#tasks-to-be-completed)
 - [Game Overview](#game-overview)
     + [Game 1](#game-1)
-    + [Game 2](#game-2-black-jack)
+    + [Game 2](#game-2)
     + [Game 3](#game-3)
     + [Game 4](#game-4)
 - [Coding preparation](#coding-preparation)
 
-## 
+## Code Planning
+### Main code
+The main code imports the `Game` module, which then imports the four mini games and ...not finished
+### Modules
+- Game (the code that handles the whole gaming process)
+- mini game1 ([Modules in mini game1](#game-1))
+- mini game2 ([Modules in mini game2](#game-2))
+- mini game3 ([Modules in mini game3](#game-3))
+- mini game4 ([Modules in mini game4](#game-4))
+
+## Tasks To Be Completed
+
 
 ## Game Overview
 The plan is to create a game including several mini games, where the player can move in the map to play different games to survive.
@@ -56,7 +67,8 @@ The place where players can equip their `Equipment Cards`, which doesn't take up
 Cards equiped in this area are targets of `Dismantle` and `Snatch`.  
 <hr>
 
-### Game 2: Black Jack
+### Game 2:
+Black Jack
 
 <hr>
 
@@ -83,10 +95,4 @@ Some possible classes and external files:
 - `Choose` class: this class will handle all user inputs, including exceptions, confirmation, and checking input range.
 - `Main` class: this class will run the game.
 <br><br>
-Requirements:  
-Create a development.md file for your project and include the following things. 
-- An initial plan as to how you will code your project (may be in the form of a flowchart or pseudocode)
-You can make things that outside a .md file as needed. For example you can draw a flow chart on paper.
-- List of coding tasks to complete (for group projects, tasks must be assigned to group members). For           procedural programming, list all of the procedures you plan on using. For object-oriented programming, list all of the objects you plan on using.
-- Create a timeline for when you need to complete project milestones. Make sure to include time in your schedule for alpha testing and beta testing (this includes creating a checklist, survey or some form of feedback).
-Start a changelog where you document programming fixes, additions, and removals. The changelog can be a  text document or a spreadsheet. (create a chagelog.md file in your project)
+
