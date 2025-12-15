@@ -1,6 +1,4 @@
 # CS-30-Final-Project
-<br><br>
-
 # Development Work
 - [Code Planning](#code-planning)
 - [Tasks To Be Completed](#tasks-to-be-completed)
@@ -39,7 +37,6 @@ The main code imports the `Game` module, which then imports the four mini games 
 #### Game 4 Modules
 
 ## Tasks To Be Completed
-
 
 ## Game Overview
 The plan is to create a game including several mini games, where the player can move in the map to play different games to survive.
