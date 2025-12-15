@@ -1,7 +1,9 @@
 # CS-30-Final-Project
 <br><br>
 
-## Development Work
+# Development Work
+- []
+
 - [Game Overview](#game-overview)
     + [Game 1](#game-1)
     + [Game 2](#game-2-black-jack)
@@ -9,7 +11,11 @@
     + [Game 4](#game-4)
 - [Coding preparation](#coding-preparation)
 
+## 
 
+## Game Overview
+The plan is to create a game including several mini games, where the player can move in the map to play different games to survive.
+<hr>
 
 ### Game 1
 <b>What is looks like:</b>  

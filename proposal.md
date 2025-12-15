@@ -46,11 +46,6 @@ finally:
 ## Target Users
 People who love excitement...
 
-
-## Game Overview
-The plan is to create a game including several mini games, where the player can move in the map to play different games to survive.
-<hr>
-
 <br><br>
 
 ## Must Have List 
