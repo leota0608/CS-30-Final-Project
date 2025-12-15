@@ -42,8 +42,18 @@ The program will consist of two general scenes, the map which the player will be
 
 ## Example Catch Phrases
 ```python
-# ???
-
+# opening external files
+try:
+    with open("ExampleFile1", 'r') as file1:
+        pass
+except FileNotFoundError:
+    print("ExampleFile1 not found!")
+except:
+    print("Unknown error occurs!")
+else:
+    print("ExampleFile1 successfully opened!")
+finally:
+    print("There's an attempt to open ExampleFile1...")
 ```
 <br><br>
 
