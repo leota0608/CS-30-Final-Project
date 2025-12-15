@@ -16,10 +16,22 @@
 The main code imports the `Game` module, which then imports the four mini games and ...not finished
 ### Modules
 - Game (the code that handles the whole gaming process)
-- mini game1 ([Modules in mini game1](#game-1))
-- mini game2 ([Modules in mini game2](#game-2))
-- mini game3 ([Modules in mini game3](#game-3))
-- mini game4 ([Modules in mini game4](#game-4))
+- mini game1 ([More Information](#game-1-modules))
+- mini game2 ([More Information](#game-2-modules))
+- mini game3 ([More Information](#game-3-modules))
+- mini game4 ([More Information](#game-4-modules))
+- Store(Wish List)
+- Player
+- Format (a class that prints something fancy on the interface)
+
+#### Game 1 Modules
+- `Player` Module(Class): this class will include some basic moves a player would need, such as drawing cards, and data like `health`, `name` and `handcards`.
+- `Bot` Module(Class): this class will be a `children class` of the Player class, having new methods like evluateing moves, making decision on it self on what card to play.
+- `Format` Module: this file will include functions or classes to improve UI, such as making new lines, outputing card shapes...
+- `Deck` Module(Class): this class will be stroing all the cards. It will have methods like randomizing  cards, and drawing a certain number of cards.
+- `Card` Module(Class): this class have attributes like [card types](#types-of-cards) and card name
+- `Choose` Module(Class): this class will handle all user inputs, including exceptions, confirmation, and checking input range.
+- `Main` main file (Class): this class will run mini-game1.
 
 ## Tasks To Be Completed
 
@@ -69,15 +81,15 @@ Cards equiped in this area are targets of `Dismantle` and `Snatch`.
 
 ### Game 2:
 Black Jack
-
+> Briefly talk about what the game is like and some elements in it.
 <hr>
 
 ### Game 3: ???
-
+> Briefly talk about what the game is like and some elements in it.
 <hr>
 
 ### Game 4: ???
-
+> Briefly talk about what the game is like and some elements in it.
 
 > Maybe more?
 <br><br>
@@ -85,14 +97,6 @@ Black Jack
 ## Coding preparation
 The classes and external files in the program will be explained as the following, taking Game 1 as an example.
 ### Classes
-The code will achieve a game between a human player and one of more robot using rule based algorithms.
-Some possible classes and external files:
-- `Player` class and external file: this class will include some basic moves a player would need, such as drawing cards, and data like `health`, `name` and `hadncards`.
-- `Bot` class and external file: this class will be a `children class` of the Player class, having new methods like evluateing moves, making decision on it self on what card to play.
-- `Format` external file: this file will include functions or classes to improve UI, such as makign new lines, outputing card shapes...
-- `Deck` class and external file: this class will be stroing all the cards. It will have methods like randomizing  cards, and drawing a certain number of cards.
-- `Card` class and external file: this class have attributes like [card types](#types-of-cards) and card name
-- `Choose` class: this class will handle all user inputs, including exceptions, confirmation, and checking input range.
-- `Main` class: this class will run the game.
+
 <br><br>
 
