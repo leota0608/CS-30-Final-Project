@@ -20,7 +20,7 @@ The main code imports the `Game` module, which then imports the four mini games 
 - mini game2 ([More Information](#game-2-modules))
 - mini game3 ([More Information](#game-3-modules))
 - mini game4 ([More Information](#game-4-modules))
-- Store(Wish List)
+- Store (Wish List)
 - Player
 - Format (a class that prints something fancy on the interface)
 
@@ -32,6 +32,11 @@ The main code imports the `Game` module, which then imports the four mini games 
 - `Card` Module(Class): this class have attributes like [card types](#types-of-cards) and card name
 - `Choose` Module(Class): this class will handle all user inputs, including exceptions, confirmation, and checking input range.
 - `Main` main file (Class): this class will run mini-game1.
+
+
+#### Game 2 Modules
+#### Game 3 Modules
+#### Game 4 Modules
 
 ## Tasks To Be Completed
 
