@@ -12,20 +12,9 @@
     + [Game 2](#game-2-black-jack)
     + [Game 3](#game-3)
     + [Game 4](#game-4)
+- [Coding preparation](#coding-preparation)
 
-## Coding preparation
-The classes and external files in the program will be explained as the following, taking Game 1 as an example.
-### Classes
-The code will achieve a game between a human player and one of more robot using rule based algorithms.
-Some possible classes and external files:
-- `Player` class and external file: this class will include some basic moves a player would need, such as drawing cards, and data like `health`, `name` and `hadncards`.
-- `Bot` class and external file: this class will be a `children class` of the Player class, having new methods like evluateing moves, making decision on it self on what card to play.
-- `Format` external file: this file will include functions or classes to improve UI, such as makign new lines, outputing card shapes...
-- `Deck` class and external file: this class will be stroing all the cards. It will have methods like randomizing  cards, and drawing a certain number of cards.
-- `Card` class and external file: this class have attributes like [card types](#types-of-cards) and card name
-- `Choose` class: this class will handle all user inputs, including exceptions, confirmation, and checking input range.
-- `Main` class: this class will run the game.
-<br><br>
+
 
 ## Program Purpose
 This program is designed to demostrate the programming concepts of CS 30, including `data structures`, `external files`, `libraries`, and `object-oriented programming`.
@@ -116,4 +105,18 @@ Cards equiped in this area are targets of `Dismantle` and `Snatch`.
 
 
 > Maybe more?
+<br><br>
+
+## Coding preparation
+The classes and external files in the program will be explained as the following, taking Game 1 as an example.
+### Classes
+The code will achieve a game between a human player and one of more robot using rule based algorithms.
+Some possible classes and external files:
+- `Player` class and external file: this class will include some basic moves a player would need, such as drawing cards, and data like `health`, `name` and `hadncards`.
+- `Bot` class and external file: this class will be a `children class` of the Player class, having new methods like evluateing moves, making decision on it self on what card to play.
+- `Format` external file: this file will include functions or classes to improve UI, such as makign new lines, outputing card shapes...
+- `Deck` class and external file: this class will be stroing all the cards. It will have methods like randomizing  cards, and drawing a certain number of cards.
+- `Card` class and external file: this class have attributes like [card types](#types-of-cards) and card name
+- `Choose` class: this class will handle all user inputs, including exceptions, confirmation, and checking input range.
+- `Main` class: this class will run the game.
 <br><br>
