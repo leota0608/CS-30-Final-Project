@@ -1,6 +1,12 @@
 # CS-30-Final-Project
 # Development Work
 - [Code Planning](#code-planning)
+    + [Modules](#modules)
+        * [Game 1 Modules](#game-1-modules)
+        * [Game 2 Modules](#game-2-modules)
+        * [Game 3 Modules](#game-3-modules)
+        * [Game 4 Modules](#game-4-modules)
+    + [External Files](#external-files)
 - [Tasks To Be Completed](#tasks-to-be-completed)
 - [Game Overview](#game-overview)
     + [Game 1](#game-1)
@@ -22,9 +28,9 @@ The main code imports the `Game` module, which then imports the four mini games 
 - Player
 - Format (a class that prints something fancy on the interface)
 
-#### Game 1 Modules
+### Game 1 Modules
 - `Player` Module(Class): this class will include some basic moves a player would need, such as drawing cards, and data like `health`, `name` and `handcards`.
-- `Bot` Module(Class): this class will be a `children class` of the Player class, having new methods like evluateing moves, making decision on it self on what card to play.
+- `Bot` Module(Class): this class will be a `child class` of the Player class, having new methods like evluateing moves, making decision on it self on what card to play.
 - `Format` Module: this file will include functions or classes to improve UI, such as making new lines, outputing card shapes...
 - `Deck` Module(Class): this class will be stroing all the cards. It will have methods like randomizing  cards, and drawing a certain number of cards.
 - `Card` Module(Class): this class have attributes like [card types](#types-of-cards) and card name
@@ -32,11 +38,32 @@ The main code imports the `Game` module, which then imports the four mini games 
 - `Main` main file (Class): this class will run mini-game1.
 
 
-#### Game 2 Modules
-#### Game 3 Modules
-#### Game 4 Modules
+### Game 2 Modules
+- `Player` Module(Class): this class will include some basic moves a player would need, such as drawing a card, and a number which is the total sum of the cards.
+- `Bot` Module(Class): this class will be a `child class` of the Player class, having new methods like checking cards of other players and itself's to evaluate if it should draw another card
+- `Card` Module(Class): this include the type of card(ex: `A`, `7`, `J`, `K`)
+- `Deck` Module(Class): this class will be stroing the deck of cards, from `A` to `K`
+- `Choose` Module(Class): this class will handle all user inputs, including exceptions, confirmation, and checking input range.
+- `Main` main file (Class): this class will run mini-game2.
+> Note that `A` can both be `11` or `1`, so when it needs to be evaluated by `Bot`  
+
+
+### Game 3 Modules
+> needs to be done
+
+
+### Game 4 Modules
+> needs to be done
+
+### External Files
+- `.txt` files will be used to make the game look better, such as storing the shape of cards or decorations in the file and print it when needed
+- `.json` files will be used to store player information, such as name, scoring, date, money system, status of player(any lost body parts), ...
 
 ## Tasks To Be Completed
+- For basic framework, we work together
+- For mini-game1 and mini-game2, Leo will work on it
+- For mini-game3 and mini-game4, Amir will work on it
+<br>
 
 ## Game Overview
 The plan is to create a game including several mini games, where the player can move in the map to play different games to survive.
@@ -82,8 +109,10 @@ Cards equiped in this area are targets of `Dismantle` and `Snatch`.
 <hr>
 
 ### Game 2:
-Black Jack
-> Briefly talk about what the game is like and some elements in it.
+**Black Jack**
+Three people play the game, two bots and one human player.
+The person who get the number closest to 21 wins(if it's larger than 21, he loses).
+
 <hr>
 
 ### Game 3: ???
@@ -98,7 +127,6 @@ Black Jack
 
 ## Coding preparation
 The classes and external files in the program will be explained as the following, taking Game 1 as an example.
-### Classes
 
 <br><br>
 
