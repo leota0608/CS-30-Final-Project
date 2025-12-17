@@ -9,6 +9,7 @@
         * [Game 4 Modules](#game-4-modules)
     + [External Files](#external-files)
 - [Tasks To Be Completed](#tasks-to-be-completed)
+- [Development Timeline](#development-timeline)
 - [Game Overview](#game-overview)
     + [Game Frame Work](#game-frame-work)
     + [Game 1](#game-1)
@@ -160,6 +161,42 @@ class Game:
 - For mini-game1 and mini-game2, Leo will work on it
 - For mini-game3 and mini-game4, Amir will work on it
 <br>
+
+## Development Timeline
+1. Finish game framework by `December 19th`
+2. Finish the four mini-games by `January 5th`
+3. Refine program(Debug) by `January 9th`
+4. Keep improving by `January 14th`(presentation)
+
+## Versions
+### Version 1
+- Finish framework
+- Make `Player` class, including attributes for name, score, and body parts
+- Finish mini-game2
+- Create a list of Body parts
+<br>
+
+### Version 2
+- Finish mini-game3
+- Create human body text file so the player can see their body condition
+
+### Version 3
+- Print the actual cards(text file) for the player
+- Finish the mini-game4
+
+### Version 4
+- Create a store(sell body parts)
+- Add missing body effects to the player is they lose a body part
+
+### Version 5 
+- Finish mini-game1
+(Make the game better)
+- Debug
+- Improve UI
+
+### Version 6
+- Add a timer between games and restrict player thinking time
+
 
 ## Game Overview
 The plan is to create a game including several mini games, where the player can move in the map to play different games to survive.
