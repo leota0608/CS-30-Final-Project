@@ -1,15 +1,48 @@
 # CS-30-Final-Project
-<br><br>
-
-## Development Work
+# Development Work
+- [Code Planning](#code-planning)
+    + [Main Code](#main-code)
+    + [Modules](#modules)
+        * [Game 1 Modules](#game-1-modules)
+        * [Game 2 Modules](#game-2-modules)
+        * [Game 3 Modules](#game-3-modules)
+        * [Game 4 Modules](#game-4-modules)
+    + [External Files](#external-files)
+- [Tasks To Be Completed](#tasks-to-be-completed)
 - [Game Overview](#game-overview)
     + [Game Frame Work](#game-frame-work)
     + [Game 1](#game-1)
-    + [Game 2](#game-2-black-jack)
+    + [Game 2](#game-2)
     + [Game 3](#game-3)
     + [Game 4](#game-4)
 - [Coding preparation](#coding-preparation)
 
+## Code Planning
+
+### Game Frame Work
+To ensure consistency throughout the software, all the games must
+follow guidelines. These rules are enforced through interface
+and abstract classes that must be inhereted and implemented for
+elements of each indevedual game.
+
+#### 1. Class GameHandler:
+GameHandler is the "governer" for all the games.
+It makes that the player's move is consistent with the
+rules of the game. GameHandler assumes that each
+computer player will alwayse choose a move that is
+consistent, thus no error checking is needed for
+the chosen move of the computer players. GameHandler
+must check for the winning conditon, and ask the user and 
+bots for a move in appropriate turns.
+Here are the attributes and methods that the GameHandler
+must include.
+* def \_\_init\_\_(real_player, players):
+real_player is the index of the actual player within 
+the game.
+bot_list is a list of all the bots that will play the
+game. It is up to the children of this class to restrict
+the number of bot players.
+* def askPlayer():
 
 ### Game Frame Work
 To ensure consistency throughout the software, all the games must
@@ -69,7 +102,126 @@ return None to Notify the game handler.
 
 
 
-### Game 1
+#### 2. Class Player:
+This is the parent class for all computer guided players
+within each game. For example, an artificial player
+for black jack must inherit from this class and implement 
+all of its functionality. The Bot class would require the following
+methods and attributes.
+* def \_\_init\_\_ (gameData):
+Before each computerPlayer is constructed, the player
+is provided by the whole game data. game data specifies
+the current state of the game, score of each player, 
+the board, etc....
+Note: gameData is provided to each computerPlayer,
+to enble these aritificial players for efficent searching
+for a solution. It is up to the developer to make sure that
+their algorithm does not modify this data.
+* def provoke():
+once called, it would return the computer next "move". 
+Note: that returned data type is restricted and is up to the
+developer and the type of game being played. "gamedata" is 
+the current state of the game. It is specfic to each game
+and it is design depenedent.
+
+* def sendMessage():
+To make the game more engaging, each computer Player, 
+may generate a message that could be shared by the acutal
+player.
+Note: If the does possess any message, sendMessage() must 
+return None to Notify the game handler.
+
+### Main code
+The main code imports the `Game` module, which then imports the four mini games and ...not finished
+```python
+from games.game1.main import Game1
+from games.game2.main import Game2
+from games.game3.main import Game3
+from games.game4.main import Game4
+# the imports assumes that there are four classes named Game1-4 in the four py files
+class Game:
+    def __init__(self):
+        self.game1 = Game1
+        self.game2 = Game2
+        self.game3 = Game3
+        self.game4 = Game4
+        self.greetings()
+        self.run_game()
+    def greetings(self):
+        # print greetings
+        '''
+        Tell the player about the story, background.
+        Greet the player.
+        Maybe read .json files for previous data to let the player have a general idea of the difficulty of the game.
+        '''
+    def run_game(self):
+        '''
+        1. give a list of options for the player to choose:
+            - start game
+            - view self
+            - open store
+        2. after player start game, there is no stopping, differerent games will be called,
+            ex: self.game1.start() 
+            And the the mini game will run
+            After it ends, there will be a return value of win or lost, and corresponding actions will be taken:
+                - Receive awards for winning
+                - Lose
+        '''
+    
+
+```
+### Modules
+- Game (the code that handles the whole gaming process)
+- mini game1 ([More Information](#game-1-modules))
+- mini game2 ([More Information](#game-2-modules))
+- mini game3 ([More Information](#game-3-modules))
+- mini game4 ([More Information](#game-4-modules))
+- Store (Wish List)
+- Player
+- Format (a class that prints something fancy on the interface)
+
+### Game 1 Modules
+- `Player` Module(Class): this class will include some basic moves a player would need, such as drawing cards, and data like `health`, `name` and `handcards`.
+- `Bot` Module(Class): this class will be a `child class` of the Player class, having new methods like evluateing moves, making decision on it self on what card to play.
+- `Format` Module: this file will include functions or classes to improve UI, such as making new lines, outputing card shapes...
+- `Deck` Module(Class): this class will be stroing all the cards. It will have methods like randomizing  cards, and drawing a certain number of cards.
+- `Card` Module(Class): this class have attributes like [card types](#types-of-cards) and card name
+- `Choose` Module(Class): this class will handle all user inputs, including exceptions, confirmation, and checking input range.
+- `Main` main file (Class): this class will run mini-game1.
+
+
+### Game 2 Modules
+- `Player` Module(Class): this class will include some basic moves a player would need, such as drawing a card, and a number which is the total sum of the cards.
+- `Bot` Module(Class): this class will be a `child class` of the Player class, having new methods like checking cards of other players and itself's to evaluate if it should draw another card
+- `Card` Module(Class): this include the type of card(ex: `A`, `7`, `J`, `K`)
+- `Deck` Module(Class): this class will be stroing the deck of cards, from `A` to `K`
+- `Choose` Module(Class): this class will handle all user inputs, including exceptions, confirmation, and checking input range.
+- `Main` main file (Class): this class will run mini-game2.
+> Note that `A` can both be `11` or `1`, so when it needs to be evaluated by `Bot`  
+
+
+### Game 3 Modules
+> needs to be done
+
+
+### Game 4 Modules
+> needs to be done
+
+### External Files
+- `.txt` files will be used to make the game look better, such as storing the shape of cards or decorations in the file and print it when needed
+- `.json` files will be used to store player information, such as name, scoring, date, money system, status of player(any lost body parts), ...
+
+## Tasks To Be Completed
+- For basic framework, we work together
+- For mini-game1 and mini-game2, Leo will work on it
+- For mini-game3 and mini-game4, Amir will work on it
+<br>
+
+## Game Overview
+The plan is to create a game including several mini games, where the player can move in the map to play different games to survive.
+<hr>
+
+### Game 1:
 <b>What is looks like:</b>  
 Two or more people can play the game. For each turn, there are [three phases](#game-phases) for each player, and players take turns to play. The last player alive is the winner. The game requires combat, strategy, and thinking.
 
@@ -108,37 +260,25 @@ The place where players can equip their `Equipment Cards`, which doesn't take up
 Cards equiped in this area are targets of `Dismantle` and `Snatch`.  
 <hr>
 
-### Game 2: Black Jack
+### Game 2:
+**Black Jack**
+Three people play the game, two bots and one human player.
+The person who get the number closest to 21 wins(if it's larger than 21, he loses).
 
 <hr>
 
 ### Game 3: ???
-
+> Briefly talk about what the game is like and some elements in it.
 <hr>
 
 ### Game 4: ???
-
+> Briefly talk about what the game is like and some elements in it.
 
 > Maybe more?
 <br><br>
 
 ## Coding preparation
 The classes and external files in the program will be explained as the following, taking Game 1 as an example.
-### Classes
-The code will achieve a game between a human player and one of more robot using rule based algorithms.
-Some possible classes and external files:
-- `Player` class and external file: this class will include some basic moves a player would need, such as drawing cards, and data like `health`, `name` and `hadncards`.
-- `Bot` class and external file: this class will be a `children class` of the Player class, having new methods like evluateing moves, making decision on it self on what card to play.
-- `Format` external file: this file will include functions or classes to improve UI, such as makign new lines, outputing card shapes...
-- `Deck` class and external file: this class will be stroing all the cards. It will have methods like randomizing  cards, and drawing a certain number of cards.
-- `Card` class and external file: this class have attributes like [card types](#types-of-cards) and card name
-- `Choose` class: this class will handle all user inputs, including exceptions, confirmation, and checking input range.
-- `Main` class: this class will run the game.
+
 <br><br>
-Requirements:  
-Create a development.md file for your project and include the following things. 
-- An initial plan as to how you will code your project (may be in the form of a flowchart or pseudocode)
-You can make things that outside a .md file as needed. For example you can draw a flow chart on paper.
-- List of coding tasks to complete (for group projects, tasks must be assigned to group members). For           procedural programming, list all of the procedures you plan on using. For object-oriented programming, list all of the objects you plan on using.
-- Create a timeline for when you need to complete project milestones. Make sure to include time in your schedule for alpha testing and beta testing (this includes creating a checklist, survey or some form of feedback).
-Start a changelog where you document programming fixes, additions, and removals. The changelog can be a  text document or a spreadsheet. (create a chagelog.md file in your project)
+
