@@ -108,7 +108,8 @@ class Game:
             And the the mini game will run
             After it ends, there will be a return value of win or lost, and corresponding actions will be taken:
                 - Receive awards for winning
-                - Lose
+                - Lose some random body parts
+                (These two actions will be then update to the player object)
         '''
     
 
