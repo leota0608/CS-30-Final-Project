@@ -75,7 +75,7 @@ Note: If the does possess any message, sendMessage() must
 return None to Notify the game handler.
 
 ### Main code
-The main code imports the `Game` module, which then imports the four mini games and ...not finished
+The main code contains the `Game` class, which then imports the four mini games and operates the game
 ```python
 from games.game1.main import Game1
 from games.game2.main import Game2
