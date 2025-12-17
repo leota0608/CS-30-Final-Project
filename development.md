@@ -42,7 +42,16 @@ class Game:
         '''
     def run_game(self):
         '''
-        1. 
+        1. give a list of options for the player to choose:
+            - start game
+            - view self
+            - open store
+        2. after player start game, there is no stopping, differerent games will be called,
+            ex: self.game1.start() 
+            And the the mini game will run
+            After it ends, there will be a return value of win or lost, and corresponding actions will be taken:
+                - Receive awards for winning
+                - Lose
         '''
     
 
