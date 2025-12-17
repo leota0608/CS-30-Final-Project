@@ -1,6 +1,7 @@
 # CS-30-Final-Project
 # Development Work
 - [Code Planning](#code-planning)
+    + [Main Code](#main-code)
     + [Modules](#modules)
         * [Game 1 Modules](#game-1-modules)
         * [Game 2 Modules](#game-2-modules)
@@ -18,6 +19,34 @@
 ## Code Planning
 ### Main code
 The main code imports the `Game` module, which then imports the four mini games and ...not finished
+```python
+from games.game1.main import Game1
+from games.game2.main import Game2
+from games.game3.main import Game3
+from games.game4.main import Game4
+# the imports assumes that there are four classes named Game1-4 in the four py files
+class Game:
+    def __init__(self):
+        self.game1 = Game1
+        self.game2 = Game2
+        self.game3 = Game3
+        self.game4 = Game4
+        self.greetings()
+        self.run_game()
+    def greetings(self):
+        # print greetings
+        '''
+        Tell the player about the story, background.
+        Greet the player.
+        Maybe read .json files for previous data to let the player have a general idea of the difficulty of the game.
+        '''
+    def run_game(self):
+        '''
+        1. 
+        '''
+    
+
+```
 ### Modules
 - Game (the code that handles the whole gaming process)
 - mini game1 ([More Information](#game-1-modules))
@@ -69,7 +98,7 @@ The main code imports the `Game` module, which then imports the four mini games 
 The plan is to create a game including several mini games, where the player can move in the map to play different games to survive.
 <hr>
 
-### Game 1
+### Game 1:
 <b>What is looks like:</b>  
 Two or more people can play the game. For each turn, there are [three phases](#game-phases) for each player, and players take turns to play. The last player alive is the winner. The game requires combat, strategy, and thinking.
 
