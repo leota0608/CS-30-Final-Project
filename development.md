@@ -10,6 +10,7 @@
     + [External Files](#external-files)
 - [Tasks To Be Completed](#tasks-to-be-completed)
 - [Game Overview](#game-overview)
+    + [Game Frame Work](#game-frame-work)
     + [Game 1](#game-1)
     + [Game 2](#game-2)
     + [Game 3](#game-3)
@@ -17,6 +18,62 @@
 - [Coding preparation](#coding-preparation)
 
 ## Code Planning
+
+### Game Frame Work
+To ensure consistency throughout the software, all the games must
+follow guidelines. These rules are enforced through interface
+and abstract classes that must be inhereted and implemented for
+elements of each indevedual game.
+
+#### 1. Class GameHandler:
+GameHandler is the "governer" for all the games.
+It makes that the player's move is consistent with the
+rules of the game. GameHandler assumes that each
+computer player will alwayse choose a move that is
+consistent, thus no error checking is needed for
+the chosen move of the computer players. GameHandler
+must check for the winning conditon, and ask the user and 
+bots for a move in appropriate turns.
+Here are the attributes and methods that the GameHandler
+must include.
+* def \_\_init\_\_(real_player, players):
+real_player is the index of the actual player within 
+the game.
+bot_list is a list of all the bots that will play the
+game. It is up to the children of this class to restrict
+the number of bot players.
+* def askPlayer():
+
+
+#### 2. Class Player:
+This is the parent class for all computer guided players
+within each game. For example, an artificial player
+for black jack must inherit from this class and implement 
+all of its functionality. The Bot class would require the following
+methods and attributes.
+* def \_\_init\_\_ (gameData):
+Before each computerPlayer is constructed, the player
+is provided by the whole game data. game data specifies
+the current state of the game, score of each player, 
+the board, etc....
+Note: gameData is provided to each computerPlayer,
+to enble these aritificial players for efficent searching
+for a solution. It is up to the developer to make sure that
+their algorithm does not modify this data.
+* def provoke():
+once called, it would return the computer next "move". 
+Note: that returned data type is restricted and is up to the
+developer and the type of game being played. "gamedata" is 
+the current state of the game. It is specfic to each game
+and it is design depenedent.
+
+* def sendMessage():
+To make the game more engaging, each computer Player, 
+may generate a message that could be shared by the acutal
+player.
+Note: If the does possess any message, sendMessage() must 
+return None to Notify the game handler.
+
 ### Main code
 The main code imports the `Game` module, which then imports the four mini games and ...not finished
 ```python
