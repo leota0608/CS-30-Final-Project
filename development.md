@@ -9,6 +9,7 @@
         * [Game 4 Modules](#game-4-modules)
     + [External Files](#external-files)
 - [Tasks To Be Completed](#tasks-to-be-completed)
+- [Development Timeline](#development-timeline)
 - [Game Overview](#game-overview)
     + [Game Frame Work](#game-frame-work)
     + [Game 1](#game-1)
@@ -132,7 +133,7 @@ Note: If the does possess any message, sendMessage() must
 return None to Notify the game handler.
 
 ### Main code
-The main code imports the `Game` module, which then imports the four mini games and ...not finished
+The main code contains the `Game` class, which then imports the four mini games and operates the game
 ```python
 from games.game1.main import Game1
 from games.game2.main import Game2
@@ -165,7 +166,8 @@ class Game:
             And the the mini game will run
             After it ends, there will be a return value of win or lost, and corresponding actions will be taken:
                 - Receive awards for winning
-                - Lose
+                - Lose some random body parts
+                (These two actions will be then update to the player object)
         '''
     
 
@@ -216,6 +218,43 @@ class Game:
 - For mini-game1 and mini-game2, Leo will work on it
 - For mini-game3 and mini-game4, Amir will work on it
 <br>
+
+## Development Timeline
+1. Finish version 1 by `December 19th`
+2. Finish version 2-3 by `January 5th`
+3. Finish version 4 by `January 9th`
+4. Keep working on version 5-6 by `January 14th`(presentation)
+
+## Versions
+### Version 1
+- Finish framework
+- Make `Player` class, including attributes for name, score, and body parts
+- Create a list of Body parts
+<br>
+
+### Version 2
+- Finish mini-game2
+- Finish mini-game3
+
+
+### Version 3
+- Print the actual cards(text file) for the player
+- Finish the mini-game4
+- Finish mini-game1
+
+### Version 4
+- Create a store(sell body parts)
+- Add missing body effects to the player is they lose a body part
+- Create human body text file so the player can see their body condition
+
+### Version 5 
+(Make the game better)
+- Debug
+- Improve UI
+
+### Version 6
+- Add a timer between games and restrict player thinking time
+
 
 ## Game Overview
 The plan is to create a game including several mini games, where the player can move in the map to play different games to survive.
