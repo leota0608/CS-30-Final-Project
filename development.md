@@ -163,33 +163,34 @@ class Game:
 <br>
 
 ## Development Timeline
-1. Finish game framework by `December 19th`
-2. Finish the four mini-games by `January 5th`
-3. Refine program(Debug) by `January 9th`
-4. Keep improving by `January 14th`(presentation)
+1. Finish version 1 by `December 19th`
+2. Finish version 2-3 by `January 5th`
+3. Finish version 4 by `January 9th`
+4. Keep working on version 5-6 by `January 14th`(presentation)
 
 ## Versions
 ### Version 1
 - Finish framework
 - Make `Player` class, including attributes for name, score, and body parts
-- Finish mini-game2
 - Create a list of Body parts
 <br>
 
 ### Version 2
+- Finish mini-game2
 - Finish mini-game3
-- Create human body text file so the player can see their body condition
+
 
 ### Version 3
 - Print the actual cards(text file) for the player
 - Finish the mini-game4
+- Finish mini-game1
 
 ### Version 4
 - Create a store(sell body parts)
 - Add missing body effects to the player is they lose a body part
+- Create human body text file so the player can see their body condition
 
 ### Version 5 
-- Finish mini-game1
 (Make the game better)
 - Debug
 - Improve UI
