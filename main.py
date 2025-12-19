@@ -2,6 +2,7 @@ from games.game1.main import Game1
 from games.game2.main import Game2
 from games.game3.main import Game3
 from games.game4.main import Game4
+from player.player import Player
 # the imports assumes that there are four classes named Game1-4 in the four py files
 class Game:
     def __init__(self):
@@ -9,6 +10,10 @@ class Game:
         self.game2 = Game2()
         self.game3 = Game3()
         self.game4 = Game4()
+        self.player = Player()
+        self.player.get_name()
+        self.player.store_player_information()
+        
     def greeting(self):
         # print greetings
         print("Hello...")
