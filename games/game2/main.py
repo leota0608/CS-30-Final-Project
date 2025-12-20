@@ -9,7 +9,7 @@ from games.game2.deck import Deck
 from games.common.GameHandler import GameHandler
 import time
 class Game2:
-    def __init__(self):
+    def __init__(self, player_num):
         self.running = True
         self.result = False
         # initialise deck of cards
@@ -17,7 +17,7 @@ class Game2:
         self.deck.initialise()
         self.deck.shuffle()
         # initialise player
-        self.player_num = 3 # 3 players
+        self.player_num = player_num # 3 players
         self.initialise_player(self.player_num)
 
     def initialise_player(self, num):

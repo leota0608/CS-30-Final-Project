@@ -1,3 +1,4 @@
 {
-    "bodyParts": ["head", "right arm", "left arm"]
+    "bodyParts": ["head", "eye", "right arm", "left arm", "left leg", "right leg","left hand", "right hand", "left foot", "right foot"],
+    "probability": [30, 60, 150, 250, 330, 420, 565, 710, 855, 1000]
 }
