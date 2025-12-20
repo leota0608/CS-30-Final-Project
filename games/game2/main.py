@@ -2,6 +2,7 @@ import sys
 import os
 import json
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
 from games.game2.human import Human
 from games.game2.bot import Bot
 from games.game2.deck import Deck
@@ -18,8 +19,6 @@ class Game2:
         # initialise player
         self.player_num = 3 # 3 players
         self.initialise_player(self.player_num)
-
-        self.run()
 
     def initialise_player(self, num):
         self.player_list = []

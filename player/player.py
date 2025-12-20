@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
 from datetime import date
 import json
 import time
@@ -7,7 +11,7 @@ class Player:
         self.date = date.today()
         self.score = 0
         try:
-            with open("bodyParts.json", 'r') as content:
+            with open("player/bodyParts.json", 'r') as content:
                 self.bodyParts = json.load(content)["bodyParts"]
         except FileNotFoundError:
             print("We didn't find any of your body parts, you died...")
@@ -33,7 +37,7 @@ class Player:
     def store_player_information(self):
         # add try and except
         try:
-            with open("playingRecord.json", 'r') as file:
+            with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
         except FileNotFoundError:
             print("We cannot store your information, you died...") 
@@ -49,7 +53,7 @@ class Player:
         record[str(total_num+1)] = {"Name": self.name,
                                     "Date": str(self.date),
                                     "Score": self.score}
-        with open("playingRecord.json", 'w') as file:
+        with open("player/playingRecord.json", 'w') as file:
             json.dump(record, file, indent = 4)
 
 
