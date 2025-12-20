@@ -47,7 +47,7 @@ class Game:
         else:
             print("You failed to pass game 2\nReceive your punishment!")
             
-            body_part = self.player.punishment()
+            body_part = self.player.choose_body_part()
             self.player.lose(body_part)
             self.choose_body_part_anim(body_part)
         # game3
@@ -96,18 +96,13 @@ class Game:
             choice = random.choice(self.player.bodyParts)
             while choice  == last_output:
                 choice = random.choice(self.player.bodyParts)
-            print(f"\rChoosing body parts: [{choice:<50}]", end='', flush = True)
+            print(f"\rChoosing body parts: [{choice}]{' '*100}", end='', flush = True)
             last_output = choice
             time.sleep(t)
             if t < 0.05:
                 dt*=-1
             t-=dt
-        print(f"\rChoosing body parts: [{body_part:<50}]")
-
-
-    
-    def punishment(self):
-        pass
+        print(f"\rChoosing body parts: [{body_part}]{' '*100}")
 
 
 game = Game()

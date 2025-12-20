@@ -7,6 +7,7 @@ from games.game2.human import Human
 from games.game2.bot import Bot
 from games.game2.deck import Deck
 from games.common.GameHandler import GameHandler
+from games.common.format import Format
 import time
 class Game2:
     def __init__(self, player_num):
@@ -54,7 +55,7 @@ class Game2:
 
 
     def run(self):
-        print("game2 starts")
+        print("Game2 starts")
         self.print_rules()
         print("Drawing phase:")
         # initial draw
@@ -65,41 +66,16 @@ class Game2:
                 print("Drawing card...")
                 time.sleep(0.7)
                 self.player_list[i].add_card(self.deck.draw())
-                print("Your handcard: [", end=' ')
-                j = self.player_list[0].handcard[0]
-                
+                self.print_handcard(0)
                 self.player_list[0].find_sum()
-                if j == 1:
-                    print('A', end = ' ')
-                elif j == 11:
-                    print('J', end = ' ')
-                elif j == 12:
-                    print('Q', end = ' ')
-                elif j == 13:
-                    print('K', end = ' ')
-                else:
-                    print(j, end = ' ')
-                print(']')
             else:
                 print(f"Player {i+1}'s turn")
                 time.sleep(0.7)
                 print(f"Player {i+1} drawing...")
                 time.sleep(1.2)
-                print(f"Player {i+1}'s handcard: [", end = ' ')
                 self.player_list[i].add_card(self.deck.draw())
+                self.print_handcard(i)
                 self.player_list[i].find_sum()
-                j = self.player_list[i].handcard[0]
-                if j == 1:
-                    print('A', end = ' ')
-                elif j == 11:
-                    print('J', end = ' ')
-                elif j == 12:
-                    print('Q', end = ' ')
-                elif j == 13:
-                    print('K', end = ' ')
-                else:
-                    print(j, end = ' ')
-                print(']')
         if_draw = 0
         while self.running:
             if_draw += 1
@@ -140,8 +116,10 @@ class Game2:
             human_draw = False
             for i in range(self.player_num):
                 if i == 0:
+                    format.newline()
                     print("Your turn to draw...")
                     time.sleep(0.5)
+                    self.print_handcard(-1)
                     choice = input("Do you choose to draw? (y/n)")
                     if choice.lower() == "y" or choice.lower() == "yes":
                         if_draw = 0
@@ -149,19 +127,7 @@ class Game2:
                         print("Drawing card...")
                         time.sleep(1.2)
                         self.player_list[0].handcard.append(self.deck.draw())
-                        print("Your current handcard: [", end=' ')
-                        for j in self.player_list[0].handcard:
-                            if j == 1:
-                                print('A', end=' ')
-                            elif j == 11:
-                                print('J', end=' ')
-                            elif j == 12:
-                                print('Q', end=' ')
-                            elif j == 13:
-                                print('K', end=' ')
-                            else:
-                                print(j, end= ' ')
-                        print(']')
+                        self.print_handcard(0)
                         r = self.check_sum(i)
                         self.player_list[0].find_sum()
                         if  r == 0:# lost
@@ -203,19 +169,7 @@ class Game2:
                         print(f"Player {i+1} drawing...")
                         time.sleep(1.2)
                         self.player_list[i].handcard.append(self.deck.draw())
-                        print(f"Player {i+1}'s handcard: [", end=' ')
-                        for j in self.player_list[i].handcard:
-                            if j == 1:
-                                print('A', end=' ')
-                            elif j == 11:
-                                print('J', end=' ')
-                            elif j == 12:
-                                print('Q', end=' ')
-                            elif j == 13:
-                                print('K', end=' ')
-                            else:
-                                print(j, end= ' ')
-                        print(']')
+                        self.print_handcard(i)
                         r = self.check_sum(i)
                         
                         self.player_list[i].find_sum()
@@ -234,12 +188,50 @@ class Game2:
                             print('')
                     else:
                         print(f"Player {i+1} choose not to draw")
-
+    def print_handcard(self, num):
+        if num == -1:
+            for i in range(len(self.player_list)):
+                if i == 0:
+                    print("Your", end=' ')
+                else:
+                    print(f"Player {i+1}'s", end=' ')
+                print(f"handcard: [", end=' ')
+                for j in self.player_list[i].handcard:
+                    if j == 1:
+                        print('A', end=' ')
+                    elif j == 11:
+                        print('J', end=' ')
+                    elif j == 12:
+                        print('Q', end=' ')
+                    elif j == 13:
+                        print('K', end=' ')
+                    else:
+                        print(j, end= ' ')
+                print(']')
+        else:
+            if num == 0:
+                print("Your", end=' ')
+            else:
+                print(f"Player {num+1}'s", end=' ')
+            print(f"handcard: [", end=' ')
+            for j in self.player_list[num].handcard:
+                if j == 1:
+                    print('A', end=' ')
+                elif j == 11:
+                    print('J', end=' ')
+                elif j == 12:
+                    print('Q', end=' ')
+                elif j == 13:
+                    print('K', end=' ')
+                else:
+                    print(j, end= ' ')
+            print(']')
                         
 
                         
+format = Format()
 
-
-#g = Game2()
+# g = Game2(3)
+# g.run()
 
 

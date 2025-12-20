@@ -13,8 +13,9 @@ class Player:
         self.lost_body_parts = []
         try:
             with open("player/bodyParts.json", 'r') as content:
-                self.bodyParts = json.load(content)["bodyParts"]
-                self.probability = json.load(content)["probability"]
+                data = json.load(content)
+                self.bodyParts = data["bodyParts"]
+                self.probability = data["probability"]
         except FileNotFoundError:
             print("We didn't find any of your body parts, you died...")
             # file not found
@@ -61,7 +62,7 @@ class Player:
                                                     "Game 4": None},
                                     "Lost body parts": []}
         with open("player/playingRecord.json", 'w') as file:
-            json.dump(self.record, file, indent = 4)
+            json.dump(record, file, indent = 4)
     
     def choose_body_part(self):
         r = random.randint(1, 1000)
