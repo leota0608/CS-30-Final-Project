@@ -231,10 +231,10 @@ class Game:
 - Finish framework
 - Make `Player` class, including attributes for name, score, and body parts
 - Create a list of Body parts
+- Finish mini-game2
 <br>
 
 ### Version 2
-- Finish mini-game2
 - Finish mini-game3
 
 
