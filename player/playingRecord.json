@@ -1,13 +1,89 @@
 {
-    "Total Player": 2,
+    "Total Player": 7,
     "1": {
         "Name": "Leo",
-        "Date": "2025-12-19",
-        "Score": 0
+        "Date": "2025-12-21",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": null,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
     },
     "2": {
-        "Name": "111",
-        "Date": "2025-12-19",
-        "Score": 0
+        "Name": "Leo",
+        "Date": "2025-12-21",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": true,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
+    },
+    "3": {
+        "Name": "Admin",
+        "Date": "2025-12-21",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": false,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
+    },
+    "4": {
+        "Name": "Admin test",
+        "Date": "2025-12-21",
+        "Score": 25,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": true,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
+    },
+    "5": {
+        "Name": "Admin test 2",
+        "Date": "2025-12-21",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": false,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
+    },
+    "6": {
+        "Name": "Admin test 3",
+        "Date": "2025-12-21",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": false,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
+    },
+    "7": {
+        "Name": "Admin test 4",
+        "Date": "2025-12-21",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": false,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": [
+            "left hand"
+        ]
     }
 }

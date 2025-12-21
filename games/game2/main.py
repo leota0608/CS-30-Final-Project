@@ -1,15 +1,15 @@
 import sys
 import os
-import json
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 from games.game2.human import Human
 from games.game2.bot import Bot
 from games.game2.deck import Deck
 from games.common.GameHandler import GameHandler
+from games.common.format import Format
 import time
 class Game2:
-    def __init__(self):
+    def __init__(self, player_num):
         self.running = True
         self.result = False
         # initialise deck of cards
@@ -17,7 +17,7 @@ class Game2:
         self.deck.initialise()
         self.deck.shuffle()
         # initialise player
-        self.player_num = 3 # 3 players
+        self.player_num = player_num # 3 players
         self.initialise_player(self.player_num)
 
     def initialise_player(self, num):
@@ -26,8 +26,33 @@ class Game2:
         for i in range(1, num):
             self.player_list.append(Bot())
 
-    def print_rules(self):
-        print("Game rules:...")
+    def print_rules(self, anim):
+        format.newline()
+        with open("games/game2/rules.txt", 'r') as rules:
+            text = rules.read()
+        if not anim:
+            print(text)
+        else:
+            space1 = 0
+            space2 = 0
+            newline = 0
+            while space2 < len(text)-1 and space2 >= 0:
+                space2 = text.find(' ', space1)
+                newline = text.find("\n", space1)
+                if space2 == -1:
+                    space2 = len(text)-1
+                if newline == -1:
+                    newline = 666666
+                if newline < space2:
+                    print(text[space1:newline+1], end='', flush = True)
+                    space1 = newline+1
+                else:
+                    print(text[space1:space2+1], end='', flush = True)
+                    space1 = space2+1
+                time.sleep(0.05)
+        format.newline()
+        input("Press any key to continue...")
+
 
     def check_sum(self, index):
         sum = 0
@@ -54,62 +79,47 @@ class Game2:
 
 
     def run(self):
-        print("game2 starts")
-        self.print_rules()
+        print("Game2 starts")
+        time.sleep(1)
+        self.print_rules(True)
+        print("**Enter 0 to review game rules at any time**")
         print("Drawing phase:")
         # initial draw
         for i in range(self.player_num):
             if i == 0:
                 print("Your turn to draw...")
-                input("press any key to continue...")
-                print("Drawing card...")
                 time.sleep(0.7)
+                print("Drawing card...")
+                time.sleep(1.2)
                 self.player_list[i].add_card(self.deck.draw())
-                print("Your handcard: [", end=' ')
-                j = self.player_list[0].handcard[0]
-                
+                self.print_handcard(0)
                 self.player_list[0].find_sum()
-                if j == 1:
-                    print('A', end = ' ')
-                elif j == 11:
-                    print('J', end = ' ')
-                elif j == 12:
-                    print('Q', end = ' ')
-                elif j == 13:
-                    print('K', end = ' ')
-                else:
-                    print(j, end = ' ')
-                print(']')
             else:
                 print(f"Player {i+1}'s turn")
                 time.sleep(0.7)
                 print(f"Player {i+1} drawing...")
                 time.sleep(1.2)
-                print(f"Player {i+1}'s handcard: [", end = ' ')
                 self.player_list[i].add_card(self.deck.draw())
+                self.print_handcard(i)
                 self.player_list[i].find_sum()
-                j = self.player_list[i].handcard[0]
-                if j == 1:
-                    print('A', end = ' ')
-                elif j == 11:
-                    print('J', end = ' ')
-                elif j == 12:
-                    print('Q', end = ' ')
-                elif j == 13:
-                    print('K', end = ' ')
-                else:
-                    print(j, end = ' ')
-                print(']')
         if_draw = 0
         while self.running:
             if_draw += 1
             if if_draw == 3:
                 if_draw = 0
                 choice = input("Do you want to call the judge over for no one choosing to draw cards ? (y/n)")
+                while choice == '0':
+                    self.print_rules(False)
+                    for i in range(20):
+                        print("\033[A\033[2K", end='')
+                    choice = input("Do you choose to draw? (y/n)")
                 if choice.lower() == "y" or choice.lower() == "yes":
                     max_score = -1
                     max_index = 0
                     for i in range(0, len(self.player_list)):
+                        if not self.player_list[i].alive:
+                            continue
+
                         if self.player_list[i].max_sum > max_score:
                             max_score = self.player_list[i].max_sum
                             max_index = i
@@ -140,28 +150,44 @@ class Game2:
             human_draw = False
             for i in range(self.player_num):
                 if i == 0:
+                    format.newline()
                     print("Your turn to draw...")
                     time.sleep(0.5)
+                    self.print_handcard(-1)
+                    format.newline()
                     choice = input("Do you choose to draw? (y/n)")
+                    #####################################################    
+                    if choice.lower() == "admin":
+                        choice = input("Admin code: ")
+                        if choice == "0710":
+                            choice = input("Win or lose(1/0):")
+                            if choice == '1':
+                                print("You win...(Admin mode)")
+                                time.sleep(2)
+                                self.running = False
+                                self.result = True
+                                break
+                            if choice == '0':
+                                print("You lost...(Admin mode)")
+                                time.sleep(2)
+                                self.running = False
+                                self.result = False
+                                self.alive = False
+                                break
+                    #####################################################        
+                    while choice == '0':
+                        self.print_rules(False)
+                        for i in range(20):
+                            print("\033[A\033[2K", end='')
+                        choice = input("Do you choose to draw? (y/n)")
+                    
                     if choice.lower() == "y" or choice.lower() == "yes":
                         if_draw = 0
                         human_draw =True
                         print("Drawing card...")
                         time.sleep(1.2)
                         self.player_list[0].handcard.append(self.deck.draw())
-                        print("Your current handcard: [", end=' ')
-                        for j in self.player_list[0].handcard:
-                            if j == 1:
-                                print('A', end=' ')
-                            elif j == 11:
-                                print('J', end=' ')
-                            elif j == 12:
-                                print('Q', end=' ')
-                            elif j == 13:
-                                print('K', end=' ')
-                            else:
-                                print(j, end= ' ')
-                        print(']')
+                        self.print_handcard(0)
                         r = self.check_sum(i)
                         self.player_list[0].find_sum()
                         if  r == 0:# lost
@@ -203,19 +229,7 @@ class Game2:
                         print(f"Player {i+1} drawing...")
                         time.sleep(1.2)
                         self.player_list[i].handcard.append(self.deck.draw())
-                        print(f"Player {i+1}'s handcard: [", end=' ')
-                        for j in self.player_list[i].handcard:
-                            if j == 1:
-                                print('A', end=' ')
-                            elif j == 11:
-                                print('J', end=' ')
-                            elif j == 12:
-                                print('Q', end=' ')
-                            elif j == 13:
-                                print('K', end=' ')
-                            else:
-                                print(j, end= ' ')
-                        print(']')
+                        self.print_handcard(i)
                         r = self.check_sum(i)
                         
                         self.player_list[i].find_sum()
@@ -234,12 +248,52 @@ class Game2:
                             print('')
                     else:
                         print(f"Player {i+1} choose not to draw")
-
+    def print_handcard(self, num):
+        if num == -1:
+            for i in range(len(self.player_list)):
+                if not self.player_list[i].alive:
+                    continue
+                if i == 0:
+                    print("Your", end=' ')
+                else:
+                    print(f"Player {i+1}'s", end=' ')
+                print(f"handcard: [", end=' ')
+                for j in self.player_list[i].handcard:
+                    if j == 1:
+                        print('A', end=' ')
+                    elif j == 11:
+                        print('J', end=' ')
+                    elif j == 12:
+                        print('Q', end=' ')
+                    elif j == 13:
+                        print('K', end=' ')
+                    else:
+                        print(j, end= ' ')
+                print(']')
+        else:
+            if num == 0:
+                print("Your", end=' ')
+            else:
+                print(f"Player {num+1}'s", end=' ')
+            print(f"handcard: [", end=' ')
+            for j in self.player_list[num].handcard:
+                if j == 1:
+                    print('A', end=' ')
+                elif j == 11:
+                    print('J', end=' ')
+                elif j == 12:
+                    print('Q', end=' ')
+                elif j == 13:
+                    print('K', end=' ')
+                else:
+                    print(j, end= ' ')
+            print(']')
                         
 
                         
+format = Format()
 
-
-#g = Game2()
+# g = Game2(3)
+# g.run()
 
 

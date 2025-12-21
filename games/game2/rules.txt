@@ -1,0 +1,15 @@
+Rules:
+Get a total value as close to 21 as possible without going over.
+Your score must be higher than all the other players to win.
+Card values:
+- A can be 1 or 11 points (automatically adjusted)
+- 2-10 are face values
+- J, G, K are all 10 points
+
+Each player starts by drawing one card.
+On your turn, you can choose to DRAW or STAND (Note that is you choose to STAND when your score is lowest, you lose)
+
+To win, you either get 21 points or be the last player alive(if all other players are over 21)
+If you go over 21 points, you lose instantly. If another player got 21 points, you lose too.
+
+HAVE FUN!
