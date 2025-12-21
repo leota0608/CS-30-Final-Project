@@ -30,3 +30,4 @@ example:
     + add some animation(print rules word by word, add screen flickering when the player lost and loses a body part)
     + debug game 2 
     + `main.py` can now read results from `main.py` in *game 2* folder and update score, game results and lost body parts in `playingRecord.json` in *player* folder
+    
