@@ -56,7 +56,7 @@ class Player:
         record[str(total_num+1)] = {"Name": self.name,
                                     "Date": str(self.date),
                                     "Score": self.score,
-                                   "Game record": {"Game 1": None,# win/lose: 1/0
+                                   "Game record": {"Game 1": None,# win/lose: True/False
                                                     "Game 2": None,
                                                     "Game 3": None,
                                                     "Game 4": None},
@@ -64,11 +64,27 @@ class Player:
         with open("player/playingRecord.json", 'w') as file:
             json.dump(record, file, indent = 4)
     
+    def store_game_result(self, game_num, result):
+        with open("player/playingRecord.json", 'r') as file:
+            record = json.load(file)
+        record[str(record["Total Player"])]["Game record"][f"Game {game_num}"] = result
+        with open("player/playingRecord.json", 'w') as file:
+            json.dump(record, file, indent = 4)
+
+    def update_score(self):
+        with open("player/playingRecord.json", 'r') as file:
+            record = json.load(file)
+        for i, j in record[str(record["Total Player"])]["Game record"].items():
+            if j == True:
+                record[str(record["Total Player"])]["Score"] += 25
+        with open("player/playingRecord.json", 'w') as file:
+            json.dump(record, file, indent = 4)
+
     def choose_body_part(self):
         r = random.randint(1, 1000)
-        for i in range(len(self.probability)-1,0):
+        for i in range(0, len(self.probability)):
             if r <= self.probability[i]:
-                if self.probability[i] in self.lost_body_parts:
+                if self.bodyParts[i] in self.lost_body_parts:
                     self.choose_body_part()
                     break
                 self.lost_body_parts.append(self.bodyParts[i])
@@ -76,6 +92,12 @@ class Player:
     
     def lose(self, body_part):
         self.lost_body_parts.append(body_part)
+        with open("player/playingRecord.json", 'r') as file:
+            record = json.load(file)
+        record[str(record["Total Player"])]["Lost body parts"].append(body_part)
+        #save
+        with open("player/playingRecord.json", 'w') as file:
+            json.dump(record, file, indent = 4)
 
 
 def clear_all_playing_records():
@@ -84,3 +106,5 @@ def clear_all_playing_records():
 
 #clear_all_playing_records()
 
+# p = Player()
+# p.choose_body_part()

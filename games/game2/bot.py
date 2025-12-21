@@ -61,7 +61,7 @@ class Bot(Character):
                 min_index = 0
                 for i in range(0, len(player_list)):
                     if player_list[i].max_sum < min_score:
-                        min_score = self.player_list[i].max_sum
+                        min_score = player_list[i].max_sum
                         min_index = i
                 if min_index == index:
                     return True
