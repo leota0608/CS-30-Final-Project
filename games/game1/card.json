@@ -1,0 +1,30 @@
+{
+    "card": {"slash":{"name": "slash", "type": "basic", "description": ""},
+        "dodge":{"name": "dodge", "type": "basic", "description": ""},
+        "peach":{"name": "peach", "type": "basic", "description": ""},
+        "crossbow":{"name": "crossbow", "type": "equipment", "description": ""},
+        "crossblade": {"name": "crossblade", "type": "equipment", "description": ""},
+        "duel":{"name": "duel", "type": "trick", "description": ""},
+        "dismantle":{"name": "dismantle", "type": "trick", "description": ""},
+        "snatch":{"name": "snatch", "type": "trick", "description": ""},
+        "archery":{"name": "archery", "type": "trick", "description": ""},
+        "savage":{"name": "savage", "type": "trick", "description": ""},
+        "benevolence":{"name": "slash", "type": "trick", "description": ""},
+        "negate":{"name": "negate", "type": "trick", "description": ""}},
+
+    "card nums":{
+        "slash": 16,
+        "dodge": 10,
+        "peach": 5,
+        "crossbow": 1,
+        "crossblade": 1,
+        "duel": 3,
+        "dismantle": 4,
+        "snatch": 3,
+        "archery": 3,
+        "savage": 2,
+        "benevolence": 2,
+        "negate": 3
+    }
+
+}

@@ -18,7 +18,7 @@ class Game:
         self.player.store_player_information()
         # load the four games after loading player infoamtion because init in game will generate error 
         # if no player information has been stored yet
-        self.game1 = Game1()
+        self.game1 = Game1(3, 4) # 3 players, 4 initial health
         self.game2 = Game2(3) # 3 players
         self.game3 = Game3()
         self.game4 = Game4()
