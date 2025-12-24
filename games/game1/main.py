@@ -37,7 +37,7 @@ class Game1:
                 # check alive
                 if self.player[i].health <= 0:
                     print(f"Player {self.player[i].name} died...")#enemy_num-1
-                    self.player[i].pop(i)
+                    self.player.pop(i)
                     if len(self.player) == 1:
                         print(f"Player {self.player[0].name} win!")
                         return
@@ -110,11 +110,11 @@ class Game1:
                 print(f"player {num+1} uses [dodge]")
                 self.player[num].handcards.pop(i)
 
-                for i in range(1, len(self.player)):
-                    if i == num:
+                for j in range(1, len(self.player)):
+                    if j == num:
                         continue
-                    self.player[i].enemy[num]["estimated_handcards"]["dodge"] -= 1 # update bot's prediction
-                    if self.player[i].enemy[num]["estimated_handcards"]["dodge"] < 0:
+                    self.player[j].enemy[num]["estimated_handcards"]["dodge"] -= 1 # update bot's prediction
+                    if self.player[j].enemy[num]["estimated_handcards"]["dodge"] < 0:
                         print("**ERROR: function-attack-dodge<0**")
 
                 break
@@ -221,7 +221,7 @@ class Game1:
                         self.attack(choice_p)
                         act_step -= 1
                     if chosen_card.name == "peach":
-                        if self.player[num].health == 4: # temporary be 4
+                        if self.player[num].health == self.player[num].initial_health: # temporary be 4
                             print("**You are already at maximum health**")
                         else:
                             self.player[num].health += 1
@@ -309,3 +309,6 @@ format = Format()
 
 game = Game1(3, 4)
 game.run()
+
+
+# action_step crossbow didn't check
