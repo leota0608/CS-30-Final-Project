@@ -16,6 +16,7 @@ class Bot(Human):
         self.enemy = []
         self.card_nums = card_nums
         self.creat_enemies()
+        self.alive = True
 
     def evaluate_cardnums(self, card_nums):
         self.card_nums = card_nums
@@ -29,13 +30,14 @@ class Bot(Human):
         total_card_nums = 0
         for i, j in self.card_nums.items():
             total_card_nums += j
-        for i in range(0, self.enemy_num):
+        for i in range(0, self.enemy_num+1):
             if str(i+1) == self.name[-1]:
                 self.enemy.append("self")
                 continue
             self.enemy.append({"enemy_index": i,
+                               "alive": True,
                                "health": self.health, 
-                               "estimated_handcards": self.card_nums, 
+                               "estimated_handcards": self.card_nums.copy(), 
                                "equipment": {"weapen": None, "armor": None},
                                "handcard_num": self.health})
     
