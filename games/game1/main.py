@@ -11,6 +11,7 @@ from games.game1.deck import Deck
 from games.game1.card import Card
 import time
 import json
+import random
 
 with open("games/game1/card.json", 'r') as file:
     content = json.load(file)
@@ -97,9 +98,25 @@ class Game1:
             
 
     def print_handcards(self, num):
-        print("Your handcards:")
+        weapen_name = "Not equipped" if self.player[num].equipment['weapen'] is None else self.player[num].equipment['weapen'].name
+        armor_name = "Not equipped" if self.player[num].equipment['armor'] is None else self.player[num].equipment['armor'].name
+        print(f"Your handcards:")
         for i in range(len(self.player[num].handcards)):
-            print(f"{i+1}. {self.player[num].handcards[i].name}")
+            card_name = f"{i+1}. {self.player[num].handcards[i].name}"
+            if i == 0:
+                print(f"{card_name:<25}Health: {self.player[num].health}", end='')
+            elif i == 1:
+                print(f"{card_name:<25}Max handcards: {self.player[num].health}", end='')
+            elif i == 2:
+                print(f"{card_name:<25}Equipment:", end='')
+            elif i == 3:
+                print(f"{card_name:<28}- Weapen: {weapen_name}", end='')
+            elif i == 4:
+                print(f"{card_name:<28}- Armor: {armor_name}", end='')
+            else:
+                print(card_name, end='')
+            print("")
+
     def nearly_dead(self, num):
         for i in range(len(self.player[num].handcards)):
             if self.player[num].handcards[i].name == "peach":
@@ -143,6 +160,7 @@ class Game1:
                     if j == num:
                         continue
                     self.player[j].enemy[num]["estimated_handcards"]["dodge"] -= 1 # update bot's prediction
+                    self.player[j].enemy[num]["handcard_num"] -= 1
                     if self.player[j].enemy[num]["estimated_handcards"]["dodge"] < 0:
                         print("**ERROR: function-attack-dodge<0**")
 
@@ -164,7 +182,7 @@ class Game1:
     def duel(self, num1, num2, human):# human = 1: num1 human, -1: num2 is human, 0: two AI dueling
         print("     **[DUEL]**")
         # num1
-        if not human == 1:
+        if not human == 0:
             # AI evaluate
             print("AI should be evaluating this")
             return
@@ -214,6 +232,37 @@ class Game1:
             if self.player[num1].health == 0:
                 self.nearly_dead(num1)
         self.duel(num2, num1, -human)
+
+    def dismantle(self, num, human):# human = 1: human dismantle AI| -1:AI dismantle human| 0: two AI 
+        if human == 0:
+            # AI should be handling this
+            pass
+        elif human == -1:
+            print(f"Player {num+1} choose to dismantle you")
+            # AI choose a card...
+            pass
+        else:
+            print(f"Player {num + 1} has {len(self.player[num].handcards)} handcards, which one do you want to dismantle?")
+            valid_choice = []
+            for i in range(len(self.player[num].handcards)):
+                print(f"{i+1}. [xxx]")
+                valid_choice.append(str(i+1))
+            card_choice = int(choose("Choice: ", valid_choice))
+            random_select = random.randint(0, len(self.player[num].handcards)-1)#index
+            selected_card = self.player[num].handcards[random_select]#object
+            time.sleep(0.7)
+            print(f"The card you chose is {selected_card.name}\n{selected_card.name} discarded from player {num}...")
+            self.player[num].handcards.pop(random_select)
+            # update enemy handcard
+            for i in range(1, len(self.player)):
+                if i == num or not self.player[i].enemy[num]["alive"]:
+                    continue
+                self.player[i].enemy[num]["estimated_handcards"][selected_card.name] -= 1 # update bot's prediction
+                self.player[i].enemy[num]["handcard_num"] -= 1
+                if self.player[i].enemy[num]["estimated_handcards"][selected_card.name] < 0:
+                    print("**ERROR: dismantle<0**")
+
+        
 
     def start_phase(self, num):
         if num == 0:
@@ -309,12 +358,6 @@ class Game1:
                                     if self.player[i].enemy[num]["estimated_handcards"][chosen_card.name] < 0:
                                         print("**ERROR: 3function-start_phase-equipment<0**")
                                 self.player[num].handcards.pop(choice)
-                            
-
-
-
-
-
                     else:
                         pass # no armor has been made yet
                         
@@ -342,6 +385,26 @@ class Game1:
                                 print("**ERROR: 4function-start_phase-duel<0**")
                         self.player[num].handcards.pop(choice)
                         self.duel(num, player_choice, 1)
+                    
+                    if card_name == "dismantle":
+                        output = "Who's card do you want to dismantle?"
+                        alive_targets = []
+                        for i in range(1, len(self.player)):
+                            if self.player[i].alive:
+                                output += f"\n- player {i+1}"
+                                alive_targets.append(i + 1)
+                        output += "\n"
+                        valid_choices = [str(t) for t in alive_targets]
+                        player_choice = int(choose(output, valid_choices)) - 1
+                        self.dismantle(player_choice, 1)
+                        for i in range(1, len(self.player)):
+                            if i == num or not self.player[i].enemy[num]["alive"]:
+                                continue
+                            self.player[i].enemy[num]["estimated_handcards"]["dismantle"] -= 1 # update bot's prediction
+                            self.player[i].enemy[num]["handcard_num"] -= 1
+                            if self.player[i].enemy[num]["estimated_handcards"]["dismantle"] < 0:
+                                print("**ERROR: start-phase-dismantle<0**")
+                        self.player[num].handcards.pop(choice)
         else:
             print(f"Player {num+1}'s turn:")
             act_step = 1

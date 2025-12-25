@@ -9,7 +9,7 @@
         "snatch":{"name": "snatch", "type": "trick", "description": ""},
         "archery":{"name": "archery", "type": "trick", "description": ""},
         "savage":{"name": "savage", "type": "trick", "description": ""},
-        "benevolence":{"name": "slash", "type": "trick", "description": ""},
+        "benevolence":{"name": "benevolence", "type": "trick", "description": ""},
         "negate":{"name": "negate", "type": "trick", "description": ""}},
 
     "card nums":{
