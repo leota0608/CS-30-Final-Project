@@ -104,15 +104,63 @@ class Game1:
         for i in range(len(self.player[num].handcards)):
             card_name = f"{i+1}. {self.player[num].handcards[i].name}"
             if i == 0:
-                print(f"{card_name:<25}Health: {self.player[num].health}", end='')
+                output = "| Your Info:"
+                while len(output)<=35:
+                        output += ' '
+                for p in range(1, len(self.player)):
+                    output += f"Player {p+1}:"
+                    while len(output)<=35+p*35:
+                        output += ' '
+                print(f"{card_name:<25}{output}|", end='')
             elif i == 1:
-                print(f"{card_name:<25}Max handcards: {self.player[num].health}", end='')
+                output = f"| Health: {self.player[num].health}"
+                while len(output)<=35:
+                    output += ' '
+                for p in range(1, len(self.player)):
+                    output += f"Health: {self.player[num].health}"
+                    while len(output)<=35+p*35:
+                        output += ' '
+                print(f"{card_name:<25}{output}|", end='')
             elif i == 2:
-                print(f"{card_name:<25}Equipment:", end='')
+                output = f"| Max handcards: {self.player[p].health}"
+                while len(output)<=35:
+                    output += ' '
+                for p in range(1, len(self.player)):
+                    output += f"Max handcards: {self.player[p].health}"
+                    while len(output)<=35+p*35:
+                        output += ' '
+                print(f"{card_name:<25}{output}|", end='')
             elif i == 3:
-                print(f"{card_name:<28}- Weapen: {weapen_name}", end='')
+                output = "| Equipment:"
+                while len(output)<=35:
+                    output += ' '
+                for p in range(1, len(self.player)):
+                    output += f"Equipment:"
+                    while len(output)<=35+p*35:
+                        output += ' '
+                print(f"{card_name:<25}{output}|", end='')
             elif i == 4:
-                print(f"{card_name:<28}- Armor: {armor_name}", end='')
+                output = f"- Weapen: {weapen_name}"
+                while len(output)<=35:
+                    output += ' '
+                for p in range(1, len(self.player)):
+                    weapen_name_opp = "Not equipped" if self.player[p].equipment['weapen'] is None else self.player[p].equipment['weapen'].name
+                    output += f"- Weapen: {weapen_name_opp}"
+                    while len(output)<=35+p*35:
+                        output += ' '
+                output = output[:len(output)-4]
+                print(f"{card_name:<25}|   {output}|", end='')
+            elif i == 5:
+                output = f"- Armor: {armor_name}"
+                while len(output)<=35:
+                    output += ' '
+                for p in range(1, len(self.player)):
+                    armor_name_opp = "Not equipped" if self.player[p].equipment['armor'] is None else self.player[p].equipment['armor'].name
+                    output += f"- Armor: {armor_name_opp}"
+                    while len(output)<=35+p*35:
+                        output += ' '
+                output = output[:len(output)-4]
+                print(f"{card_name:<25}|   {output}|", end='')
             else:
                 print(card_name, end='')
             print("")
@@ -238,7 +286,7 @@ class Game1:
             # AI should be handling this
             pass
         elif human == -1:
-            print(f"Player {num+1} choose to dismantle you")
+            print(f"Player {num+1} choose to dismantle your card")
             # AI choose a card...
             pass
         else:
@@ -247,11 +295,15 @@ class Game1:
             for i in range(len(self.player[num].handcards)):
                 print(f"{i+1}. [xxx]")
                 valid_choice.append(str(i+1))
+
+
+            # add equipment card(snatch too)
             card_choice = int(choose("Choice: ", valid_choice))
             random_select = random.randint(0, len(self.player[num].handcards)-1)#index
             selected_card = self.player[num].handcards[random_select]#object
             time.sleep(0.7)
             print(f"The card you chose is {selected_card.name}\n{selected_card.name} discarded from player {num}...")
+            # add time.sleep
             self.player[num].handcards.pop(random_select)
             # update enemy handcard
             for i in range(1, len(self.player)):
@@ -262,8 +314,45 @@ class Game1:
                 if self.player[i].enemy[num]["estimated_handcards"][selected_card.name] < 0:
                     print("**ERROR: dismantle<0**")
 
-        
-
+    def snatch(self, num1, num2, human): # human = 1: human snatch AI| -1:AI snatch human| 0: two AI 
+        if human == 0:
+            # AI should be handling this
+            pass
+        elif human == -1:
+            print(f"Player {num2+1} choose to snatch your card")
+            # AI choose a card...
+            pass
+        else:
+            print(f"Player {num2 + 1} has {len(self.player[num2].handcards)} handcards, which one do you want to snatch?")
+            valid_choice = []
+            for i in range(len(self.player[num2].handcards)):
+                print(f"{i+1}. [xxx]")
+                valid_choice.append(str(i+1))
+            card_choice = int(choose("Choice: ", valid_choice))-1 # 0 indexed
+            #random_select = random.randint(0, len(self.player[num2].handcards)-1)#index
+            selected_card = self.player[num2].handcards[card_choice] #object
+            time.sleep(0.7)
+            print(f"The card you chose is {selected_card.name}\n{selected_card.name} added to your handcards")
+            # add time.sleep
+            self.player[num1].add_handcards([selected_card])
+            self.player[num2].handcards.pop(card_choice)
+            # update enemy handcard
+            for i in range(1, len(self.player)):# player[num2] lost a card
+                if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                    continue
+                self.player[i].enemy[num2]["estimated_handcards"][selected_card.name] -= 1 # update bot's prediction
+                self.player[i].enemy[num2]["handcard_num"] -= 1
+                if self.player[i].enemy[num2]["estimated_handcards"][selected_card.name] < 0:
+                    print("**ERROR: snatch1<0**")
+            
+            for i in range(1, len(self.player)): # player[num1] gained one card
+                if i == num1 or not self.player[i].enemy[num1]["alive"]:
+                    continue
+                self.player[i].enemy[num1]["estimated_handcards"][selected_card.name] += 1 # update bot's prediction
+                self.player[i].enemy[num1]["handcard_num"] += 1
+                if self.player[i].enemy[num1]["estimated_handcards"][selected_card.name] < 0:
+                    print("**ERROR: snatch2<0**")
+            
     def start_phase(self, num):
         if num == 0:
             print("Your turn:")
@@ -404,6 +493,26 @@ class Game1:
                             self.player[i].enemy[num]["handcard_num"] -= 1
                             if self.player[i].enemy[num]["estimated_handcards"]["dismantle"] < 0:
                                 print("**ERROR: start-phase-dismantle<0**")
+                        self.player[num].handcards.pop(choice)
+                    
+                    if card_name == "snatch":
+                        output = "Who's card do you want to snatch?"
+                        alive_targets = []
+                        for i in range(1, len(self.player)):
+                            if self.player[i].alive:
+                                output += f"\n- player {i+1}"
+                                alive_targets.append(i + 1)
+                        output += "\n"
+                        valid_choices = [str(t) for t in alive_targets]
+                        player_choice = int(choose(output, valid_choices)) - 1
+                        self.snatch(num, player_choice, 1)
+                        for i in range(1, len(self.player)):
+                            if i == num or not self.player[i].enemy[num]["alive"]:
+                                continue
+                            self.player[i].enemy[num]["estimated_handcards"]["snatch"] -= 1 # update bot's prediction
+                            self.player[i].enemy[num]["handcard_num"] -= 1
+                            if self.player[i].enemy[num]["estimated_handcards"]["snatch"] < 0:
+                                print("**ERROR: start-phase-snatch<0**")
                         self.player[num].handcards.pop(choice)
         else:
             print(f"Player {num+1}'s turn:")
