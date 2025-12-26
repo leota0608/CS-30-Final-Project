@@ -31,10 +31,16 @@ example:
     + debug game 2 
     + `main.py` can now read results from `main.py` in *game 2* folder and update score, game results and lost body parts in `playingRecord.json` in *player* folder
     
->12.24 1.2.3
+> 12.24 1.2.3
 
 - debug game1
 - Need to be added:
     + More card operations
     + AI moves
     + Fix bugs......
+> 1.2.4
+- Add [dismantle] trick card to game1/main.py. Fix naming in game1/card.json
+
+> 12.25 1.2.5
+- add trick card: [snatch],
+- refine handcard output format(print out opponent information)
