@@ -49,3 +49,10 @@ example:
 - Add trick card: archery, savage, benevolence, negate. 
 - Add some card description in game1/card.json.
 - Debug...
+
+> 12.27 1.2.7
+- Initially complete game1
+- Made some simple AI strategies, the game can now run a full cycle without crashing and can be called by main main.py. 
+- There are still tons of bugs needed to be fixed and more AI strategies need to be implemented. 
+- duel doesn't work
+- Debug...
