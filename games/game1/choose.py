@@ -13,10 +13,10 @@ def choose(output, input_range = "none", confirm = "no"):
     if confirm == "no":
         return _input
     while True:
-        confirm = input("confirm? yes/no\n")
-        if confirm == "yes":
+        confirm = input("confirm? y/n\n")
+        if confirm.lower() in ['y',"yes"]:
             return _input
-        elif confirm == "no":
+        elif confirm.lower() in ['n', "no"]:
             return choose(output, input_range, confirm)
         else:
             print("**invalid input**")

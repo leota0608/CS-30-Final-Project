@@ -7,6 +7,7 @@ class Human:
         self.equipment = {"weapen": None, "armor": None}
         self.max_handcards = health
         self.alive = True
+        self.max_health = health
     
     def add_handcards(self, new_handcards):
         self.handcards.extend(new_handcards)

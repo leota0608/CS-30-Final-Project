@@ -1,5 +1,5 @@
 {
-    "Total Player": 7,
+    "Total Player": 8,
     "1": {
         "Name": "Leo",
         "Date": "2025-12-21",
@@ -85,5 +85,17 @@
         "Lost body parts": [
             "left hand"
         ]
+    },
+    "8": {
+        "Name": "test game 2",
+        "Date": "2025-12-27",
+        "Score": 25,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": true,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
     }
 }
