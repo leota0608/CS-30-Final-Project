@@ -44,3 +44,8 @@ example:
 > 12.25 1.2.5
 - add trick card: [snatch],
 - refine handcard output format(print out opponent information)
+
+> 12.26 1.2.6
+- Add trick card: archery, savage, benevolence, negate. 
+- Add some card description in game1/card.json.
+- Debug...
