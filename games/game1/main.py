@@ -168,7 +168,7 @@ class Game1:
     def nearly_dead(self, num):
         for i in range(len(self.player[num].handcards)):
             if self.player[num].handcards[i].name == "peach":
-                
+                # relpace player 1 with You
                 print(f"player {num+1} uses a peach and gaines one point of health")
                 self.player[num].health = 1
                 self.player[num].max_handcards = 1
@@ -228,6 +228,9 @@ class Game1:
             
 
     def duel(self, num1, num2, human):# human = 1: num1 human, -1: num2 is human, 0: two AI dueling
+
+        # opponent first plays a slash, and then the user, maybe need adjustment
+
         print("     **[DUEL]**")
         # num1
         if not human == 0:
@@ -353,6 +356,187 @@ class Game1:
                 if self.player[i].enemy[num1]["estimated_handcards"][selected_card.name] < 0:
                     print("**ERROR: snatch2<0**")
             
+    def archery(self, num, human):# num is the index of the player who played the card, which don't need to play a dodge,
+        # human=1: player is the card user, human = 0: AI playerd the card
+        for i in range(0, len(self.player)):
+            if i == num:
+                continue
+            if i == 0:
+                find_dodge = -1
+                find_negate = -1
+                for j in range(len(self.player[0].handcards)):
+                    if self.player[0].handcards[j].name == "dodge":
+                        find_dodge = j
+                    if self.player[0].handcards[j].name == "negate":
+                        find_negate = j
+                if find_dodge == -1 and find_negate == -1:
+                    print("You don't have a dodge or negate, you lose one health point...")
+                    self.player[0].health -= 1
+                    for j in range(1, len(self.player)):
+                        if j == 0 or not self.player[j].enemy[0]["alive"]:
+                            continue
+                        self.player[j].enemy[0]["health"] -= 1 # update bot's prediction]
+                    self.player[0].max_handcards -= 1
+                    if self.player[0].health == 0:
+                        self.nearly_dead(0)
+                else:
+                    n = 0
+                    output = f"What do you choose to play:\n"
+                    if find_dodge != -1:
+                        output += f"{n+1}. dodge\n"
+                        n += 1
+                    if find_negate != -1:
+                        output += f"{n+1}. neagte\n"
+                        n += 1
+                    output += f"{n}. pass(lose one health point)"
+                    print(output)
+                    valid_choice = []
+                    for j in range(1, n+2):
+                        valid_choice.append(str(j))
+                    choice = int(choose("Choice: ", valid_choice))
+                    if choice == 1:
+                        if find_dodge != -1: # play dodge             
+                            print("You played a dodge")         
+                            for j in range(1, len(self.player)):
+                                if j == num or not self.player[j].enemy[0]["alive"]:
+                                    continue
+                                self.player[j].enemy[0]["estimated_handcards"]["dodge"] -= 1 # update bot's prediction
+                                self.player[j].enemy[0]["handcard_num"] -= 1
+                                if self.player[j].enemy[0]["estimated_handcards"]["dodge"] < 0:
+                                    print("**ERROR: archery-player1-dodge<0**")
+                            self.player[0].handcards.pop(find_dodge)
+                        else: # must be negate
+                            print("You played negate and countered archery")         
+                            for j in range(1, len(self.player)):
+                                if j == num or not self.player[j].enemy[0]["alive"]:
+                                    continue
+                                self.player[j].enemy[0]["estimated_handcards"]["negate"] -= 1 # update bot's prediction
+                                self.player[j].enemy[0]["handcard_num"] -= 1
+                                if self.player[j].enemy[0]["estimated_handcards"]["negate"] < 0:
+                                    print("**ERROR: archery-player1-negate<0**")
+                            self.player[0].handcards.pop(find_negate)
+                    elif (choice == 2 and find_dodge*find_negate < 0) or choice == n+1: # pass
+                        #choice == n+1 must be pass; If the two indexes multiply to be negative, one of them must be -1, then choice == 2 is pass
+                        print("You choose to pass and lose one health point")
+                        self.player[0].health -= 1
+                        for j in range(1, len(self.player)):
+                            if j == 0 or not self.player[j].enemy[0]["alive"]:
+                                continue
+                            self.player[j].enemy[0]["health"] -= 1 # update bot's prediction]
+                        self.player[0].max_handcards -= 1
+                        if self.player[0].health == 0:
+                            self.nearly_dead(0)
+
+                    else:#play negate
+                        print("You played negate and countered archery")         
+                        for j in range(1, len(self.player)):
+                            if j == num or not self.player[j].enemy[0]["alive"]:
+                                continue
+                            self.player[j].enemy[0]["estimated_handcards"]["negate"] -= 1 # update bot's prediction
+                            self.player[j].enemy[0]["handcard_num"] -= 1
+                            if self.player[j].enemy[0]["estimated_handcards"]["negate"] < 0:
+                                print("**ERROR: archery-player1-negate<0**")
+                        self.player[0].handcards.pop(find_negate)
+            else:
+                # AI should be handling this
+                pass
+
+    def savage(self, num, human):# num is the index of the player who played the card, which don't need to play a dodge,
+        # human=1: player is the card user, human = 0: AI playerd the card
+        for i in range(0, len(self.player)):
+            if i == num:
+                continue
+            if i == 0:
+                find_slash = -1
+                find_negate = -1
+                for j in range(len(self.player[0].handcards)):
+                    if self.player[0].handcards[j].name == "slash":
+                        find_slash = j
+                    if self.player[0].handcards[j].name == "negate":
+                        find_negate = j
+                if find_slash == -1 and find_negate == -1:
+                    print("You don't have a slash or negate, you lose one health point...")
+                    self.player[0].health -= 1
+                    for j in range(1, len(self.player)):
+                        if j == 0 or not self.player[j].enemy[0]["alive"]:
+                            continue
+                        self.player[j].enemy[0]["health"] -= 1 # update bot's prediction]
+                    self.player[0].max_handcards -= 1
+                    if self.player[0].health == 0:
+                        self.nearly_dead(0)
+                else:
+                    n = 0
+                    output = f"What do you choose to play:\n"
+                    if find_slash != -1:
+                        output += f"{n+1}. slash\n"
+                        n += 1
+                    if find_negate != -1:
+                        output += f"{n+1}. neagte\n"
+                        n += 1
+                    output += f"{n}. pass(lose one health point)"
+                    print(output)
+                    valid_choice = []
+                    for j in range(1, n+2):
+                        valid_choice.append(str(j))
+                    choice = int(choose("Choice: ", valid_choice))
+                    if choice == 1:
+                        if find_slash != -1: # play slash             
+                            print("You played a slash")         
+                            for j in range(1, len(self.player)):
+                                if j == num or not self.player[j].enemy[0]["alive"]:
+                                    continue
+                                self.player[j].enemy[0]["estimated_handcards"]["slash"] -= 1 # update bot's prediction
+                                self.player[j].enemy[0]["handcard_num"] -= 1
+                                if self.player[j].enemy[0]["estimated_handcards"]["slash"] < 0:
+                                    print("**ERROR: savage-player1-slash<0**")
+                            self.player[0].handcards.pop(find_slash)
+                        else: # must be negate
+                            print("You played negate and countered savage")         
+                            for j in range(1, len(self.player)):
+                                if j == num or not self.player[j].enemy[0]["alive"]:
+                                    continue
+                                self.player[j].enemy[0]["estimated_handcards"]["negate"] -= 1 # update bot's prediction
+                                self.player[j].enemy[0]["handcard_num"] -= 1
+                                if self.player[j].enemy[0]["estimated_handcards"]["negate"] < 0:
+                                    print("**ERROR: savage-player1-negate<0**")
+                            self.player[0].handcards.pop(find_negate)
+                    elif (choice == 2 and find_slash*find_negate < 0) or choice == n+1: # pass
+                        #choice == n+1 must be pass; If the two indexes multiply to be negative, one of them must be -1, then choice == 2 is pass
+                        print("You choose to pass and lose one health point")
+                        self.player[0].health -= 1
+                        for j in range(1, len(self.player)):
+                            if j == 0 or not self.player[j].enemy[0]["alive"]:
+                                continue
+                            self.player[j].enemy[0]["health"] -= 1 # update bot's prediction]
+                        self.player[0].max_handcards -= 1
+                        if self.player[0].health == 0:
+                            self.nearly_dead(0)
+
+                    else:#play negate
+                        print("You played negate and countered savage")         
+                        for j in range(1, len(self.player)):
+                            if j == num or not self.player[j].enemy[0]["alive"]:
+                                continue
+                            self.player[j].enemy[0]["estimated_handcards"]["negate"] -= 1 # update bot's prediction
+                            self.player[j].enemy[0]["handcard_num"] -= 1
+                            if self.player[j].enemy[0]["estimated_handcards"]["negate"] < 0:
+                                print("**ERROR: savage-player1-negate<0**")
+                        self.player[0].handcards.pop(find_negate)
+            else:
+                # AI should be handling this
+                pass
+    def benevolence(self, num, human):
+        print("You drawed two cards from the deck of cards...")
+        self.draw_cards(num)
+        if not self.running:
+            self.result = True
+            print("You fought to the end, there are no cards left.\nThe judeg came and decided you are the winner...")
+            return
+        
+    def negate(self):
+        # need to add choice of using negate to other trick cards /\/\/\/\/\/\/\/\/\/\/\/\
+        pass
+
     def start_phase(self, num):
         if num == 0:
             print("Your turn:")
@@ -379,12 +563,12 @@ class Game1:
                             if self.player[i].alive:
                                 output += f"\n- player {i+1}"
                                 alive_targets.append(i + 1)
+                        print(output)
                         valid_choices = [str(t) for t in alive_targets]
-                        choice_p = int(choose(output, valid_choices)) - 1 # 0 indexing
+                        choice_p = int(choose("Choice: ", valid_choices)) - 1 # 0 indexing
                         print(f"You attacked player {choice_p+1}")
 
-                        for i in range(1, len(self.player)):
-                            
+                        for i in range(1, len(self.player)):                            
                             if i == num or not self.player[i].enemy[num]["alive"]:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"]["slash"] -= 1 # update bot's prediction
@@ -514,6 +698,44 @@ class Game1:
                             if self.player[i].enemy[num]["estimated_handcards"]["snatch"] < 0:
                                 print("**ERROR: start-phase-snatch<0**")
                         self.player[num].handcards.pop(choice)
+
+                    if card_name == "archery":
+                        self.archery(num, 1)
+                        for i in range(1, len(self.player)):
+                            if i == num or not self.player[i].enemy[num]["alive"]:
+                                continue
+                            self.player[i].enemy[num]["estimated_handcards"]["archery"] -= 1 # update bot's prediction
+                            self.player[i].enemy[num]["handcard_num"] -= 1
+                            if self.player[i].enemy[num]["estimated_handcards"]["archery"] < 0:
+                                print("**ERROR: start-phase-archery<0**")
+                        self.player[num].handcards.pop(choice)
+
+                    if card_name == "savage":
+                        self.savage(num, 1)
+                        for i in range(1, len(self.player)):
+                            if i == num or not self.player[i].enemy[num]["alive"]:
+                                continue
+                            self.player[i].enemy[num]["estimated_handcards"]["savage"] -= 1 # update bot's prediction
+                            self.player[i].enemy[num]["handcard_num"] -= 1
+                            if self.player[i].enemy[num]["estimated_handcards"]["savage"] < 0:
+                                print("**ERROR: start-phase-savage<0**")
+                        self.player[num].handcards.pop(choice)
+
+                    if card_name == "benevolence":
+                        self.benevolence(num, 1)
+                        if not self.running:
+                            return
+                        for i in range(1, len(self.player)):
+                            if i == num or not self.player[i].enemy[num]["alive"]:
+                                continue
+                            self.player[i].enemy[num]["estimated_handcards"]["benevolence"] -= 1 # update bot's prediction
+                            self.player[i].enemy[num]["handcard_num"] -= 1
+                            if self.player[i].enemy[num]["estimated_handcards"]["benevolence"] < 0:
+                                print("**ERROR: start-phase-benevolence<0**")
+                        self.player[num].handcards.pop(choice)
+
+                    if card_name == "negate":
+                        print("**You can only use [negate] when another player use a trick card on you**")
         else:
             print(f"Player {num+1}'s turn:")
             act_step = 1
