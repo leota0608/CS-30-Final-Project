@@ -2,7 +2,9 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 import json
+import random
 from games.game1.human import Human 
+
 
 with open("games/game1/card.json", 'r') as file:
     content = json.load(file)
@@ -10,8 +12,8 @@ with open("games/game1/card.json", 'r') as file:
     card_nums = content["card nums"]
 
 class Bot(Human):
-    def __init__(self, name, health, enemy_num):
-        Human.__init__(self, name, health)
+    def __init__(self, name, health, enemy_num, index):
+        Human.__init__(self, name, health, index)
         self.enemy_num = enemy_num
         self.enemy = []
         self.card_nums = card_nums
@@ -55,11 +57,31 @@ class Bot(Human):
             opp_dodge_num = (self.card_nums["dodge"]-self.handcards["dodge"])/(self.total_cardnums-self.handcards["dodge"]) * len(i.handcards) # estimated opponent dodge number
             self_slash_num = self.handcards["slash"]
 
-    def take_move(self):# choose the card to play in start phase
+    def find_high_value_target(self, player):
+        targets_with_equipment = []
+        player_health = []
+        for i in range(len(player)):
+            if i == self.index or not player[i].alive and len(player[i].handcards)>0:
+                continue
+            if not player[i].equipment["weapen"] is None:
+                targets_with_equipment.append(i)
+            player_health.append([player[i].health,  player[i].index])
+        if len(targets_with_equipment) > 0:
+            return random.choice(targets_with_equipment)
+        player_health.sort(key=lambda x: x[0])
+        random_num = random.randint(0, 100)
+        if len(player_health) == 0:
+            return -1
+        if random_num <= 40: # 40% attack other players
+            return player_health[random.randint(1, len(player_health)-1)][1]
+        else: # 60% chance attack player with lowest health
+            return player_health[0][1]
+    
+    def take_move(self, player):# choose the card to play in start phase
         # select available cards to play from handcards
         available_moves = []
         for i in range(0, len(self.handcards)):
-            if not self.handcards[i].name == "dodge" or self.handcards[i].name == "negate":
+            if not (self.handcards[i].name == "dodge" or self.handcards[i].name == "negate"):
                 available_moves.append([self.handcards[i], i])# card_name, index
         # basic rules
         ## 1.
@@ -73,12 +95,26 @@ class Bot(Human):
             if i[0].type == "equipment":
                 equipment.append(i)
         # weapen rank according to importance
-        weapen_rank = ["crossbow", "crossblade"]
+        weapen_rank = ["crossblade", "crossbow"]
         for i in weapen_rank:
             for j in equipment:
                 if i == j[0].name:
                     return {"card": self.handcards[j[1]], "target": -1, "index": j[1]} # equip the best weapen
         ## 3.
+        # AOE and self beneficial cards
+        trick_cards = ["savage", "archery", "benevolence"]
+        for i in available_moves:
+            if i[0].name in trick_cards:
+                return {"card": self.handcards[i[1]], "target": -1, "index": i[1]}
+        ## 4.
+        # dismantle and snatch
+        target = self.find_high_value_target(player) 
+        if target != -1:
+            trick_cards = ["snatch", "dismantle"]
+            for j in trick_cards:
+                for i in available_moves:
+                    if i[0].name == j:
+                        return {"card": self.handcards[i[1]], "target": target, "index": i[1]}
         #temp
         if self.act_step == 1:
             self.act_step -= 1
@@ -90,6 +126,7 @@ class Bot(Human):
                             continue
                         target.append([e["health"], e["index"]])
                     target.sort(key=lambda x: x[0])
+
                     return {"card": self.handcards[i[1]], "target": target[0][1], "index": i[1]}
         
         return -1
