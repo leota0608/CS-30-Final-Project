@@ -56,3 +56,7 @@ example:
 - There are still tons of bugs needed to be fixed and more AI strategies need to be implemented. 
 - duel doesn't work
 - Debug...
+
+> 12.30 1.2.8
+- Improve bot's decision making
+- Debug...
