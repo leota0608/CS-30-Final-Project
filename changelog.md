@@ -60,3 +60,7 @@ example:
 > 12.30 1.2.8
 - Improve bot's decision making
 - Debug...
+
+> 12.31 1.2.9
+- Add playing strategy of savage, archery, dismantle and snatch of bot.
+- Debug...
