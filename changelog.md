@@ -42,3 +42,36 @@ demonstrate the use of this framework.
     + debug game 2 
     + `main.py` can now read results from `main.py` in *game 2* folder and update score, game results and lost body parts in `playingRecord.json` in *player* folder
     
+> 12.24 1.2.3
+
+- debug game1
+- Need to be added:
+    + More card operations
+    + AI moves
+    + Fix bugs......
+> 1.2.4
+- Add [dismantle] trick card to game1/main.py. Fix naming in game1/card.json
+
+> 12.25 1.2.5
+- add trick card: [snatch],
+- refine handcard output format(print out opponent information)
+
+> 12.26 1.2.6
+- Add trick card: archery, savage, benevolence, negate. 
+- Add some card description in game1/card.json.
+- Debug...
+
+> 12.27 1.2.7
+- Initially complete game1
+- Made some simple AI strategies, the game can now run a full cycle without crashing and can be called by main main.py. 
+- There are still tons of bugs needed to be fixed and more AI strategies need to be implemented. 
+- duel doesn't work
+- Debug...
+
+> 12.30 1.2.8
+- Improve bot's decision making
+- Debug...
+
+> 12.31 1.2.9
+- Add playing strategy of savage, archery, dismantle and snatch of bot.
+- Debug...
