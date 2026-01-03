@@ -11,6 +11,10 @@ example:
 ## Change Log
 > 12.20  
 
+0.2.3:
+- The game handler class had been created.
+  + CourtPiece class puts all the players together
+  and enforces the rules of the game.
 0.2.2:
 - Created a class named CPHumanPlayer that represents 
 the human-player of the CourtPiece.
