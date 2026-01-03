@@ -1,0 +1,22 @@
+(WORD):
+*0.2
+hello. this is a test for the game of thrones.
+we are not going to run any more tests after that.
+**2
+
+(LETTER):
+*0.1
+hello. This is a test for the game of thrones.
+we are not going to run any more tests after that.
+$$
+
+(SENTENCE):
+*0.5
+Hello class. Welcome to court piece. Court Piece is a
+fantastic game for your brain. It helps to increase your
+IQ.
+
+**0.5
+(NORMAL):
+Hello. What a great day is today. I wish you luck
+and happiness.

@@ -1,6 +1,6 @@
 from games.game1.main import Game1
 from games.game2.main import Game2
-from games.game3.main import Game3
+from games.game3.CourtPiece import Game3
 from games.game4.main import Game4
 from player.player import Player
 import random

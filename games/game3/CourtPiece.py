@@ -12,11 +12,11 @@ class CourtPiece(GameHandler):
     TRIPLE_PLAY = 3
     QUADRUPLE_PLAY = 4
 
-    def __init__(self, mode):
+    def __init__(self, mode, names):
         self.players = []
         for i in range(mode - 1):
-            self.players.append(CPBot(f"Amir {i}"))
-        self.players.append(CPHumanPlayer("Ali"))
+            self.players.append(CPBot(names[i]))
+        self.players.append(CPHumanPlayer(names[mode - 1]))
 
         self.rounds = 2 * (4 - mode) + 7
         self.data = CPGameData()
@@ -36,7 +36,7 @@ class CourtPiece(GameHandler):
         deck = generateDeck()
         rd.shuffle(deck)
         print("-- shuffling, shuffling, shuffling ---")
-        #tm.sleep(2)
+        tm.sleep(2)
         deciding_king = True
         while deciding_king:
             for i in range(len(self.players)):
@@ -51,7 +51,7 @@ class CourtPiece(GameHandler):
                     self.data.last_winner_ind = i
                     deciding_king = False
                     break
-                #tm.sleep(1)
+                tm.sleep(1)
 
     def decideTrump(self, deck):
         print("--- deciding trump ---")
@@ -145,7 +145,7 @@ class CourtPiece(GameHandler):
         print("results thus far are:")
         for name in self.data.scores:
             print(f"{name}: {self.data.scores[name]}")
-        self.printPlayerCards()
+        # self.printPlayerCards()
 
     def printPlayerCards(self):
         for player in self.data.cards:
@@ -154,28 +154,45 @@ class CourtPiece(GameHandler):
                 for card in self.data.cards[player][kind]:
                     print(card)
 
+    def getWinner(self):
+        winner = ""
+        max_score = 0
+        for name in self.data.scores:
+            if self.data.scores[name] > max_score:
+                max_score = self.data.scores[name]
+                winner = name
+        return winner
+
     def run(self):
         self.decideKing()
         distribution_deck = generateDeck()
         rd.shuffle(distribution_deck)
         self.decideTrump(distribution_deck)
         print()
-        #tm.sleep(2)
+        tm.sleep(2)
         print(" -- perfect thus far -- ")
         print()
         print("Now we get to the most interesting part ...")
         print("distributing the cards !! yay")
         self.distributeCards(distribution_deck)
-        self.printPlayerCards()
+        # self.printPlayerCards()
         print()
         print("...")
-        #tm.sleep(3)
+        tm.sleep(3)
         print("let's        B E G I N!!!! GOOOOOO")
         print(f"we will play {self.rounds}!")
         print()
         for i in range(self.rounds):
             self.askPlayers(i)
+        print()
+        print("and the the winner is ...")
+        tm.sleep(2)
+        winner = self.getWinner()
+        if winner != "":
+            print(f"--------- No Body Except Player {winner} --------")
+        else:
+            print(f"nobody actually won, it was a tie.")
 
 
-game = CourtPiece(CourtPiece.QUADRUPLE_PLAY)
+game = CourtPiece(CourtPiece.QUADRUPLE_PLAY, ["Ali", "Bagher", "Karim", "Mossa"])
 game.run()

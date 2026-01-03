@@ -85,14 +85,17 @@ class CPBot(Character):
                     c = cards[king_kind]
                     largest_i = self.findLargestRank(king_kind)
                     smallest_i = self.findSmallestRank(king_kind)
+                    # print(self.name)
+                    # print(c[largest_i])
+                    # print(c[smallest_i])
 
                     for card in self.gameData.table:
                         if card is not None:
-                            if card.kind == CPCard.KINDS[trump]:
-                                return c.pop(smallest_i)
-                            elif card.kind == king_kind:
-                                if largest_i < card.rank:
+                            if card.kind == CPCard.KINDS[king_kind]:
+                                if c[largest_i].rank < card.rank:
                                     return c.pop(smallest_i)
+                            elif card.kind == CPCard.KINDS[trump]:
+                                return c.pop(smallest_i)
                     return c.pop(largest_i)
                 else:
                     # if we do not have king kind, but

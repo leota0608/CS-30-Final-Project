@@ -78,11 +78,14 @@ return None to Notify the game handler.
 
 ### Main code
 The main code contains the `Game` class, which then imports the four mini games and operates the game
+
 ```python
 from games.game1.main import Game1
 from games.game2.main import Game2
-from games.game3.main import Game3
+from games.game3.CourtPiece import Game3
 from games.game4.main import Game4
+
+
 # the imports assumes that there are four classes named Game1-4 in the four py files
 class Game:
     def __init__(self):
@@ -92,6 +95,7 @@ class Game:
         self.game4 = Game4
         self.greetings()
         self.run_game()
+
     def greetings(self):
         # print greetings
         '''
@@ -99,6 +103,7 @@ class Game:
         Greet the player.
         Maybe read .json files for previous data to let the player have a general idea of the difficulty of the game.
         '''
+
     def run_game(self):
         '''
         1. give a list of options for the player to choose:
@@ -113,7 +118,7 @@ class Game:
                 - Lose some random body parts
                 (These two actions will be then update to the player object)
         '''
-    
+
 
 ```
 ### Modules
