@@ -11,6 +11,10 @@ example:
 ## Change Log
 > 12.20  
 
+0.2.4:
+- The CourtPiece game had been debugged.
+- Teller class had been added to print long explanations
+in a interactive manner.
 0.2.3:
 - The game handler class had been created.
   + CourtPiece class puts all the players together
