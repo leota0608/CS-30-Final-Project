@@ -7,9 +7,20 @@ x: represents the coder ID
 y: the version number  
 z: commit number  
 example:  
-0.1.1 means amir comitted his first commit to version 1.  
+0.1.1 means amir committed his first commit to version 1.  
 ## Change Log
 > 12.20  
+
+0.2.1:
+- Based on experiments after making games, the framework
+was fixed and improved
+
+0.1.1:
+- a framework was developed for the games to ensure all games
+would follow the same order.
+- An example with Rock Paper Scissor Shoot was written to
+demonstrate the use of this framework.
+
 
 1.1.# 
 - finish *player* folder

@@ -10,8 +10,8 @@ class GameHandler:
         self.characters = characters
         self.gameData = gameData
         # provide each character access to the game data
-        for self.character in self.characters:
-            self.character.setGameData(gameData)
+        for character in self.characters:
+            character.setGameData(gameData)
 
     def run(self):
         """
