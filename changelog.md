@@ -11,6 +11,19 @@ example:
 ## Change Log
 > 12.20  
 
+0.2.2:
+- Created a class named CPHumanPlayer that represents 
+the human-player of the CourtPiece.
+   + The class has the ability to directly ask the user.
+   + User responses are check to make sure are all correct.
+- Created a class named CPBot that ensures that represents all
+bots that play courtPiece.
+  + logic has been built into it.
+- CPCard class has been created to modularity represent the card
+games in Court Piece.
+  + Use operator overloading to make comparisons and use in logic
+  statements easier.
+
 0.2.1:
 - Based on experiments after making games, the framework
 was fixed and improved
