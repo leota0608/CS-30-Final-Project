@@ -11,6 +11,11 @@ example:
 ## Change Log
 > 12.20  
 
+0.2.5:
+- The teller class is enabled to interrupt itself, by asking
+the user a question, if they would like to continue.
+- Court Piece rules were written into a file and are being
+displayed to user.
 0.2.4:
 - The CourtPiece game had been debugged.
 - Teller class had been added to print long explanations

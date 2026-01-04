@@ -1,10 +1,13 @@
+import random as rd
+import time as tm
+
+from games.teller.Teller import Teller
 from games.common.GameHandler import GameHandler
 from CPGameData import CPGameData
 from CPBot import CPBot
 from CPHumanPlayer import CPHumanPlayer
 from CPCard import *
-import random as rd
-import time as tm
+
 
 
 class CourtPiece(GameHandler):
@@ -21,6 +24,7 @@ class CourtPiece(GameHandler):
         self.rounds = 2 * (4 - mode) + 7
         self.data = CPGameData()
         self.createCardEntries()
+        self.rules = Teller("rules.txt")
         GameHandler.__init__(self, self.players, self.data)
 
     def createCardEntries(self):
@@ -164,6 +168,7 @@ class CourtPiece(GameHandler):
         return winner
 
     def run(self):
+        self.rules.display()
         self.decideKing()
         distribution_deck = generateDeck()
         rd.shuffle(distribution_deck)
@@ -193,6 +198,3 @@ class CourtPiece(GameHandler):
         else:
             print(f"nobody actually won, it was a tie.")
 
-
-game = CourtPiece(CourtPiece.QUADRUPLE_PLAY, ["Ali", "Bagher", "Karim", "Mossa"])
-game.run()

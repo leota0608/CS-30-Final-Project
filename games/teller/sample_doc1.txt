@@ -3,7 +3,7 @@
 hello. this is a test for the game of thrones.
 we are not going to run any more tests after that.
 **2
-
+$%
 (LETTER):
 *0.1
 hello. This is a test for the game of thrones.

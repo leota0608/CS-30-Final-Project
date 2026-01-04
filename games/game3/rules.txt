@@ -1,0 +1,57 @@
+(LETTER):
+*0.06
+Hi, I am your game assistant, and here I want to teach
+you how to play court piece. If you are already familiar
+with Court Piece rules, feel free to stop me.
+$%
+**1
+
+(LETTER):
+*0.05
+Perfect. Court Piece is played with standard playing cards.
+First, cards must be shuffled. Then a card is given to each player
+until one of the players gets an ace. This lucky player will
+be the "king".
+$$
+
+(LETTER):
+*0.05
+Then, the king is given, five playing cards, and they must choose
+the "trump". I do not mean the US president though. Trump is a
+kind of card like spade, club, heart or diamond. It must be present
+among your cards. Later on you would learn what trump can really do!
+$$
+
+(WORD):
+*0.08
+Then we distribute the cards among the players. Each player would get
+an equal number of cards.
+$$
+
+(WORD):
+*0.08
+The king starts the game by choosing a card and placing it in the middle.
+Then each player, from left would play a card. The card that you play
+must be of the same kind as the first person's card.(In this case
+the king) The person who played the highest rank would win. Then the
+winner starts the next round similar to the above.
+$$
+
+(LETTER):
+*0.05
+Note: If you do not have the same kind of card as the starting player,
+do not worry. Here you can play a trump. Congratulations, you will then
+always win as long as nobody else played a trump of higher rank than you.
+If you do not have any trump card, then you can play any card. Though, you
+will never win in this case. So sad!
+$$
+
+(WORD):
+*0.05
+At the end, the person who won the highest number of round will win.
+Four player Court Piece is usually 7 rounds, three player is 9 and two player
+is 11.
+
+**1
+Now that you are familiar with Court Piece, start playing!
+$$
