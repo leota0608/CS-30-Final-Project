@@ -11,7 +11,7 @@ example:
 ## Change Log
 > 12.20  
 
-0.3.5:
+0.3.1:
 - The files for game of Hearts was created
 - The file CPCard was renamed GameCard and moved to the common
 folder.
