@@ -1,5 +1,5 @@
-from games.common.character import Character
-from CPCard import CPCard
+from games.common.Character import Character
+from games.common.GameCard import CPCard
 import random as rd
 
 

@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
-from games.common.character import Character
+from games.common.Character import Character
 from games.common.format import Format
 from games.game1.bot import Bot
 from games.game1.choose import choose

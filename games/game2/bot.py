@@ -1,5 +1,5 @@
 import json
-from games.common.character import Character
+from games.common.Character import Character
 import random
 
 class Bot(Character):

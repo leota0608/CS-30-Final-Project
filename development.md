@@ -83,7 +83,7 @@ The main code contains the `Game` class, which then imports the four mini games 
 from games.game1.main import Game1
 from games.game2.main import Game2
 from games.game3.CourtPiece import Game3
-from games.game4.main import Game4
+from games.game4.Hearts import Game4
 
 
 # the imports assumes that there are four classes named Game1-4 in the four py files

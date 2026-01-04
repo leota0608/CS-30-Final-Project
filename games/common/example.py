@@ -6,7 +6,7 @@ The example uses Rock Paper Scissor Shoot game
 for this purpose.
 """
 from GameHandler import GameHandler
-from character import Character
+from Character import Character
 import random
 
 

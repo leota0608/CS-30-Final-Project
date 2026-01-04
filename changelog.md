@@ -11,6 +11,10 @@ example:
 ## Change Log
 > 12.20  
 
+0.3.5:
+- The files for game of Hearts was created
+- The file CPCard was renamed GameCard and moved to the common
+folder.
 0.2.5:
 - The teller class is enabled to interrupt itself, by asking
 the user a question, if they would like to continue.

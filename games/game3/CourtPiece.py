@@ -6,8 +6,7 @@ from games.common.GameHandler import GameHandler
 from CPGameData import CPGameData
 from CPBot import CPBot
 from CPHumanPlayer import CPHumanPlayer
-from CPCard import *
-
+from games.common.GameCard import *
 
 
 class CourtPiece(GameHandler):
