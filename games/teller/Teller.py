@@ -21,6 +21,9 @@ class Teller:
     the symbol $$ on its own line. It causes a message saying
     "Hit Enter to continue>" to be displayed.
 
+    To ask the user if they want to continue or not use the symbol
+    $% on its own line.
+
     You can also put delays between sentences. Use "**" followed
     by the delay number on its own line to cause a delay.
 
@@ -47,6 +50,7 @@ class Teller:
     def display(self):
         current_mode = None
         word_delay = 0
+        stop = False
 
         for line in self.lines:
             # remove the last \n from the character
@@ -58,6 +62,18 @@ class Teller:
                     tm.sleep(delay)
                 elif line[:2] == "$$":
                     input("Hit Enter to continue> ")
+                elif line[:2] == "$%":
+                    while True:
+                        ans = input("Do you want to continue(Y/n)> ")
+                        if ans == "Y":
+                            break
+                        elif ans == "n":
+                            stop = True
+                            break
+                        else:
+                            print("Invalid input.")
+                    if stop:
+                        break
                 elif line[:1] == "*":
                     word_delay = float(line[1:])
                 else:
