@@ -1,6 +1,6 @@
 
 
-class CPCard:
+class GameCard:
     KINDS = {"club": 0, "spade": 1, "heart": 2, "diamond": 3}
     RANKS = {"two": 0, "three": 1, "four": 2, "five": 3,
              "six": 4, "seven": 5, "eight": 6, "nine": 7, "ten": 8,
@@ -22,20 +22,20 @@ class CPCard:
 
     @staticmethod
     def getKindName(kind):
-        for card_kind in CPCard.KINDS:
-            if CPCard.KINDS[card_kind] == kind:
+        for card_kind in GameCard.KINDS:
+            if GameCard.KINDS[card_kind] == kind:
                 return card_kind
         return None
 
     @staticmethod
     def getRankName(rank):
-        for card_rank in CPCard.RANKS:
-            if CPCard.RANKS[card_rank] == rank:
+        for card_rank in GameCard.RANKS:
+            if GameCard.RANKS[card_rank] == rank:
                 return card_rank
         return None
 
     def getName(self):
-        return CPCard.getKindName(self.kind), CPCard.getRankName(self.rank)
+        return GameCard.getKindName(self.kind), GameCard.getRankName(self.rank)
 
     def similarKind(self, other):
         return self.rank == other.rank
@@ -68,5 +68,5 @@ def generateDeck():
     cards = []
     for kind in range(0, 4):
         for rank in range(0, 13):
-            cards.append(CPCard(kind, rank))
+            cards.append(GameCard(kind, rank))
     return cards

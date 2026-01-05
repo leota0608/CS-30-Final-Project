@@ -1,5 +1,5 @@
 from games.common.Character import Character
-from games.common.GameCard import CPCard
+from games.common.GameCard import GameCard
 import random as rd
 
 
@@ -17,7 +17,7 @@ class CPBot(Character):
         is the trump.
         """
         cards = self.gameData.cards[self.name]
-        trump = rd.choice(list(CPCard.KINDS.keys()))
+        trump = rd.choice(list(GameCard.KINDS.keys()))
         count = 0
 
         for kind in cards:
@@ -71,9 +71,9 @@ class CPBot(Character):
             if self.isTableEmpty():
                 return self.getRandomCard()
             else:
-                king_kind = CPCard.getKindName(self.gameData.
-                                               table[self.gameData.
-                                               last_winner_ind].kind)
+                king_kind = GameCard.getKindName(self.gameData.
+                                                 table[self.gameData.
+                                                 last_winner_ind].kind)
                 cards = self.gameData.cards[self.name]
                 trump = self.gameData.trump
                 # we have several cards of the kind king
@@ -91,10 +91,10 @@ class CPBot(Character):
 
                     for card in self.gameData.table:
                         if card is not None:
-                            if card.kind == CPCard.KINDS[king_kind]:
+                            if card.kind == GameCard.KINDS[king_kind]:
                                 if c[largest_i].rank < card.rank:
                                     return c.pop(smallest_i)
-                            elif card.kind == CPCard.KINDS[trump]:
+                            elif card.kind == GameCard.KINDS[trump]:
                                 return c.pop(smallest_i)
                     return c.pop(largest_i)
                 else:

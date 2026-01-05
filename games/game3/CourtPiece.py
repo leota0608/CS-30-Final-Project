@@ -30,7 +30,7 @@ class CourtPiece(GameHandler):
         for player in self.players:
             self.data.cards[player.name] = dict()
             self.data.scores.update({player.name: 0})
-            for kind in CPCard.KINDS:
+            for kind in GameCard.KINDS:
                 self.data.cards[player.name].update({kind: []})
         self.data.table = [None] * len(self.players)
 
@@ -47,7 +47,7 @@ class CourtPiece(GameHandler):
                 print(f"{player.name}: ")
                 chosen = deck.pop()
                 print(chosen)
-                if chosen.rank == CPCard.RANKS["ace"]:
+                if chosen.rank == GameCard.RANKS["ace"]:
                     print(f"awsome player {player.name}.")
                     print(f"you are the king of this game.")
                     self.data.king = player
@@ -68,7 +68,7 @@ class CourtPiece(GameHandler):
             # in the future.
             for player in self.players:
                 chosen = deck.pop()
-                kind = CPCard.getKindName(chosen.kind)
+                kind = GameCard.getKindName(chosen.kind)
                 self.data.cards[player.name][kind].append(chosen)
 
         print(f"player {king_name}, choose your trump ")
@@ -84,7 +84,7 @@ class CourtPiece(GameHandler):
             cards = self.data.cards[player.name]
             for i in range(count):
                 chosen = deck.pop()
-                cards[CPCard.getKindName(chosen.kind)].append(chosen)
+                cards[GameCard.getKindName(chosen.kind)].append(chosen)
         print("...")
         tm.sleep(1)
         print(f"everyone now has {count + 5} fresh cards!")
@@ -119,7 +119,7 @@ class CourtPiece(GameHandler):
                     winner = i_
                     rank = put_rank
 
-            elif put_kind == CPCard.KINDS[self.data.trump]:
+            elif put_kind == GameCard.KINDS[self.data.trump]:
                 if kind != put_kind:
                     kind = put_kind
                     rank = put_rank

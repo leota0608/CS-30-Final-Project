@@ -11,6 +11,9 @@ example:
 ## Change Log
 > 12.20  
 
+0.3.2:
+- The game of Hearts is now able to distribute cards among players
+- It is also able to exchange cards with adjacent players.
 0.3.1:
 - The files for game of Hearts was created
 - The file CPCard was renamed GameCard and moved to the common

@@ -1,5 +1,5 @@
 from games.common.Character import Character
-from games.common.GameCard import CPCard
+from games.common.GameCard import GameCard
 
 
 class CPHumanPlayer(Character):
@@ -17,14 +17,14 @@ class CPHumanPlayer(Character):
                 print(f" - {card}")
 
         while True:
-            for kind in CPCard.KINDS:
+            for kind in GameCard.KINDS:
                 print(f" - {kind}")
 
             trump = input("please choose your trump? ")
-            if trump in CPCard.KINDS:
+            if trump in GameCard.KINDS:
                 for kind in cards:
                     for card in cards[kind]:
-                        if trump == CPCard.getKindName(card.kind):
+                        if trump == GameCard.getKindName(card.kind):
                             return trump
                 print("trump must exist among your cards.")
             else:
@@ -41,7 +41,7 @@ class CPHumanPlayer(Character):
                 print("     None")
 
     def doesExist(self, current_card):
-        cards = self.gameData.cards[self.name][CPCard.getKindName(current_card.kind)]
+        cards = self.gameData.cards[self.name][GameCard.getKindName(current_card.kind)]
         for i in range(len(cards)):
             card = cards[i]
             if card == current_card:
@@ -52,8 +52,8 @@ class CPHumanPlayer(Character):
 
         def isItACard(input_):
             if len(input_) == 2:
-                if input_[0] in CPCard.KINDS:
-                    if input_[1] in CPCard.RANKS:
+                if input_[0] in GameCard.KINDS:
+                    if input_[1] in GameCard.RANKS:
                         return True
             return False
 
@@ -73,7 +73,7 @@ class CPHumanPlayer(Character):
 
             # check if the given input represent a card
             if isItACard(given):
-                current_card = CPCard(given[0], given[1])
+                current_card = GameCard(given[0], given[1])
                 # does the card actually exist in the player's deck
                 ans = self.doesExist(current_card)
                 if ans != -1:
@@ -82,7 +82,7 @@ class CPHumanPlayer(Character):
                     # rules
                     last_card = self.gameData.table[self.gameData.last_winner_ind]
                     if last_card is not None:
-                        king_kind = CPCard.getKindName(last_card.kind)
+                        king_kind = GameCard.getKindName(last_card.kind)
                         # if the player has similar card to the
                         # the first player but the chosen card is
                         # different
