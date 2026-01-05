@@ -293,7 +293,7 @@ class Game2:
                         
 format = Format()
 
-# g = Game2(3)
-# g.run()
+g = Game2(3)
+g.run()
 
 

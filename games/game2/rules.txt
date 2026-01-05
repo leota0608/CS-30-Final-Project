@@ -2,9 +2,9 @@ Rules:
 Get a total value as close to 21 as possible without going over.
 Your score must be higher than all the other players to win.
 Card values:
-- A can be 1 or 11 points (automatically adjusted)
+- Ace can be 1 or 11 points (automatically adjusted)
 - 2-10 are face values
-- J, G, K are all 10 points
+- Jack, Queen, King are all 10 points
 
 Each player starts by drawing one card.
 On your turn, you can choose to DRAW or STAND (Note that is you choose to STAND when your score is lowest, you lose)
