@@ -96,3 +96,11 @@ demonstrate the use of this framework.
 > 12.31 1.2.9
 - Add playing strategy of savage, archery, dismantle and snatch of bot.
 - Debug...
+
+> 1.4 1.2.10
+- create rule.txt(not finished)
+- finish bot playing strategy
+- add new armor [evasion]
+- fix bug in duel method in main.py
+- added [crossblade] effect
+- debug
