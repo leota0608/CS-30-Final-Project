@@ -6,6 +6,7 @@ from HeartsGameData import HeartsGameData
 from HeartsBot import HeartsBot
 from HeartsHumanPlayer import HeartsHumanPlayer
 from games.common.GameCard import *
+from games.teller.Teller import Teller
 
 
 class Hearts(GameHandler):
@@ -20,6 +21,7 @@ class Hearts(GameHandler):
         # initializing game data
         self.data = HeartsGameData()
         self.initGameData()
+        self.rules = Teller("rules.txt")
 
         super().__init__(self.players, self.data)
 
@@ -193,6 +195,7 @@ class Hearts(GameHandler):
         return winner
 
     def run(self):
+        self.rules.display()
         self.distributeCards()
         self.exchangeCards()
         self.findStarterPlayer()
@@ -211,7 +214,3 @@ class Hearts(GameHandler):
         else:
             print(f"player {winner} won this game!!!!!!!")
             print(f"congrats to you player {winner}")
-
-
-h = Hearts(["Ali", "Arya", "Morteza", "Karim"])
-h.run()

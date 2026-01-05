@@ -1,0 +1,45 @@
+(LETTER):
+*0.05
+Hi, I am your game assistant, and here I would like to teach
+you how to play the game of Hearts. Oh, by the way, if you are
+already familiar with this game, feel free to skip me and start
+your game!
+$%
+**1
+
+(LETTER):
+*0.05
+Perfect. In Hearts, first all the cards are thoroughly shuffled.
+Then 13 cards is given to each of the four players.
+Then each player would hand over 3 of their cards to the player
+on their left.
+$$
+
+(WORD):
+*0.4
+Then, the player, who had the Two of Spade would start the game. The starter
+would put a card from their deck on the table. Then other players on the clockwise
+order would play their cards. Note that the subsequent cards must have the
+suit(kind) as the starting card. If you do not have that kind of
+card, then you may play any other card.
+$$
+
+(LETTER):
+*0.05
+Once that all four players played their cards, the player who put the
+highest ranking card with the same suit as the first player
+would win those cards. They would also get a score based on those
+cards. For every Heart, they get a score of 1, and for the
+Queen of Spade they get 13.
+$$
+
+(WORD):
+*0.4
+You will play 13 rounds and at the end the player who has the
+lowest score wins. Thus, you have to play for your self and be
+very selfish in this game!!
+**1
+
+Now that you know how to play Hearts, start Player.
+Good Luck!
+$$
