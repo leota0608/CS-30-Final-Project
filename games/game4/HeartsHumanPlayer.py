@@ -77,6 +77,37 @@ class HeartsHumanPlayer(Character):
             exchange_cards.append(self.getCard(i == 0))
         return exchange_cards
 
+    def choosePlayingCard(self):
+
+        print_guide = True
+
+        self.printCards()
+        print()
+
+        while True:
+            card = self.getCard(print_guide)
+
+            suit_card = self.gameData.table[self.gameData.starter_player]
+
+            # there is a suit in the game
+            # card must match its suit
+            if suit_card is not None:
+                if suit_card.kind != card.kind:
+                    suit_name = GameCard.getKindName(suit_card.kind)
+                    if len(self.gameData.cards[self.name][suit_name]) != 0:
+                        print("idiot, don't you know that your card must match the game suit")
+                        print("try again, you cheater!")
+                    else:
+                        return card
+                else:
+                    return card
+            else:
+                return card
+
+            print_guide = False
+
     def provoke(self, action):
         if action == "exchange":
             return self.chooseExchangeCards()
+        elif action == "play":
+            return self.choosePlayingCard()

@@ -92,7 +92,7 @@ class HeartsBot(Character):
                 s = self.findSmallestCard("heart", player)
                 if s != -1:
                     sRank = self.gameData.cards[player]["heart"][s].rank
-                    if sRank > s:
+                    if sRank > rank:
                         return lowest_heart
         return -1
 
@@ -101,7 +101,7 @@ class HeartsBot(Character):
         checks if we can play the spade queen as the
         start of the game.
         """
-        cards = self.gameData[self.name]["spade"]
+        cards = self.gameData.cards[self.name]["spade"]
 
         if len(cards) != 0:
             found = -1
@@ -142,14 +142,20 @@ class HeartsBot(Character):
         else:
             ind = self.findSmallestCard("spade", self.name)
             if ind != -1:
-                rank = cards[ind].rank
+                rank = cards["spade"][ind].rank
                 if rank == GameCard.RANKS["queen"]:
                     if len(cards["heart"]) == 0:
                         return cards["spade"].pop(ind)
                     else:
                         ind = self.findSmallestCard("heart", self.name)
-                        return cards["heart"].pop(ind)
+                        if ind != -1:
+                            return cards["heart"].pop(ind)
+                else:
+                    # there must be at least one card in the spades
+                    rd.shuffle(cards["spade"])
+                    return cards["spade"].pop()
             else:
+                # there must be at least one card in the hearts
                 ind = self.findSmallestCard("heart", self.name)
                 return cards["heart"].pop(ind)
 
@@ -175,7 +181,7 @@ class HeartsBot(Character):
 
         # at the end just pick any random card
         da = []
-        for suit in ["diamond", "club"]:
+        for suit in ["diamond", "club", "spade"]:
             if len(cards[suit]) != 0:
                 da.append(suit)
         chosen = rd.choice(da)
@@ -194,7 +200,7 @@ class HeartsBot(Character):
             return self.getPrioCard()
         else:
             suit = GameCard.getKindName(self.gameData.
-                                        table[self.gameData.start_player].kind)
+                                        table[self.gameData.starter_player].kind)
             cards = self.gameData.cards[self.name]
 
             if len(cards[suit]) != 0:

@@ -11,6 +11,9 @@ example:
 ## Change Log
 > 12.20  
 
+0.3.4:
+- The human logic for the game of hearts was developed.
+- The game was debugged.
 0.3.3:
 - playing logic for robot of the game of hearts was developed.
 0.3.2:

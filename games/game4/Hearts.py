@@ -132,14 +132,14 @@ class Hearts(GameHandler):
         for i in range(len(self.players)):
             if table[i].kind == suit:
                 if table[i].rank > rank:
-                    table[i].rank = rank
+                    rank = table[i].rank
                     winner = i
 
         return winner
 
     def findScore(self, name):
         score = 0
-        for card in self.data.cards:
+        for card in self.data.table:
             if card.kind == GameCard.KINDS["heart"]:
                 score += 1
             elif card == GameCard("spade", "queen"):
@@ -151,12 +151,17 @@ class Hearts(GameHandler):
 
         for round_ in range(rounds):
             print(f"------ round {round_} --------")
-
+            # self.printPlayerCards()
             starter = self.data.starter_player
             for i in range(starter, len(self.players)):
+                print(f"player {self.players[i].name}, put your card> ")
                 self.data.table[i] = self.players[i].provoke("play")
+                print(f"player {self.players[i].name} played {self.data.table[i]}.")
+
             for i in range(0, starter):
+                print(f"player {self.players[i].name}, put your card> ")
                 self.data.table[i] = self.players[i].provoke("play")
+                print(f"player {self.players[i].name} played {self.data.table[i]}.")
 
             self.data.starter_player = self.decideRoundWinner()
             name = self.players[self.data.starter_player].name
@@ -165,8 +170,27 @@ class Hearts(GameHandler):
             for i in range(len(self.data.table)):
                 self.data.table[i] = None
 
+            print()
             print(f"player {name} got the tricks of this round.")
             tm.sleep(1)
+            print()
+            print("scores: ")
+            for name in self.data.scores:
+                print(f"{name}: {self.data.scores[name]}")
+
+    def findWinner(self):
+        winner = self.players[self.data.starter_player].name
+        score = self.data.scores
+
+        for name in self.data.scores:
+            if score[winner] > score[name]:
+                winner = name
+
+        for name in self.data.scores:
+            if score[winner] == score[name] and winner != name:
+                return None
+
+        return winner
 
     def run(self):
         self.distributeCards()
@@ -176,9 +200,18 @@ class Hearts(GameHandler):
         print("now we begin the game")
         print()
         self.askPlayers()
+        print()
+        print("--- well it is over ---")
+        tm.sleep(1)
+        winner = self.findWinner()
+        print("and the winner is ...")
+        tm.sleep(1)
+        if winner is None:
+            print("it is actually a tie. Noone won!")
+        else:
+            print(f"player {winner} won this game!!!!!!!")
+            print(f"congrats to you player {winner}")
 
 
 h = Hearts(["Ali", "Arya", "Morteza", "Karim"])
 h.run()
-
-
