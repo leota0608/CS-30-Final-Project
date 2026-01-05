@@ -11,6 +11,8 @@ example:
 ## Change Log
 > 12.20  
 
+0.3.3:
+- playing logic for robot of the game of hearts was developed.
 0.3.2:
 - The game of Hearts is now able to distribute cards among players
 - It is also able to exchange cards with adjacent players.

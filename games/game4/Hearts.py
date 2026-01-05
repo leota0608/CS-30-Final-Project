@@ -28,6 +28,7 @@ class Hearts(GameHandler):
         for player in self.players:
             self.data.cards.update({player.name: dict()})
             self.data.scores.update({player.name: 0})
+            self.data.table.append(None)
             for kind in GameCard.KINDS:
                 self.data.cards[player.name].update({kind: list()})
 
@@ -115,10 +116,66 @@ class Hearts(GameHandler):
                 for card in self.data.cards[player][kind]:
                     print(card)
 
+    def decideRoundWinner(self):
+        """
+        decides the winner of the game by finding
+        the player who played the highest rank with the
+        same kind(suit) as the first player.
+        """
+        starter = self.data.starter_player
+        table = self.data.table
+        # this suit is not in terms of string value
+        suit = table[starter].kind
+        rank = table[starter].rank
+        winner = starter
+
+        for i in range(len(self.players)):
+            if table[i].kind == suit:
+                if table[i].rank > rank:
+                    table[i].rank = rank
+                    winner = i
+
+        return winner
+
+    def findScore(self, name):
+        score = 0
+        for card in self.data.cards:
+            if card.kind == GameCard.KINDS["heart"]:
+                score += 1
+            elif card == GameCard("spade", "queen"):
+                score += 13
+        self.data.scores[name] += score
+
+    def askPlayers(self):
+        rounds = 52 // len(self.players)
+
+        for round_ in range(rounds):
+            print(f"------ round {round_} --------")
+
+            starter = self.data.starter_player
+            for i in range(starter, len(self.players)):
+                self.data.table[i] = self.players[i].provoke("play")
+            for i in range(0, starter):
+                self.data.table[i] = self.players[i].provoke("play")
+
+            self.data.starter_player = self.decideRoundWinner()
+            name = self.players[self.data.starter_player].name
+            self.findScore(name)
+
+            for i in range(len(self.data.table)):
+                self.data.table[i] = None
+
+            print(f"player {name} got the tricks of this round.")
+            tm.sleep(1)
+
     def run(self):
         self.distributeCards()
         self.exchangeCards()
         self.findStarterPlayer()
+        print("--- prefect thus far ---")
+        print("now we begin the game")
+        print()
+        self.askPlayers()
 
 
 h = Hearts(["Ali", "Arya", "Morteza", "Karim"])
