@@ -49,13 +49,6 @@ class Bot(Human):
         for i, j in self.card_nums.items():
             num += j
         self.total_cardnums = num
-        
-    def evaluate_slash(self):
-        score = []
-        for i in self.enemy:
-            score.append((self.initial_health/self.health)*(10/100)) # 10%
-            opp_dodge_num = (self.card_nums["dodge"]-self.handcards["dodge"])/(self.total_cardnums-self.handcards["dodge"]) * len(i.handcards) # estimated opponent dodge number
-            self_slash_num = self.handcards["slash"]
 
     def find_high_value_target(self, player):
         targets_with_equipment = []
@@ -63,7 +56,7 @@ class Bot(Human):
         for i in range(len(player)):
             if i == self.index or not player[i].alive and len(player[i].handcards)>0:
                 continue
-            if not player[i].equipment["weapen"] is None:
+            if not player[i].equipment["weapen"] is None or not player[i].equipment["armor"] is None:
                 targets_with_equipment.append(i)
             player_health.append([player[i].health,  player[i].index])
         if len(targets_with_equipment) > 0:
@@ -95,11 +88,26 @@ class Bot(Human):
             if i[0].type == "equipment":
                 equipment.append(i)
         # weapen rank according to importance
-        weapen_rank = ["crossblade", "crossbow"]
+        count_slash = 0
+        for i in available_moves:
+            if i[0].name == "slash":
+                count_slash += 1
+        if count_slash >= 2 or self.health <= 3:
+            weapen_rank = ["crossblade", "crossbow"]
+        else:
+            weapen_rank = ["crossbow", "crossblade"]
         for i in weapen_rank:
             for j in equipment:
                 if i == j[0].name:
-                    return {"card": self.handcards[j[1]], "target": -1, "index": j[1]} # equip the best weapen
+                    if j[0].name != self.equipment["weapen"].name or len(self.handcards) > self.max_handcards:
+                        return {"card": self.handcards[j[1]], "target": -1, "index": j[1]} # equip the best weapen
+        # armor rank according to importance
+        armor_rank = ["evasion"]
+        for i in armor_rank:
+            for j in equipment:
+                if i == j[0].name:
+                    if j[0].name != self.equipment["armor"].name or len(self.handcards) > self.max_handcards:
+                        return {"card": self.handcards[j[1]], "target": -1, "index": j[1]}
         ## 3.
         # AOE and self beneficial cards
         trick_cards = ["savage", "archery", "benevolence"]
@@ -109,27 +117,68 @@ class Bot(Human):
         ## 4.
         # dismantle and snatch
         target = self.find_high_value_target(player) 
-        if target != -1:
+        if target != -1 and (len(player[target].handcards) > 0 or not player[target].equipment["weapen"] is None or not player[target].equipment["armor"] is None):
             trick_cards = ["snatch", "dismantle"]
             for j in trick_cards:
                 for i in available_moves:
                     if i[0].name == j:
                         return {"card": self.handcards[i[1]], "target": target, "index": i[1]}
-        #temp
+        ## 5. 
+        # duel
+        count_slash = 0
+        for i in available_moves:
+            if i[0].name == "slash":
+                count_slash += 1
+        if count_slash >= 1 and self.health >= 3 or (count_slash >= 2 and self.health >= 2):
+            for i in available_moves:
+                if i[0].name == "duel":
+                    target = self.choose_target()
+                    if random.randint(0, 100) < 50:
+                        return {"card": self.handcards[i[1]], "target": target[0][1], "index": i[1]}
+                    else:
+                        target = target[random.randint(1, len(target)-1)]
+                        return {"card": self.handcards[i[1]], "target": target[1], "index": i[1]}
+            
+        if len(self.handcards) <= self.max_handcards and self.health <= 2:
+            return -1
+        # play slash
         if self.act_step == 1:
             self.act_step -= 1
             for i in available_moves:
                 if i[0].name == "slash":
-                    target = []
-                    for e in self.enemy:
-                        if e == "self" or not e["alive"]:
-                            continue
-                        target.append([e["health"], e["index"]])
-                    target.sort(key=lambda x: x[0])
+                    target = self.choose_target()
+                    if random.randint(0, 100) < 50:
+                        return {"card": self.handcards[i[1]], "target": target[0][1], "index": i[1]}
+                    else:
+                        target = target[random.randint(1, len(target)-1)]
+                        return {"card": self.handcards[i[1]], "target": target[1], "index": i[1]}
 
-                    return {"card": self.handcards[i[1]], "target": target[0][1], "index": i[1]}
         
         return -1
-                
+    
+    def choose_target(self):
+        target = []
+        for e in self.enemy:
+            if e == "self" or not e["alive"]:
+                continue
+            target.append([e["health"], e["index"]])
+        target.sort(key=lambda x: x[0])
+        return target
+    
+    def discard_card(self):
+        for i in range(0, len(self.handcards)):
+            if self.handcards[i].name == "duel":
+                return i
+        for i in range(0, len(self.handcards)):
+            if self.handcards[i].name == "slash":
+                return i
+        for i in range(0, len(self.handcards)):
+            if self.handcards[i].name == "dodge":
+                return i
+        for i in range(0, len(self.handcards)):
+            if self.handcards[i].name == "peach":
+                return i
+        return random.randint(0, len(self.handcards)-1)
+      
             
     # update enemy in main

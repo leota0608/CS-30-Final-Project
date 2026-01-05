@@ -59,6 +59,8 @@ class Game1:
                 if not self.running:
                     self.result = True
                     print("You fought to the end, there are no cards left.\nThe judeg came and decided you are the winner...")
+                    print("Returning to lobby in 3s")
+                    time.sleep(2)
                     break
 
                 # take turns
@@ -74,7 +76,6 @@ class Game1:
                         print("You won!")
                         self.result = True
                     break
-
                 # discard phase
                 self.discard_phase(i)
     
@@ -141,7 +142,7 @@ class Game1:
                         output += ' '
                 print(f"{card_name:<25}{output}|", end='')
             elif i == 2:
-                output = f"| Max handcards: {self.player[p].health}"
+                output = f"| Max handcards: {self.player[num].health}"
                 while len(output)<=35:
                     output += ' '
                 for p in range(1, len(self.player)):
@@ -188,7 +189,8 @@ class Game1:
         for i in range(len(self.player[num].handcards)):
             if self.player[num].handcards[i].name == "peach":
                 # relpace player 1 with You
-                print(f"player {num+1} uses a peach and gaines one point of health")
+                print(f"player {num+1} uses a [peach] and gaines one point of health")
+                time.sleep(0.7)
                 self.player[num].health = 1
                 self.player[num].max_handcards = 1
                 self.player[num].handcards.pop(i)
@@ -215,11 +217,88 @@ class Game1:
             self.player[i].enemy[num]["alive"] = False # update bot's prediction
         self.player[num].alive = False
 
-    def attack(self, num, human):# human = 1: player attack AI; human = 0: AI attacks AI; human = -1: AI attacks human
-        # attack num
-        #print(f"num: {num}")# debug
+    def attack(self, num1, num2, human):# human = 1: player attack AI; human = 0: AI attacks AI; human = -1: AI attacks human
+        # Check if num2 has evasion armor equipped
+        if self.player[num2].equipment["armor"] is not None and self.player[num2].equipment["armor"].name == "evasion":
+            # 50% chance to automatically dodge
+            if random.randint(0, 1) == 0:  # 50% chance
+                if num2 == 0:
+                    print("Your [evasion] armor dodged the [slash]")
+                else:
+                    print(f"Player {num2+1}'s [evasion] armor dodged the [slash]")
+                time.sleep(0.7)
+
+                # Check if attacker has crossblade for the crossblade effect
+                if self.player[num1].equipment["weapen"] is not None and \
+                self.player[num1].equipment["weapen"].name == "crossblade":
+                    if human == 1:  # Player is attacker
+                        choice = choose(f"Do you choose to lose one health point to let Player {num2+1} lose one health point?(y/n): ")
+                        if choice.lower() in ['y', 'yes']:
+                            time.sleep(0.7)
+                            # Attacker loses 1 health
+                            self.player[num1].health -= 1
+                            self.player[num1].max_handcards -= 1
+                            for k in range(1, len(self.player)):
+                                if k == num1 or not self.player[k].alive:
+                                    continue
+                                self.player[k].enemy[num1]["health"] -= 1
+                            print(f"Your current health: {self.player[num1].health}")
+                            if self.player[num1].health == 0:
+                                self.nearly_dead(num1)
+                            
+                            # Target loses 1 health
+                            self.player[num2].health -= 1
+                            self.player[num2].max_handcards -= 1
+                            for k in range(1, len(self.player)):
+                                if k == num2 or not self.player[k].alive:
+                                    continue
+                                self.player[k].enemy[num2]["health"] -= 1
+                            if num2 == 0:
+                                print(f"You lose one health point\ncurrent health: {self.player[num2].health}")
+                            else:
+                                print(f"Player {num2+1} loses one health point\ncurrent health: {self.player[num2].health}")
+                            time.sleep(0.7)
+                            if self.player[num2].health == 0:
+                                self.nearly_dead(num2)
+                    elif human == -1 or human == 0:  # AI is attacker
+                        if self.player[num1].health >= 3 or (self.player[num1].health >= 2 and self.player[num2].health == 1):
+                            print(f"Player {num1+1} choose to lose 1 health to cause 1 damage")
+                            time.sleep(0.7)
+                            # Attacker loses 1 health
+                            self.player[num1].health -= 1
+                            self.player[num1].max_handcards -= 1
+                            for k in range(1, len(self.player)):
+                                if k == num1 or not self.player[k].alive:
+                                    continue
+                                self.player[k].enemy[num1]["health"] -= 1
+                            print(f"Player {num1+1}'s current health: {self.player[num1].health}")
+                            if self.player[num1].health == 0:
+                                self.nearly_dead(num1)
+                            
+                            # Target loses 1 health
+                            self.player[num2].health -= 1
+                            self.player[num2].max_handcards -= 1
+                            for k in range(1, len(self.player)):
+                                if k == num2 or not self.player[k].alive:
+                                    continue
+                                self.player[k].enemy[num2]["health"] -= 1
+                            if num2 == 0:
+                                print(f"You lose one health point\ncurrent health: {self.player[num2].health}")
+                            else:
+                                print(f"Player {num2+1} loses one health point\ncurrent health: {self.player[num2].health}")
+                            time.sleep(0.7)
+                            if self.player[num2].health == 0:
+                                self.nearly_dead(num2)
+                return  # End attack since evasion dodged
+            else:
+                if num2 == 0:
+                    print("Your [evasion] armor failed to dodged the [slash]")
+                else:
+                    print(f"Player {num2+1}'s [evasion] armor failed to dodged the [slash]")
+                time.sleep(0.7)
+        # num1 attacks num2
         lose_health = True
-        if human == -1:
+        if human == -1:  # AI attacks human
             find_dodge = -1
             for j in range(len(self.player[0].handcards)):
                 if self.player[0].handcards[j].name == "dodge":
@@ -231,149 +310,257 @@ class Game1:
                 if choice.lower() in ['y', "yes"]:
                     lose_health = False
                     print("You played a dodge...")
-                    for i in range(len(self.player[num].handcards)):
-                        if self.player[num].handcards[i].name == "dodge":
-                            self.player[num].handcards.pop(i)
+                    for i in range(len(self.player[0].handcards)):
+                        if self.player[0].handcards[i].name == "dodge":
+                            self.player[0].handcards.pop(i)
                             for j in range(1, len(self.player)):
-                                if j == num:
+                                if not self.player[j].alive:
                                     continue
-                                self.player[j].enemy[num]["estimated_handcards"]["dodge"] -= 1 # update bot's prediction
-                                self.player[j].enemy[num]["handcard_num"] -= 1
-                                if self.player[j].enemy[num]["estimated_handcards"]["dodge"] < 0:
+                                self.player[j].enemy[0]["estimated_handcards"]["dodge"] -= 1
+                                self.player[j].enemy[0]["handcard_num"] -= 1
+                                if self.player[j].enemy[0]["estimated_handcards"]["dodge"] < 0:
                                     print("**ERROR: function-attack-dodge<0**")
                             break
+                    
+                    # Check if attacker has crossblade
+                    if self.player[num1].equipment["weapen"] is not None and \
+                    self.player[num1].equipment["weapen"].name == "crossblade":
+                        # AI decides whether to use crossblade effect
+                        if self.player[num1].health >= 3 or (self.player[num1].health >= 2 and self.player[num2].health == 1):  # AI only uses if health >= 2
+                            print(f"Player {num1+1} choose to lose 1 health to cause 1 damage.")
+                            time.sleep(0.7)
+                            # Attacker loses 1 health
+                            self.player[num1].health -= 1
+                            self.player[num1].max_handcards -= 1
+                            for i in range(1, len(self.player)):
+                                if i == num1 or not self.player[i].alive:
+                                    continue
+                                self.player[i].enemy[num1]["health"] -= 1
+                            print(f"Player {num1+1}'s current health: {self.player[num1].health}")
+                            if self.player[num1].health == 0:
+                                self.nearly_dead(num1)
+                            
+                            # Target loses 1 health
+                            self.player[num2].health -= 1
+                            self.player[num2].max_handcards -= 1
+                            for i in range(1, len(self.player)):
+                                if i == num2 or not self.player[i].alive:
+                                    continue
+                                self.player[i].enemy[num2]["health"] -= 1
+                            print(f"You lose one health point\ncurrent health: {self.player[num2].health}")
+                            time.sleep(0.7)
+                            if self.player[num2].health == 0:
+                                self.nearly_dead(num2)
                 else:
                     print("You choose not to play a dodge and lose one health point")
-        elif human == 0: # AI atk AI
+                    
+        elif human == 0:  # AI attacks AI
             find_dodge = -1
-            for j in range(len(self.player[num].handcards)):
-                if self.player[num].handcards[j].name == "dodge":
+            for j in range(len(self.player[num2].handcards)):
+                if self.player[num2].handcards[j].name == "dodge":
                     find_dodge = j
             if find_dodge == -1:
-                print(f"Player {num+1} don't have a dodge")
+                print(f"Player {num2+1} don't have a dodge")
             else:
-                for i in range(len(self.player[num].handcards)):
-                    if self.player[num].handcards[i].name == "dodge":
-                        print(f"player {num+1} uses [dodge]")
-                        self.player[num].handcards.pop(i)
+                for i in range(len(self.player[num2].handcards)):
+                    if self.player[num2].handcards[i].name == "dodge":
+                        print(f"player {num2+1} uses [dodge]")
+                        self.player[num2].handcards.pop(i)
 
                         for j in range(1, len(self.player)):
-                            if j == num:
+                            if j == num2:
                                 continue
-                            self.player[j].enemy[num]["estimated_handcards"]["dodge"] -= 1 # update bot's prediction
-                            self.player[j].enemy[num]["handcard_num"] -= 1
-                            if self.player[j].enemy[num]["estimated_handcards"]["dodge"] < 0:
+                            self.player[j].enemy[num2]["estimated_handcards"]["dodge"] -= 1
+                            self.player[j].enemy[num2]["handcard_num"] -= 1
+                            if self.player[j].enemy[num2]["estimated_handcards"]["dodge"] < 0:
                                 print("**ERROR: function-attack-dodge<0**")
                         lose_health = False
+                        
+                        # Check if attacker has crossblade
+                        if self.player[num1].equipment["weapen"] is not None and \
+                        self.player[num1].equipment["weapen"].name == "crossblade":
+                            # AI decides whether to use crossblade 
+                            if self.player[num1].health >= 3 or (self.player[num1].health >= 2 and self.player[num2].health == 1):  # AI only uses if health >= 2
+                                print(f"Player {num1+1} choose to lose 1 health to cause 1 damage")
+                                time.sleep(0.7)
+                                # Attacker loses 1 health
+                                self.player[num1].health -= 1
+                                self.player[num1].max_handcards -= 1
+                                for k in range(1, len(self.player)):
+                                    if k == num1 or not self.player[k].alive:
+                                        continue
+                                    self.player[k].enemy[num1]["health"] -= 1
+                                print(f"Player {num1+1}'s current health: {self.player[num1].health}")
+                                if self.player[num1].health == 0:
+                                    self.nearly_dead(num1)
+                                
+                                # Target loses 1 health
+                                self.player[num2].health -= 1
+                                self.player[num2].max_handcards -= 1
+                                for k in range(1, len(self.player)):
+                                    if k == num2 or not self.player[k].alive:
+                                        continue
+                                    self.player[k].enemy[num2]["health"] -= 1
+                                print(f"Player {num2+1} loses one health point\ncurrent health: {self.player[num2].health}")
+                                time.sleep(0.7)
+                                if self.player[num2].health == 0:
+                                    self.nearly_dead(num2)
                         break
-        else:
-            for i in range(len(self.player[num].handcards)):
-                
-                if self.player[num].handcards[i].name == "dodge":
-                    print(f"player {num+1} uses [dodge]")
-                    self.player[num].handcards.pop(i)
+                        
+        else:  # Player attacks AI
+            for i in range(len(self.player[num2].handcards)):
+                if self.player[num2].handcards[i].name == "dodge":
+                    print(f"player {num2+1} uses [dodge]")
+                    self.player[num2].handcards.pop(i)
 
                     for j in range(1, len(self.player)):
-                        if j == num:
+                        if j == num2:
                             continue
-                        self.player[j].enemy[num]["estimated_handcards"]["dodge"] -= 1 # update bot's prediction
-                        self.player[j].enemy[num]["handcard_num"] -= 1
-                        if self.player[j].enemy[num]["estimated_handcards"]["dodge"] < 0:
+                        self.player[j].enemy[num2]["estimated_handcards"]["dodge"] -= 1
+                        self.player[j].enemy[num2]["handcard_num"] -= 1
+                        if self.player[j].enemy[num2]["estimated_handcards"]["dodge"] < 0:
                             print("**ERROR: function-attack-dodge<0**")
                     lose_health = False
+                    
+                    # Check if attacker (human player) has crossblade
+                    if self.player[num1].equipment["weapen"] is not None and self.player[num1].equipment["weapen"].name == "crossblade":
+                        choice = choose(f"Do you choose to lose one health point to let Player {num2+1} lose one health point?(y/n): ")
+                        if choice.lower() in ['y', 'yes']:
+                            time.sleep(0.7)
+                            # Attacker loses 1 health
+                            self.player[num1].health -= 1
+                            self.player[num1].max_handcards -= 1
+                            for k in range(1, len(self.player)):
+                                if k == num1 or not self.player[k].alive:
+                                    continue
+                                self.player[k].enemy[num1]["health"] -= 1
+                            print(f"Your current health: {self.player[num1].health}")
+                            if self.player[num1].health == 0:
+                                self.nearly_dead(num1)
+                            
+                            # Target loses 1 health
+                            self.player[num2].health -= 1
+                            self.player[num2].max_handcards -= 1
+                            for k in range(1, len(self.player)):
+                                if k == num2 or not self.player[k].alive:
+                                    continue
+                                self.player[k].enemy[num2]["health"] -= 1
+                            print(f"Player {num2+1} loses one health point\ncurrent health: {self.player[num2].health}")
+                            time.sleep(0.7)
+                            if self.player[num2].health == 0:
+                                self.nearly_dead(num2)
                     break
 
         if lose_health:
-            self.player[num].health -= 1
+            self.player[num2].health -= 1
 
             for i in range(1, len(self.player)):
-                if i == num or not self.player[i].enemy[num]["alive"]:
+                if i == num2 or not self.player[i].alive:
                     continue
-                self.player[i].enemy[num]["health"] -= 1 # update bot's prediction]
+                self.player[i].enemy[num2]["health"] -= 1
 
-            self.player[num].max_handcards -= 1
-            if num == 0:
+            self.player[num2].max_handcards -= 1
+            if num2 == 0:
                 player = "You"
             else:
-                player = f"Player {num+1}"
-            print(f"{player} loses one health point\ncurrent health: {self.player[num].health}")
-            if self.player[num].health == 0:
-                self.nearly_dead(num)
-            
+                player = f"Player {num2+1}"
+            print(f"{player} loses one health point\ncurrent health: {self.player[num2].health}")
+            time.sleep(0.7)
+            if self.player[num2].health == 0:
+                self.nearly_dead(num2)
+
     def peach(self, num): # num: the player who uses the peach
         target = f"Player {num+1} uses" if num != 0 else "You use"
         self.player[num].health += 1
         self.player[num].max_handcards += 1
         print(f"{target} a peach and gained one health point...")
         print(f"Current health: {self.player[num].health}")
+        time.sleep(0.7)
         for i in range(1, len(self.player)):
-            if i == num or not self.player[i].enemy[num]["alive"]:
+            if i == num or not self.player[i].alive:
                 continue
             self.player[i].enemy[num]["estimated_handcards"]["peach"] -= 1 # update bot's prediction
             self.player[i].enemy[num]["handcard_num"] -= 1
             if self.player[i].enemy[num]["estimated_handcards"]["peach"] < 0:
                 print("**ERROR: 2function-peach<0**")
+   
     def duel(self, num1, num2, human):# human = 1: num1 human, -1: num2 is human, 0: two AI dueling
-
-        # opponent first plays a slash, and then the user, maybe need adjustment
-
-        print("     **[DUEL]**")
-        # num1
-        if human == 0:
-            # AI evaluate
-            # 2 AIs
-            print("AI should be evaluating this")
-            return
-        if human == -1: # num2 is human
-            # AI should be evaluating this
-            self.duel(num2, num1, human*-1)
-            return
-        player = f"You " if human == 1 else f"player {num1+1} "
-        print(f"Your turn:") if human == 1 else print(f"player {num1+1}'s turn:")
+        # num1 is the initiator of duel
+        # num2 is the target who needs to respond first
+        
+        # Check if target player (num2) has slash
         find_slash = -1
-        for i in range(len(self.player[num1].handcards)):
-            if self.player[num1].handcards[i].name == "slash":
+        for i in range(len(self.player[num2].handcards)):
+            if self.player[num2].handcards[i].name == "slash":
                 find_slash = i
+                break
+        
+        # Determine player name for display
+        if num2 == 0:
+            player_name = "You"
+        else:
+            player_name = f"Player {num2+1}"
+        
+        print(f"{player_name}'s turn:")
+        time.sleep(0.5)
+        
+        # If no slash found, player loses health and duel ends
         if find_slash == -1:
-            print(f"{player} don't have any slashes and loses one health point\nDuel ends")
-            self.player[num1].health -= 1
-
-            for i in range(1, len(self.player)):
-                if i == num1 or not self.player[i].enemy[num1]["alive"]:
-                    continue
-                self.player[i].enemy[num1]["health"] -= 1 # update bot's prediction]
-
-            self.player[num1].max_handcards -= 1
-            if self.player[num1].health == 0:
-                self.nearly_dead(num1)
-            return
-        choice = choose("Do you choose to play a [slash]?(yes/no)", ["yes", "no"])
-        if choice == "yes":
-            print(f"{player} player a slash")
-            self.player[num1].handcards.pop(find_slash)
+            print(f"{player_name} don't have any slashes and loses one health point\nDuel ends")
+            self.player[num2].health -= 1
             
             for i in range(1, len(self.player)):
-                if i == num1 or not self.player[i].enemy[num1]["alive"]:
+                if i == num2 or not self.player[i].alive:
                     continue
-                self.player[i].enemy[num1]["estimated_handcards"]["slash"] -= 1 # update bot's prediction
-                self.player[i].enemy[num1]["handcard_num"] -= 1
-                if self.player[i].enemy[num1]["estimated_handcards"]["slash"] < 0:
-                    print("**ERROR: function-duel-slash<0**")
-
-        else:
-            self.player[num1].health -= 1
-
+                self.player[i].enemy[num2]["health"] -= 1 # update bot's prediction
+            
+            self.player[num2].max_handcards -= 1
+            if self.player[num2].health == 0:
+                self.nearly_dead(num2)
+            return
+        
+        # Player has slash - now decide whether to play it
+        play_slash = False
+        
+        if human == -1:  # num2 is human
+            choice = choose("Do you choose to play a [slash]?(y/n)", ["yes", 'y', "no", 'n'])
+            if choice in ['y', "yes"]:
+                play_slash = True
+        elif human == 1:  # num1 is human (but we're checking num2, so num2 is AI)
+            # AI always plays slash if available
+            play_slash = True
+        else:  # human == 0, both are AI
+            # AI always plays slash if available
+            play_slash = True
+        
+        if play_slash:
+            print(f"{player_name} played a [slash]")
+            time.sleep(0.7)
+            self.player[num2].handcards.pop(find_slash)
+            
             for i in range(1, len(self.player)):
-                if i == num1 or not self.player[i].enemy[num1]["alive"]:
+                if i == num2 or not self.player[i].alive:
                     continue
-                self.player[i].enemy[num1]["health"] -= 1 # update bot's prediction]
-                
-                
-            self.player[num1].max_handcards -= 1
-            print(f"{player} loses one health point\ncurrent health point: {self.player[num1].health}")
-            if self.player[num1].health == 0:
-                self.nearly_dead(num1)
-        self.duel(num2, num1, -human)
+                self.player[i].enemy[num2]["estimated_handcards"]["slash"] -= 1 # update bot's prediction
+                self.player[i].enemy[num2]["handcard_num"] -= 1
+                if self.player[i].enemy[num2]["estimated_handcards"]["slash"] < 0:
+                    print("**ERROR: function-duel-slash<0**")
+            
+            # Continue duel - now num1's turn (swap positions)
+            self.duel(num2, num1, -human if human != 0 else 0)
+        else:
+            # Player chose not to play slash, loses health
+            print(f"{player_name} chose not to play a slash and loses one health point\nDuel ends")
+            self.player[num2].health -= 1
+            
+            for i in range(1, len(self.player)):
+                if i == num2 or not self.player[i].alive:
+                    continue
+                self.player[i].enemy[num2]["health"] -= 1 # update bot's prediction
+            
+            self.player[num2].max_handcards -= 1
+            if self.player[num2].health == 0:
+                self.nearly_dead(num2)
 
     def dismantle(self, num1, num2, human):# human = 1: human dismantle AI| -1:AI dismantle human| 0: two AI 
         if human <= 0:
@@ -388,10 +575,21 @@ class Game1:
                     player = f"you"
                 print(f"[{self.player[num2].equipment['weapen'].name}] dismantled from {player}")
                 for i in range(1, len(self.player)):# player[num2] lost a card
-                    if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                    if i == num2 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num2]["equipment"]["weapen"] = None # update bot's prediction                    
                 self.player[num2].equipment["weapen"] = None
+            elif not self.player[num2].equipment["armor"] is None:
+                if human == 0:
+                    player = f"player {num2+1}"
+                if human == -1:
+                    player = f"you"
+                print(f"[{self.player[num2].equipment['armor'].name}] dismantled from {player}")
+                for i in range(1, len(self.player)):# player[num2] lost a card
+                    if i == num2 or not self.player[i].alive:
+                        continue
+                    self.player[i].enemy[num2]["equipment"]["armor"] = None # update bot's prediction                    
+                self.player[num2].equipment["armor"] = None
             else:
                 random_index = random.randint(0, len(self.player[num2].handcards)-1)
                 card_choice = self.player[num2].handcards[random_index]
@@ -399,7 +597,7 @@ class Game1:
                 print(f"[{card_choice.name}] dismantled...")
                 self.player[num2].handcards.pop(random_index)
                 for i in range(1, len(self.player)):# player[num2] lost a card
-                    if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                    if i == num2 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num2]["estimated_handcards"][card_choice.name] -= 1 # update bot's prediction
                     self.player[i].enemy[num2]["handcard_num"] -= 1
@@ -414,13 +612,13 @@ class Game1:
             armor_name = "Not equipped" if self.player[num2].equipment['armor'] is None else self.player[num2].equipment['armor'].name
             print("Equipment:")
             if weapen_name != "Not equipped":
-                print(f"Weapen: {valid_choice[-1]+1}. {weapen_name}")
-                valid_choice.append(valid_choice[-1]+1)
+                print(f"Weapen: {int(valid_choice[-1])+1}. {weapen_name}")
+                valid_choice.append(str(int(valid_choice[-1])+1))
             else:
                 print(f"Weapen: {weapen_name}")
             if armor_name != "Not equipped":
-                print(f"Armor: {valid_choice[-1]+1}. {armor_name}")
-                valid_choice.append(valid_choice[-1]+1)
+                print(f"Armor: {int(valid_choice[-1])+1}. {armor_name}")
+                valid_choice.append(str(int(valid_choice[-1])+1))
             else:
                 print(f"Weapen: {armor_name}")
 
@@ -428,7 +626,7 @@ class Game1:
             if card_choice == len(self.player[num2].handcards)+1 and weapen_name != "Not equipped":
                 print(f"[{weapen_name}] dismantled from player {num2+1}")
                 for i in range(1, len(self.player)):# player[num2] lost a card
-                    if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                    if i == num2 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num2]["equipment"]["weapen"] = None # update bot's prediction
                 self.player[num2].equipment["weapen"] = None  
@@ -436,7 +634,7 @@ class Game1:
             elif card_choice == len(self.player[num2].handcards)+1 and weapen_name == "Not equipped" or card_choice == len(self.player[num2].handcards)+2:
                 print(f"[{armor_name}] dismantled from player {num2+1}")
                 for i in range(1, len(self.player)):# player[num2] lost a card
-                    if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                    if i == num2 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num2]["equipment"]["armor"] = None # update bot's prediction
                 self.player[num2].equipment["armor"] = None  
@@ -450,7 +648,7 @@ class Game1:
             self.player[num2].handcards.pop(random_select)
             # update enemy handcard
             for i in range(1, len(self.player)):
-                if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                if i == num2 or not self.player[i].alive:
                     continue
                 self.player[i].enemy[num2]["estimated_handcards"][selected_card.name] -= 1 # update bot's prediction
                 self.player[i].enemy[num2]["handcard_num"] -= 1
@@ -467,16 +665,29 @@ class Game1:
             if not self.player[num2].equipment["weapen"] is None:
                 self.player[num1].handcards.append(self.player[num2].equipment["weapen"])
                 for i in range(1, len(self.player)):# player[num2] lost a card
-                    if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                    if i == num2 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num2]["equipment"]["weapen"] = None # update bot's prediction
                 for i in range(1, len(self.player)):# player[num1]
-                    if i == num1 or not self.player[i].enemy[num1]["alive"]:
+                    if i == num1 or not self.player[i].alive:
                         continue
-                    self.player[i].enemy[num1]["estimated_handcards"][self.player[num1].equipment["weapen"].name] += 1 # update bot's prediction
+                    self.player[i].enemy[num1]["estimated_handcards"][self.player[num2].equipment["weapen"].name] += 1 # update bot's prediction
                     self.player[i].enemy[num1]["handcard_num"] += 1
                     
                 self.player[num2].equipment["weapen"] = None
+            elif not self.player[num2].equipment["armor"] is None:
+                self.player[num1].handcards.append(self.player[num2].equipment["armor"])
+                for i in range(1, len(self.player)):# player[num2] lost a card
+                    if i == num2 or not self.player[i].alive:
+                        continue
+                    self.player[i].enemy[num2]["equipment"]["armor"] = None # update bot's prediction
+                for i in range(1, len(self.player)):# player[num1]
+                    if i == num1 or not self.player[i].alive:
+                        continue
+                    self.player[i].enemy[num1]["estimated_handcards"][self.player[num2].equipment["armor"].name] += 1 # update bot's prediction
+                    self.player[i].enemy[num1]["handcard_num"] += 1
+                    
+                self.player[num2].equipment["armor"] = None
             else:
                 random_index = random.randint(0, len(self.player[num2].handcards)-1)
                 card_choice = self.player[num2].handcards[random_index]
@@ -484,12 +695,12 @@ class Game1:
                 self.player[num1].handcards.append(card_choice)
                 self.player[num2].handcards.pop(random_index)
                 for i in range(1, len(self.player)):# player[num2] lost a card
-                    if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                    if i == num2 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num2]["estimated_handcards"][card_choice.name] -= 1 # update bot's prediction
                     self.player[i].enemy[num2]["handcard_num"] -= 1
                 for i in range(1, len(self.player)):# player[num1] gain a card
-                    if i == num1 or not self.player[i].enemy[num1]["alive"]:
+                    if i == num1 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num1]["estimated_handcards"][card_choice.name] += 1 # update bot's prediction
                     self.player[i].enemy[num1]["handcard_num"] += 1
@@ -503,13 +714,13 @@ class Game1:
             armor_name = "Not equipped" if self.player[num2].equipment['armor'] is None else self.player[num2].equipment['armor'].name
             print("Equipment:")
             if weapen_name != "Not equipped":
-                print(f"Weapen: {valid_choice[-1]+1}. {weapen_name}")
-                valid_choice.append(valid_choice[-1]+1)
+                print(f"Weapen: {int(valid_choice[-1])+1}. {weapen_name}")
+                valid_choice.append(str(int(valid_choice[-1])+1))
             else:
                 print(f"Weapen: {weapen_name}")
             if armor_name != "Not equipped":
-                print(f"Armor: {valid_choice[-1]+1}. {armor_name}")
-                valid_choice.append(valid_choice[-1]+1)
+                print(f"Armor: {int(valid_choice[-1])+1}. {armor_name}")
+                valid_choice.append(str(int(valid_choice[-1])+1))
             else:
                 print(f"Weapen: {armor_name}")
 
@@ -518,12 +729,12 @@ class Game1:
                 print(f"[{weapen_name}] added to you handcards")
                 self.player[num1].equipment["weapen"] = self.player[num2].equipment["weapen"]
                 for i in range(1, len(self.player)):# player[num2] lost a card
-                    if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                    if i == num2 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num2]["equipment"]["weapen"] = None # update bot's prediction
                 
                 for i in range(1, len(self.player)): # player[num1] gained one card
-                    if i == num1 or not self.player[i].enemy[num1]["alive"]:
+                    if i == num1 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num1]["equipment"]["weapen"] =self.player[num2].equipment["weapen"]  # update bot's prediction
                 self.player[num2].equipment["weapen"] = None  
@@ -532,12 +743,12 @@ class Game1:
                 print(f"[{armor_name}] added to you handcards")
                 self.player[num1].equipment["armor"] = self.player[num2].equipment["armor"]
                 for i in range(1, len(self.player)):# player[num2] lost a card
-                    if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                    if i == num2 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num2]["equipment"]["armor"] = None # update bot's prediction
                 
                 for i in range(1, len(self.player)): # player[num1] gained one card
-                    if i == num1 or not self.player[i].enemy[num1]["alive"]:
+                    if i == num1 or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num1]["estimated_handcards"][self.player[num2].equipment["armor"].name] += 1 # update bot's prediction
                 self.player[num2].equipment["armor"] = None  
@@ -551,7 +762,7 @@ class Game1:
             self.player[num2].handcards.pop(card_choice)
             # update enemy handcard
             for i in range(1, len(self.player)):# player[num2] lost a card
-                if i == num2 or not self.player[i].enemy[num2]["alive"]:
+                if i == num2 or not self.player[i].alive:
                     continue
                 self.player[i].enemy[num2]["estimated_handcards"][selected_card.name] -= 1 # update bot's prediction
                 self.player[i].enemy[num2]["handcard_num"] -= 1
@@ -559,7 +770,7 @@ class Game1:
                     print("**ERROR: snatch1<0**")
             
             for i in range(1, len(self.player)): # player[num1] gained one card
-                if i == num1 or not self.player[i].enemy[num1]["alive"]:
+                if i == num1 or not self.player[i].alive:
                     continue
                 self.player[i].enemy[num1]["estimated_handcards"][selected_card.name] += 1 # update bot's prediction
                 self.player[i].enemy[num1]["handcard_num"] += 1
@@ -859,7 +1070,7 @@ class Game1:
                         print(f"You attacked player {choice_p+1}")
 
                         for i in range(1, len(self.player)):                            
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"]["slash"] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -868,7 +1079,7 @@ class Game1:
                         self.player[num].handcards.pop(choice)
 
                         time.sleep(0.7)
-                        self.attack(choice_p, 1)
+                        self.attack(num, choice_p, 1)
                         act_step -= 1
                     if chosen_card.name == "peach":
                         if self.player[num].health == self.player[num].initial_health: # temporary be 4
@@ -881,14 +1092,14 @@ class Game1:
                         print("**You can only use [dodge] when another player attacks you**")
 
                 if chosen_card.type == "equipment":
-                    if chosen_card.name == "crossbow" or chosen_card.name == "crossblade":
+                    if chosen_card.name in ["crossbow", "crossblade"]:
                         if self.player[num].equipment["weapen"] is None:
                             self.player[num].equipment["weapen"] = chosen_card
                             print(f"You successfully equiped {chosen_card.name}")
 
                             for i in range(1, len(self.player)):
                                 
-                                if i == num or not self.player[i].enemy[num]["alive"]:
+                                if i == num or not self.player[i].alive:
                                     continue
                                 self.player[i].enemy[num]["estimated_handcards"][chosen_card.name] -= 1 # update bot's prediction
                                 self.player[i].enemy[num]["handcard_num"] -= 1
@@ -899,13 +1110,13 @@ class Game1:
                             self.player[num].handcards.pop(choice)
                         else:
                             equiped_card_name = self.player[num].equipment["weapen"].name
-                            replace_choice = choose(f"You have already equiped {equiped_card_name}, do you want to replace it? y/n\n({equiped_card_name} will be automatically discarded)?\nChoice: ", end='')
+                            replace_choice = choose(f"You have already equiped {equiped_card_name}, do you want to replace it? y/n\n({equiped_card_name} will be automatically discarded)?\nChoice: ")
                             if replace_choice.lower() in ['y', 'yes']:
                                 self.player[num].equipment["weapen"] = chosen_card
                                 print(f"You successfully equiped {chosen_card.name}")
 
                                 for i in range(1, len(self.player)):
-                                    if i == num or not self.player[i].enemy[num]["alive"]:
+                                    if i == num or not self.player[i].alive:
                                         continue
                                     self.player[i].enemy[num]["estimated_handcards"][chosen_card.name] -= 1 # update bot's prediction
                                     self.player[i].enemy[num]["handcard_num"] -= 1
@@ -913,8 +1124,34 @@ class Game1:
                                     if self.player[i].enemy[num]["estimated_handcards"][chosen_card.name] < 0:
                                         print("**ERROR: 3function-start_phase-equipment<0**")
                                 self.player[num].handcards.pop(choice)
-                    else:
-                        pass # no armor has been made yet
+                    elif chosen_card.name in ["evasion"]:  # armor
+                        if self.player[num].equipment["armor"] is None:
+                            self.player[num].equipment["armor"] = chosen_card
+                            print(f"You successfully equiped {chosen_card.name}")
+                            for i in range(1, len(self.player)):
+                                if i == num or not self.player[i].alive:
+                                    continue
+                                self.player[i].enemy[num]["estimated_handcards"][chosen_card.name] -= 1
+                                self.player[i].enemy[num]["handcard_num"] -= 1
+                                self.player[i].enemy[num]["equipment"]["armor"] = chosen_card
+                                if self.player[i].enemy[num]["estimated_handcards"][chosen_card.name] < 0:
+                                    print("**ERROR: function-start_phase-armor<0**")
+                            self.player[num].handcards.pop(choice)
+                        else:
+                            equiped_armor_name = self.player[num].equipment["armor"].name
+                            replace_choice = choose(f"You have already equiped {equiped_armor_name}, do you want to replace it? y/n\n({equiped_armor_name} will be automatically discarded)?\nChoice: ")
+                            if replace_choice.lower() in ['y', 'yes']:
+                                self.player[num].equipment["armor"] = chosen_card
+                                print(f"You successfully equiped {chosen_card.name}")
+                                for i in range(1, len(self.player)):
+                                    if i == num or not self.player[i].alive:
+                                        continue
+                                    self.player[i].enemy[num]["estimated_handcards"][chosen_card.name] -= 1
+                                    self.player[i].enemy[num]["handcard_num"] -= 1
+                                    self.player[i].enemy[num]["equipment"]["armor"] = chosen_card
+                                    if self.player[i].enemy[num]["estimated_handcards"][chosen_card.name] < 0:
+                                        print("**ERROR: function-start_phase-armor<0**")
+                                self.player[num].handcards.pop(choice)
                         
                 if chosen_card.type == "trick":
                     card_name = chosen_card.name
@@ -932,14 +1169,17 @@ class Game1:
                         
 
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"]["duel"] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
                             if self.player[i].enemy[num]["estimated_handcards"]["duel"] < 0:
                                 print("**ERROR: 4function-start_phase-duel<0**")
                         self.player[num].handcards.pop(choice)
+                        time.sleep(0.7)
+                        print("     **[DUEL]**")
                         self.duel(num, player_choice, 1)
+                        
                     
                     if card_name == "dismantle":
                         output = "Who's card do you want to dismantle?"
@@ -958,7 +1198,7 @@ class Game1:
                                 break
                         self.dismantle(num, player_choice, 1)
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"]["dismantle"] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -987,7 +1227,7 @@ class Game1:
 
                         self.snatch(num, player_choice, 1)
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"]["snatch"] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -998,7 +1238,7 @@ class Game1:
                     if card_name == "archery":
                         self.archery(num, 1)
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"]["archery"] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -1009,7 +1249,7 @@ class Game1:
                     if card_name == "savage":
                         self.savage(num, 1)
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"]["savage"] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -1022,7 +1262,7 @@ class Game1:
                         if not self.running:
                             return
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"]["benevolence"] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -1035,8 +1275,10 @@ class Game1:
         else:
             print(f"Player {num+1}'s turn:")
             #### for testing
+            print("########")
             print(f"Player {num+1}'s handcard: (for testing)")
             self.print_handcards(num)
+            print("########")
             ####
             #initialise act_step
             self.player[num].act_step = 1
@@ -1053,12 +1295,13 @@ class Game1:
                 if card.name == "slash":
                     target = f"player {action['target']+1}" if action['target'] != 0 else "you"
                     print(f"Player {num+1} attacks {target} with [slash]")
+                    time.sleep(0.7)
                     if action["target"] == 0:
-                        self.attack(action["target"], -1)
+                        self.attack(num, action["target"], -1)
                     else:
-                        self.attack(action["target"], 0)
+                        self.attack(num, action["target"], 0)
                     for i in range(1, len(self.player)):
-                        if i == num or not self.player[i].enemy[num]["alive"]:
+                        if i == num or not self.player[i].alive:
                             continue
                         self.player[i].enemy[num]["estimated_handcards"][card.name] -= 1 # update bot's prediction
                         self.player[i].enemy[num]["handcard_num"] -= 1
@@ -1078,10 +1321,11 @@ class Game1:
                             extra = f" and replaced [{self.player[num].equipment['weapen'].name}]"
                         self.player[num].equipment["weapen"] = card
                         print(f"Player {num+1} equiped [{card.name}]{extra}")
+                        time.sleep(0.7)
 
                         for i in range(1, len(self.player)):
                             
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"][card.name] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -1090,14 +1334,30 @@ class Game1:
                             if self.player[i].enemy[num]["estimated_handcards"][card.name] < 0:
                                 print("**ERROR: 6function-start_phase-AI-equipment<0**")
                         self.player[num].handcards.pop(action["index"])
-                    else:#armor
-                        pass
+                    elif card.name in ["evasion"]:  # armor
+                        extra = ""
+                        if not self.player[num].equipment["armor"] is None:
+                            extra = f" and replaced [{self.player[num].equipment['armor'].name}]"
+                        self.player[num].equipment["armor"] = card
+                        print(f"Player {num+1} equiped [{card.name}]{extra}")
+                        time.sleep(0.7)
+                        for i in range(1, len(self.player)):
+                            if i == num or not self.player[i].alive:
+                                continue
+                            self.player[i].enemy[num]["estimated_handcards"][card.name] -= 1
+                            self.player[i].enemy[num]["handcard_num"] -= 1
+                            self.player[i].enemy[num]["equipment"]["armor"] = card
+                            if self.player[i].enemy[num]["estimated_handcards"][card.name] < 0:
+                                print("**ERROR: function-start_phase-AI-armor<0**")
+                        self.player[num].handcards.pop(action["index"])
+
                 if card.type == "trick":
                     if card.name == "savage":
-                        print(f"Player {num+1} played [savage]")
+                        print(f"Player {num+1} played [savage]")                        
+                        time.sleep(0.7)
                         self.savage(num, 0)
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"][card.name] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -1107,9 +1367,10 @@ class Game1:
 
                     if card.name == "archery":
                         print(f"Player {num+1} played [archery]")
+                        time.sleep(0.7)
                         self.archery(num, 0)
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"][card.name] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -1119,11 +1380,12 @@ class Game1:
 
                     if card.name == "benevolence":
                         print(f"Player {num+1} played [benevolence]")
+                        time.sleep(0.7)
                         self.benevolence(num, 0)
                         if not self.running:
                             return
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"][card.name] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -1133,12 +1395,13 @@ class Game1:
 
                     if card.name == "snatch":
                         print(f"Player {num+1} played [snatch]")
+                        time.sleep(0.7)
                         if action["target"] == 0:
                             self.snatch(num, action["target"], -1)
                         else:
                             self.snatch(num, action["target"], 0)
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"][card.name] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
@@ -1147,20 +1410,61 @@ class Game1:
                         self.player[num].handcards.pop(action["index"])
                     if card.name == "dismantle":
                         print(f"Player {num+1} played [dismantle]")
+                        time.sleep(0.7)
                         if action["target"] == 0:
                             self.dismantle(num, action["target"], -1)
                         else:
                             self.dismantle(num, action["target"], 0)
                         for i in range(1, len(self.player)):
-                            if i == num or not self.player[i].enemy[num]["alive"]:
+                            if i == num or not self.player[i].alive:
                                 continue
                             self.player[i].enemy[num]["estimated_handcards"][card.name] -= 1 # update bot's prediction
                             self.player[i].enemy[num]["handcard_num"] -= 1
                             if self.player[i].enemy[num]["estimated_handcards"][card.name] < 0:
                                 print("**ERROR: 8function-start_phase-AI-dismantle<0**")
                         self.player[num].handcards.pop(action["index"])
-                        
+                    if card.name == "duel":
+                        print(f"Player {num+1} played [duel]")
+                        self.player[num].handcards.pop(action["index"])
+                        for i in range(1, len(self.player)):
+                            if i == num or not self.player[i].alive:
+                                continue
+                            self.player[i].enemy[num]["estimated_handcards"]["duel"] -= 1 # update bot's prediction
+                            self.player[i].enemy[num]["handcard_num"] -= 1
+                            if self.player[i].enemy[num]["estimated_handcards"]["duel"] < 0:
+                                print("**ERROR: function-start_phase-duel<0**")
 
+                        time.sleep(0.7)
+                        if action["target"] == 0:
+                            find_negate = -1
+                            for j in range(len(self.player[0].handcards)):
+                                if self.player[0].handcards[j].name == "negate":
+                                    find_negate = j
+                            if find_negate != -1:
+                                output = f"What do you choose to play:\n1. negate\n2. accept duel"
+                                choice = choose(output, ['1', '2'])
+                                if choice == '1':
+                                    print("You played [negate] to counter [duel]")
+                                    for i in range(1, len(self.player)):
+                                        if i == 0 or not self.player[i].alive:
+                                            continue
+                                        self.player[i].enemy[0]["estimated_handcards"]["negate"] -= 1 # update bot's prediction
+                                        self.player[i].enemy[0]["handcard_num"] -= 1
+                                        if self.player[i].enemy[0]["estimated_handcards"]["negate"] < 0:
+                                            print("**ERROR: function-start_phase-duel-negate<0**")
+                                    self.player[0].handcards.pop(find_negate)
+                                else:
+                                    print("     **[DUEL]**")
+                                    self.duel(num, action["target"], -1)
+                            else:
+                                print("     **[DUEL]**")
+                                self.duel(num, action["target"], -1)
+                                
+                        else:
+                            print("     **[DUEL]**")
+                            self.duel(num, action["target"], 0)
+                            
+                        
                 '''
                 action:
                 action["card"]: card object
@@ -1172,8 +1476,27 @@ class Game1:
     def discard_phase(self, num):
         print("     [Discard phase]")
         time.sleep(0.7)
-        if not num == 0:
+        if num != 0:
             # Bot decision
+
+            if len(self.player[num].handcards) <= self.player[num].max_handcards:
+                print(f"Current number of handcards: {len(self.player[num].handcards)}\nmaximum number of handcards: {self.player[num].max_handcards}")
+                print("Discard phase skipped...")
+            else:
+                while(len(self.player[num].handcards) > self.player[num].max_handcards):
+                    discard_card_index = self.player[num].discard_card()
+                    discarded_card = self.player[num].handcards[discard_card_index]
+                    for i in range(1, len(self.player)):
+                        if i == num or not self.player[i].alive:
+                            continue
+                        self.player[i].enemy[num]["estimated_handcards"][discarded_card.name] -= 1 # update bot's prediction
+                        self.player[i].enemy[num]["handcard_num"] -= 1
+                        if self.player[i].enemy[num]["estimated_handcards"][discarded_card.name] < 0:
+                            print("**ERROR: function-discard_phase-discard_card<0**")
+                    self.player[num].handcards.pop(discard_card_index)
+                    print(f"Player {num+1} discarded [{discarded_card.name}]")
+                    time.sleep(0.7)
+
             return
         if len(self.player[num].handcards) > self.player[num].max_handcards:
             while(len(self.player[num].handcards) > self.player[num].max_handcards):
@@ -1183,7 +1506,7 @@ class Game1:
                 choice = int(choose("Discard card: ", valid_choices, "yes")) - 1 # 1-# , so -1
                 discarded_card = self.player[num].handcards[choice]
                 for i in range(1, len(self.player)):
-                    if i == num or not self.player[i].enemy[num]["alive"]:
+                    if i == num or not self.player[i].alive:
                         continue
                     self.player[i].enemy[num]["estimated_handcards"][discarded_card.name] -= 1 # update bot's prediction
                     self.player[i].enemy[num]["handcard_num"] -= 1
@@ -1200,4 +1523,4 @@ class Game1:
 format = Format()
 
 game = Game1(3, 4) # when commmenting this, don't forget to change the import in bot.py in for find_high_value_target method
-game.run()
+game.run()# also comment the output of bot handcards in main.py
