@@ -1,5 +1,5 @@
 {
-    "Total Player": 8,
+    "Total Player": 11,
     "1": {
         "Name": "Leo",
         "Date": "2025-12-21",
@@ -97,5 +97,43 @@
             "Game 4": null
         },
         "Lost body parts": []
+    },
+    "9": {
+        "Name": "Amir",
+        "Date": "2026-01-05",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": null,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
+    },
+    "10": {
+        "Name": "Leo",
+        "Date": "2026-01-05",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": null,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
+    },
+    "11": {
+        "Name": "Leo",
+        "Date": "2026-01-05",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": false,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": [
+            "right hand"
+        ]
     }
 }

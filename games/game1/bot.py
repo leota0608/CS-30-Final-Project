@@ -99,14 +99,14 @@ class Bot(Human):
         for i in weapen_rank:
             for j in equipment:
                 if i == j[0].name:
-                    if j[0].name != self.equipment["weapen"].name or len(self.handcards) > self.max_handcards:
+                    if (not self.equipment["weapen"].name is None and j[0].name != self.equipment["weapen"].name) or len(self.handcards) > self.max_handcards:
                         return {"card": self.handcards[j[1]], "target": -1, "index": j[1]} # equip the best weapen
         # armor rank according to importance
         armor_rank = ["evasion"]
         for i in armor_rank:
             for j in equipment:
                 if i == j[0].name:
-                    if j[0].name != self.equipment["armor"].name or len(self.handcards) > self.max_handcards:
+                    if (not self.equipment["armor"].name is None and j[0].name != self.equipment["armor"].name) or len(self.handcards) > self.max_handcards:
                         return {"card": self.handcards[j[1]], "target": -1, "index": j[1]}
         ## 3.
         # AOE and self beneficial cards

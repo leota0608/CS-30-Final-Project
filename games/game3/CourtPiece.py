@@ -1,11 +1,13 @@
 import random as rd
 import time as tm
-
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 from games.teller.Teller import Teller
 from games.common.GameHandler import GameHandler
-from CPGameData import CPGameData
-from CPBot import CPBot
-from CPHumanPlayer import CPHumanPlayer
+from games.game3.CPGameData import CPGameData
+from games.game3.CPBot import CPBot
+from games.game3.CPHumanPlayer import CPHumanPlayer
 from games.common.GameCard import *
 
 

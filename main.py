@@ -1,7 +1,7 @@
 from games.game1.main import Game1
 from games.game2.main import Game2
-from games.game3.CourtPiece import Game3
-from games.game4.Hearts import Game4
+from games.game3.CourtPiece import CourtPiece # game3 
+from games.game4.Hearts import Hearts # game4
 from player.player import Player
 import random
 import time
@@ -9,9 +9,6 @@ import os
 # the imports assumes that there are four classes named Game1-4 in the four py files
 class Game:
     def __init__(self):
-        
-
-        
         self.player = Player()
         self.greeting()
         self.player.get_name()
@@ -20,8 +17,8 @@ class Game:
         # if no player information has been stored yet
         self.game1 = Game1(3, 4) # 3 players, 4 initial health
         self.game2 = Game2(3) # 3 players
-        self.game3 = Game3()
-        self.game4 = Game4()
+        self.game3 = CourtPiece()
+        self.game4 = Hearts()
         self.run()
         self.ending()
         

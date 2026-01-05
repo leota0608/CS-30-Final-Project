@@ -35,7 +35,7 @@ class Teller:
         self.options = ["(WORD):", "(LETTER):", "(SENTENCE):", "(NORMAL):"]
 
     def loadDoc(self, filename):
-        with open(filename, 'r') as f:
+        with open(f"games/game3/{filename}", 'r') as f:
             lines = f.readlines()
             self.lines = lines
 

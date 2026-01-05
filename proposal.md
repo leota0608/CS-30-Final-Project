@@ -61,3 +61,15 @@ People who love excitement...
 3. Add a store to sell robot to help the player if them lose an important body part
 4. Add a timer for how long the player can think in their turn
 5. Add a ranking(wall of fame) for all players who had play the games
+
+
+To do list: 1/5/2026
+1. move bodypart animation to common
+2. lose body parts in every game, not in main
+3. make palyer object a peremeter for all 4 games(only use player object for peremeters), set the other peremeters inside games
+4. make text files for actual cards
+5. make a name database of names for robots in common
+
+
+Future:
+1. maybe put rules in Teller class

@@ -1,10 +1,12 @@
 import random as rd
 import time as tm
-
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 from games.common.GameHandler import GameHandler
-from HeartsGameData import HeartsGameData
-from HeartsBot import HeartsBot
-from HeartsHumanPlayer import HeartsHumanPlayer
+from games.game4.HeartsGameData import HeartsGameData
+from games.game4.HeartsBot import HeartsBot
+from games.game4.HeartsHumanPlayer import HeartsHumanPlayer
 from games.common.GameCard import *
 from games.teller.Teller import Teller
 
