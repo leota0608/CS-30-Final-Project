@@ -5,6 +5,11 @@ class GameCard:
     RANKS = {"two": 0, "three": 1, "four": 2, "five": 3,
              "six": 4, "seven": 5, "eight": 6, "nine": 7, "ten": 8,
              "jack": 9, "queen": 10, "king": 11, "ace": 12}
+    
+    PRINT_CARDS = {
+        "one": 
+    }
+    
 
     def __init__(self, kind, rank):
         kind_t = type(kind)
@@ -70,3 +75,12 @@ def generateDeck():
         for rank in range(0, 13):
             cards.append(GameCard(kind, rank))
     return cards
+
+format_ = """
+┌─────┐
+│10  {}│
+│  {}  │
+│{}  10│
+└─────┘
+"""
+
