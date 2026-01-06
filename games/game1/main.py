@@ -45,10 +45,6 @@ class Game1:
                 if not self.player[i].alive:
                     continue
                 format.newline()
-                # check alive theoretically, all deaths should be determined in nearly_dead before being detected here...but...
-                # if self.player[i].health <= 0:
-                #     print(f"Player {self.player[i].name} died...")#enemy_num-1
-                #     self.nearly_dead(i)
 
                 # draw cards
                 print("Drawing cards...")
@@ -104,6 +100,7 @@ class Game1:
             if self.player[i].alive:
                 return False
         return True
+    
     def initialise_deck(self):
         deck_card = []
         for i, j in card_nums.items():
@@ -584,10 +581,6 @@ class Game1:
 
     def dismantle(self, num1, num2, human):# human = 1: human dismantle AI| -1:AI dismantle human| 0: two AI 
         if human <= 0:
-            if human == 0:
-                print(f"Player {num1+1} choose to dismantle Player {num2+1}'s card")
-            else:
-                print(f"Player {num1+1} choose to dismantle your card")
             if not self.player[num2].equipment["weapen"] is None:
                 if human == 0:
                     player = f"player {num2+1}"
@@ -677,11 +670,6 @@ class Game1:
 
     def snatch(self, num1, num2, human): # human = 1: human snatch AI| -1:AI snatch human| 0: two AI 
         if human <= 0:
-            if human == 0:
-                print(f"Player {num1+1} choose to snatch Player {num2+1}'s card")
-            else:
-                print(f"Player {num1+1} choose to snatch your card")
-
             if not self.player[num2].equipment["weapen"] is None:
                 self.player[num1].handcards.append(self.player[num2].equipment["weapen"])
                 for i in range(1, len(self.player)):# player[num2] lost a card
@@ -880,36 +868,27 @@ class Game1:
                                 print("**ERROR: archery-player1-negate<0**")
                         self.player[0].handcards.pop(find_negate)
             else:
-                #simple strategy
-                # play negate first
                 lose_health = True
-                for j in range(0, len(self.player[i].handcards)):
-                    if self.player[i].handcards[j].name == "negate":
-                        print(f"Player {i+1} played [negate]")
-                        for p in range(1, len(self.player)):
-                            if p == i or not self.player[p].enemy[i]["alive"]:
-                                continue
-                            self.player[p].enemy[i]["estimated_handcards"]["negate"] -= 1 # update bot's prediction
-                            self.player[p].enemy[i]["handcard_num"] -= 1
-                            if self.player[p].enemy[i]["estimated_handcards"]["negate"] < 0:
-                                print("**ERROR: savage-player1-negate<0**")
-                        self.player[i].handcards.pop(j)
-                        lose_health = False
-                        break
-                # then find dodge
-                for j in range(0, len(self.player[i].handcards)):
-                    if self.player[i].handcards[j].name == "dodge":
+                find_negate = self.findNegate(i)
+                count_dodge = self.countDodge(i)
+                find_dodge = self.findDodge(i)
+                if count_dodge >= 2:
+                    print(f"Player {i+1} played [dodge]")
+                    self.playDodge(i, find_dodge)
+                    lose_health = False
+                elif find_negate != -1 and self.player[i].health <= 2:
+                    self.playNegate(i, find_negate)
+                    print(f"Player {i+1} played [negate] to counter [archery]")
+                    lose_health = False
+                else:
+                    if find_dodge != -1:
+                        self.playDodge(i, find_dodge)
                         print(f"Player {i+1} played [dodge]")
-                        for p in range(1, len(self.player)):
-                            if p == i or not self.player[p].enemy[i]["alive"]:
-                                continue
-                            self.player[p].enemy[i]["estimated_handcards"]["dodge"] -= 1 # update bot's prediction
-                            self.player[p].enemy[i]["handcard_num"] -= 1
-                            if self.player[p].enemy[i]["estimated_handcards"]["dodge"] < 0:
-                                print("**ERROR: savage-player1-dodge<0**")
-                        self.player[i].handcards.pop(j)
                         lose_health = False
-                        break
+                    elif find_negate != -1:
+                        self.playNegate(i, find_negate)
+                        print(f"Player {i+1} played [negate] to counter [archery]")
+                        lose_health = False
                 if lose_health:
                     print(f"Player {i+1} doesn't have a dodge or negate and loses one health point")
                     self.player[i].health -= 1
@@ -1000,38 +979,29 @@ class Game1:
                                 print("**ERROR: savage-player1-negate<0**")
                         self.player[0].handcards.pop(find_negate)
             else:
-                #simple strategy
-                # play negate first
                 lose_health = True
-                for j in range(0, len(self.player[i].handcards)):
-                    if self.player[i].handcards[j].name == "negate":
-                        print(f"Player {i+1} played [negate]")
-                        for p in range(1, len(self.player)):
-                            if p == i or not self.player[p].enemy[i]["alive"]:
-                                continue
-                            self.player[p].enemy[i]["estimated_handcards"]["negate"] -= 1 # update bot's prediction
-                            self.player[p].enemy[i]["handcard_num"] -= 1
-                            if self.player[p].enemy[i]["estimated_handcards"]["negate"] < 0:
-                                print("**ERROR: savage-player1-negate<0**")
-                        self.player[i].handcards.pop(j)
-                        lose_health = False
-                        break
-                # then find slash
-                for j in range(0, len(self.player[i].handcards)):
-                    if self.player[i].handcards[j].name == "slash":
+                find_negate = self.findNegate(i)
+                count_slash = self.countSlash(i)
+                find_slash = self.findSlash(i)
+                if count_slash >= 2:
+                    print(f"Player {i+1} played [slash]")
+                    self.playSlash(i, find_slash)
+                    lose_health = False
+                elif find_negate != -1 and self.player[i].health <= 2:
+                    self.playNegate(i, find_negate)
+                    print(f"Player {i+1} played [negate] to counter [savage]")
+                    lose_health = False
+                else:
+                    if find_slash != -1:
+                        self.playSlash(i, find_slash)
                         print(f"Player {i+1} played [slash]")
-                        for p in range(1, len(self.player)):
-                            if p == i or not self.player[p].enemy[i]["alive"]:
-                                continue
-                            self.player[p].enemy[i]["estimated_handcards"]["slash"] -= 1 # update bot's prediction
-                            self.player[p].enemy[i]["handcard_num"] -= 1
-                            if self.player[p].enemy[i]["estimated_handcards"]["slash"] < 0:
-                                print("**ERROR: savage-player1-slash<0**")
-                        self.player[i].handcards.pop(j)
                         lose_health = False
-                        break
+                    elif find_negate != -1:
+                        self.playNegate(i, find_negate)
+                        print(f"Player {i+1} played [negate] to counter [savage]")
+                        lose_health = False
                 if lose_health:
-                    print(f"Player {i+1} doesn't have a dodge or negate and loses one health point")
+                    print(f"Player {i+1} doesn't have a slash or negate and loses one health point")
                     self.player[i].health -= 1
                     for j in range(1, len(self.player)):
                         if j == i or not self.player[j].enemy[0]["alive"]:
@@ -1057,6 +1027,65 @@ class Game1:
     def negate(self):
         # need to add choice of using negate to other trick cards /\/\/\/\/\/\/\/\/\/\/\/\
         pass
+    
+    def findDodge(self, num):
+        find_dodge = -1
+        for j in range(len(self.player[num].handcards)):
+            if self.player[num].handcards[j].name == "dodge":
+                find_dodge = j
+        return find_dodge
+        
+    def countDodge(self, num):
+        count_dodge = 0
+        for j in range(len(self.player[num].handcards)):
+            if self.player[num].handcards[j].name == "dodge":
+                count_dodge += 1
+        return count_dodge
+    
+    def playDodge(self, num, index):
+        for i in range(1, len(self.player)):                            
+            if i == num or not self.player[i].alive:
+                continue
+            self.player[i].enemy[num]["estimated_handcards"]["dodge"] -= 1 # update bot's prediction
+            self.player[i].enemy[num]["handcard_num"] -= 1
+        self.player[num].handcards.pop(index)
+
+    def countSlash(self, num):
+        count_slash = 0
+        for j in range(len(self.player[num].handcards)):
+            if self.player[num].handcards[j].name == "slash":
+                count_slash += 1
+        return count_slash
+    
+    def findSlash(self, num):
+        find_slash = -1
+        for j in range(len(self.player[num].handcards)):
+            if self.player[num].handcards[j].name == "slash":
+                find_slash = j
+        return find_slash
+    
+    def playSlash(self, num, index):
+        for i in range(1, len(self.player)):                            
+            if i == num or not self.player[i].alive:
+                continue
+            self.player[i].enemy[num]["estimated_handcards"]["slash"] -= 1 # update bot's prediction
+            self.player[i].enemy[num]["handcard_num"] -= 1
+        self.player[num].handcards.pop(index)
+    
+    def findNegate(self, num):
+        find_negate = -1
+        for j in range(len(self.player[num].handcards)):
+            if self.player[num].handcards[j].name == "negate":
+                find_negate = j
+        return find_negate
+        
+    def playNegate(self, num, index):
+        for i in range(1, len(self.player)):                            
+            if i == num or not self.player[i].alive:
+                continue
+            self.player[i].enemy[num]["estimated_handcards"]["negate"] -= 1 # update bot's prediction
+            self.player[i].enemy[num]["handcard_num"] -= 1
+        self.player[num].handcards.pop(index)
 
     def start_phase(self, num):
         if num == 0:
@@ -1184,9 +1213,17 @@ class Game1:
                                 alive_targets.append(i + 1)
                         output += "\n"
                         valid_choices = [str(t) for t in alive_targets]
-                        player_choice = int(choose(output, valid_choices)) - 1
-                        print(f"You dueled with player {player_choice+1}")# do AI need to play all slash to win the duel?(strategy)
-                        
+                        player_choice = int(choose(output, valid_choices)) - 1 # 0-indexed
+                        index = self.findNegate(player_choice)
+                        if  index != -1 and (self.findSlash(player_choice) < 2 or self.player[player_choice].health <= 2):
+                            print(f"Player {player_choice+1} player [negate] to counter your [duel]")
+                            time.sleep(0.7)
+                            self.playNegate(player_choice, index)
+                        else:
+                            print(f"You dueled with player {player_choice+1}")
+                            time.sleep(0.7)
+                            print("     **[DUEL]**")
+                            self.duel(num, player_choice, 1)
 
                         for i in range(1, len(self.player)):
                             if i == num or not self.player[i].alive:
@@ -1196,11 +1233,7 @@ class Game1:
                             if self.player[i].enemy[num]["estimated_handcards"]["duel"] < 0:
                                 print("**ERROR: 4function-start_phase-duel<0**")
                         self.player[num].handcards.pop(choice)
-                        time.sleep(0.7)
-                        print("     **[DUEL]**")
-                        self.duel(num, player_choice, 1)
-                        
-                    
+
                     if card_name == "dismantle":
                         output = "Who's card do you want to dismantle?"
                         alive_targets = []
@@ -1216,7 +1249,13 @@ class Game1:
                                 print(f"Player {player_choice+1} has 0 handcards, choose another player")
                             else:
                                 break
-                        self.dismantle(num, player_choice, 1)
+                        index = self.findNegate(player_choice)
+                        if  index != -1:
+                            print(f"Player {player_choice+1} used [negate] to counter your [dismantle]")
+                            time.sleep(0.7)
+                            self.playNegate(player_choice, index)
+                        else:
+                            self.dismantle(num, player_choice, 1)
                         for i in range(1, len(self.player)):
                             if i == num or not self.player[i].alive:
                                 continue
@@ -1242,10 +1281,23 @@ class Game1:
                             else:
                                 break
 
+
+
+
                             # Note that later equipment area needs to be taken into consideration, and dismantle as well
                             # Also what if all other players have 0 handcards, need to make a return or quit
 
-                        self.snatch(num, player_choice, 1)
+
+
+
+
+                        index = self.findNegate(player_choice)
+                        if  index != -1:
+                            print(f"Player {player_choice+1} used [negate] to counter your [snatch]")
+                            time.sleep(0.7)
+                            self.playNegate(player_choice, index)
+                        else:
+                            self.snatch(num, player_choice, 1)
                         for i in range(1, len(self.player)):
                             if i == num or not self.player[i].alive:
                                 continue
@@ -1417,9 +1469,29 @@ class Game1:
                         print(f"Player {num+1} played [snatch]")
                         time.sleep(0.7)
                         if action["target"] == 0:
-                            self.snatch(num, action["target"], -1)
+                            index = self.findNegate(action["target"])
+                            if  index != -1:
+                                print(f"Player {num+1} choose to snatch your card")
+                                time.sleep(0.7)
+                                input = choose(f"Do you choose to use [negate] to counter Player {num+1}'s snatch?")
+                                time.sleep(0.7)
+                                if input.lower() in ['y', "yes"]:
+                                    self.playNegate(0, index)
+                                else:
+                                    self.snatch(num, action["target"], -1)
+                                
+                            else:
+                                self.snatch(num, action["target"], -1)
                         else:
-                            self.snatch(num, action["target"], 0)
+                            print(f"Player {num+1} choose to snatch Player {action['target']+1}'s card")
+                            time.sleep(0.7)
+                            index = self.findNegate(action["target"])
+                            if index != -1:
+                                print(f"Player {action['target']+1} playerd [negate] to counter Player {num+1}'s snatch")
+                                time.sleep(0.7)
+                                self.playNegate(action["target"], index)
+                            else:
+                                self.snatch(num, action["target"], 0)
                         for i in range(1, len(self.player)):
                             if i == num or not self.player[i].alive:
                                 continue
@@ -1432,9 +1504,28 @@ class Game1:
                         print(f"Player {num+1} played [dismantle]")
                         time.sleep(0.7)
                         if action["target"] == 0:
-                            self.dismantle(num, action["target"], -1)
+                            index = self.findNegate(action["target"])
+                            if index != -1:
+                                print(f"Player {num+1} choose to dismantle your card")
+                                time.sleep(0.7)
+                                input = choose(f"Do you choose to use [negate] to counter Player {num+1}'s dismantle?")
+                                if input.lower() in ['y', "yes"]:
+                                    self.playNegate(0, index)
+                                else:
+                                    self.dismantle(num, action["target"], -1)
+                                time.sleep(0.7)
+                            else:
+                                self.dismantle(num, action["target"], -1)
                         else:
-                            self.dismantle(num, action["target"], 0)
+                            print(f"Player {num+1} choose to dismantle Player {action['target']+1}'s card")
+                            time.sleep(0.7)
+                            index = self.findNegate(action["target"])
+                            if index != -1:
+                                print(f"Player {action['target']+1} playerd [negate] to counter Player {num+1}'s snatch")
+                                time.sleep(0.7)
+                                self.playNegate(action["target"], index)
+                            else:
+                                self.dismantle(num, action["target"], 0)
                         for i in range(1, len(self.player)):
                             if i == num or not self.player[i].alive:
                                 continue
@@ -1444,7 +1535,11 @@ class Game1:
                                 print("**ERROR: 8function-start_phase-AI-dismantle<0**")
                         self.player[num].handcards.pop(action["index"])
                     if card.name == "duel":
-                        print(f"Player {num+1} played [duel]")
+                        print(f"Player {num+1} played [duel] and challenged ", end='')
+                        if action["target"] == 0:
+                            print("you")
+                        else:
+                            print(f"Player {action["target"]}")
                         self.player[num].handcards.pop(action["index"])
                         for i in range(1, len(self.player)):
                             if i == num or not self.player[i].alive:
@@ -1456,33 +1551,23 @@ class Game1:
 
                         time.sleep(0.7)
                         if action["target"] == 0:
-                            find_negate = -1
-                            for j in range(len(self.player[0].handcards)):
-                                if self.player[0].handcards[j].name == "negate":
-                                    find_negate = j
-                            if find_negate != -1:
-                                output = f"What do you choose to play:\n1. negate\n2. accept duel"
-                                choice = choose(output, ['1', '2'])
-                                if choice == '1':
-                                    print("You played [negate] to counter [duel]")
-                                    for i in range(1, len(self.player)):
-                                        if i == 0 or not self.player[i].alive:
-                                            continue
-                                        self.player[i].enemy[0]["estimated_handcards"]["negate"] -= 1 # update bot's prediction
-                                        self.player[i].enemy[0]["handcard_num"] -= 1
-                                        if self.player[i].enemy[0]["estimated_handcards"]["negate"] < 0:
-                                            print("**ERROR: function-start_phase-duel-negate<0**")
-                                    self.player[0].handcards.pop(find_negate)
-                                else:
-                                    print("     **[DUEL]**")
-                                    self.duel(num, action["target"], -1)
+                            index = self.findNegate(action["target"])
+                            if  index != -1:
+                                input = choose(f"Do you choose to use [negate] to counter Player {num+1}'s duel?(y/n)")
+                                if input.lower() in ['y', "yes"]:
+                                    self.playNegate(0, index)
                             else:
                                 print("     **[DUEL]**")
                                 self.duel(num, action["target"], -1)
-                                
                         else:
-                            print("     **[DUEL]**")
-                            self.duel(num, action["target"], 0)
+                            index = self.findNegate(action["target"])
+                            if  index != -1 and (self.findSlash(action["target"]) < 2 or self.player[action["target"]].health <= 2):
+                                print(f"Player {action['target']+1} used [negate] to counter Player {num+1}'s [duel]")
+                                time.sleep(0.7)
+                                self.playNegate(action["target"], index)
+                            else:
+                                print("     **[DUEL]**")
+                                self.duel(num, action["target"], 0)
                             
                         
                 '''

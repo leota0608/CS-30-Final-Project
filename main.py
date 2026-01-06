@@ -10,6 +10,9 @@ import os
 class Game:
     def __init__(self):
         self.player = Player()
+
+        self.test_game(1) # testing
+
         self.greeting()
         self.player.get_name()
         self.player.store_player_information()
@@ -96,8 +99,12 @@ class Game:
         print(f"\rGame {num} successfully loaded...")
 
 
-
-
+    def test_game(self, num):
+        if num == 1:
+            game = Game1(self.player)
+        if num == 2:
+            game = Game2(self.player)
+        game.run()
 
 game = Game()
 

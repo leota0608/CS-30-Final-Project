@@ -14,19 +14,19 @@
         "negate":{"name": "negate", "type": "trick", "description": ""}},
 
     "card nums":{
-        "slash": 18,
-        "dodge": 14,
-        "peach": 5,
+        "slash": 20,
+        "dodge": 16,
+        "peach": 8,
         "crossbow": 2,
-        "crossblade": 3,
-        "evasion": 10,
+        "crossblade": 2,
+        "evasion": 3,
         "duel": 3,
-        "dismantle": 5,
+        "dismantle": 4,
         "snatch": 3,
-        "archery": 3,
-        "savage": 2,
-        "benevolence": 2,
-        "negate": 3
+        "archery": 4,
+        "savage": 3,
+        "benevolence": 3,
+        "negate": 4
     }
 
 }

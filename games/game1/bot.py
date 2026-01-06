@@ -54,18 +54,21 @@ class Bot(Human):
         targets_with_equipment = []
         player_health = []
         for i in range(len(player)):
-            if i == self.index or not player[i].alive and len(player[i].handcards)>0:
+            if i == self.index or not player[i].alive:
                 continue
-            if not player[i].equipment["weapen"] is None or not player[i].equipment["armor"] is None:
+            if player[i].equipment["weapen"] is not None or player[i].equipment["armor"] is not None:
                 targets_with_equipment.append(i)
-            player_health.append([player[i].health,  player[i].index])
+                player_health.append([player[i].health, player[i].index])
+            elif len(player[i].handcards) >= 1:
+                player_health.append([player[i].health, player[i].index])
+
         if len(targets_with_equipment) > 0:
             return random.choice(targets_with_equipment)
         player_health.sort(key=lambda x: x[0])
         random_num = random.randint(0, 100)
         if len(player_health) == 0:
             return -1
-        if random_num <= 40: # 40% attack other players
+        if len(player_health) > 1 and random_num <= 40: # 40% attack other players
             return player_health[random.randint(1, len(player_health)-1)][1]
         else: # 60% chance attack player with lowest health
             return player_health[0][1]
@@ -99,14 +102,14 @@ class Bot(Human):
         for i in weapen_rank:
             for j in equipment:
                 if i == j[0].name:
-                    if (not self.equipment["weapen"].name is None and j[0].name != self.equipment["weapen"].name) or len(self.handcards) > self.max_handcards:
+                    if (self.equipment["weapen"] is not None and j[0].name != self.equipment["weapen"].name) or len(self.handcards) > self.max_handcards:
                         return {"card": self.handcards[j[1]], "target": -1, "index": j[1]} # equip the best weapen
         # armor rank according to importance
         armor_rank = ["evasion"]
         for i in armor_rank:
             for j in equipment:
                 if i == j[0].name:
-                    if (not self.equipment["armor"].name is None and j[0].name != self.equipment["armor"].name) or len(self.handcards) > self.max_handcards:
+                    if (self.equipment["armor"] is not None and j[0].name != self.equipment["armor"].name) or len(self.handcards) > self.max_handcards:
                         return {"card": self.handcards[j[1]], "target": -1, "index": j[1]}
         ## 3.
         # AOE and self beneficial cards
@@ -117,7 +120,7 @@ class Bot(Human):
         ## 4.
         # dismantle and snatch
         target = self.find_high_value_target(player) 
-        if target != -1 and (len(player[target].handcards) > 0 or not player[target].equipment["weapen"] is None or not player[target].equipment["armor"] is None):
+        if target != -1 and (len(player[target].handcards) > 0 or player[target].equipment["weapen"] is not None or not player[target].equipment["armor"] is None):
             trick_cards = ["snatch", "dismantle"]
             for j in trick_cards:
                 for i in available_moves:
@@ -133,7 +136,7 @@ class Bot(Human):
             for i in available_moves:
                 if i[0].name == "duel":
                     target = self.choose_target()
-                    if random.randint(0, 100) < 50:
+                    if len(target) == 1 or random.randint(0, 100) < 50:
                         return {"card": self.handcards[i[1]], "target": target[0][1], "index": i[1]}
                     else:
                         target = target[random.randint(1, len(target)-1)]
@@ -147,7 +150,7 @@ class Bot(Human):
             for i in available_moves:
                 if i[0].name == "slash":
                     target = self.choose_target()
-                    if random.randint(0, 100) < 50:
+                    if len(target) == 1 or random.randint(0, 100) < 50:
                         return {"card": self.handcards[i[1]], "target": target[0][1], "index": i[1]}
                     else:
                         target = target[random.randint(1, len(target)-1)]
