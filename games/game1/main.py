@@ -9,6 +9,7 @@ from games.game1.choose import choose
 from games.game1.human import Human
 from games.game1.deck import Deck
 from games.game1.card import Card
+from games.common.BodyPartsAnim import BodyPartsAnim
 import time
 import json
 import random
@@ -19,7 +20,10 @@ with open("games/game1/card.json", 'r') as file:
     card_nums = content["card nums"]
 
 class Game1:
-    def __init__(self, player_num, initial_health):
+    def __init__(self, user):
+        player_num = 3
+        initial_health = 4 # these two can be changed
+        self.user = user # because there is a conflict between player object and the player list in game 1, the player object is now named user
         self.running = True
         self.result = False
         self.card_nums = card_nums
@@ -78,6 +82,22 @@ class Game1:
                     break
                 # discard phase
                 self.discard_phase(i)
+        self.handle_game_result()
+
+    def handle_game_result(self):
+        if self.result:
+            print("You successfully passed game 1")
+            input("Press any key to proceed to game 2...")
+        else:
+            print("You failed to pass game 1\nReceive your punishment!")
+            body_part = self.user.choose_body_part()
+            self.user.lose(body_part)
+            anim = BodyPartsAnim(self.user)
+            anim.choose_body_part_anim(body_part)
+            time.sleep(2)
+            anim.screen_flickering_anim(body_part)
+            print(f"You lost your {body_part}...")
+            print("You are forced into game 2...")
     
     def check_win(self):
         for i in range(1, len(self.player)):
@@ -1522,5 +1542,5 @@ class Game1:
 
 format = Format()
 
-game = Game1(3, 4) # when commmenting this, don't forget to change the import in bot.py in for find_high_value_target method
-game.run()# also comment the output of bot handcards in main.py
+# game = Game1(3, 4) # when commmenting this, don't forget to change the import in bot.py in for find_high_value_target method
+# game.run()# also comment the output of bot handcards in main.py

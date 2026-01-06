@@ -15,8 +15,8 @@ class Game:
         self.player.store_player_information()
         # load the four games after loading player infoamtion because init in game will generate error 
         # if no player information has been stored yet
-        self.game1 = Game1(3, 4) # 3 players, 4 initial health
-        self.game2 = Game2(3) # 3 players
+        self.game1 = Game1(self.player) # 3 players, 4 initial health
+        self.game2 = Game2(self.player) # 3 players
         self.game3 = CourtPiece()
         self.game4 = Hearts()
         self.run()
@@ -36,26 +36,27 @@ class Game:
         # game1
         self.load_game_anim(1)
         self.game1.run()
-        if(self.game1.result):
-            pass
+
         # game2
         self.load_game_anim(2)
         self.game2.run()
         self.player.store_game_result(2, self.game2.result)
         self.player.update_score()
-        if(self.game2.result):
-            print("You successfully passed game 2")
-            input("Press any key to proceed to game 3...")
-        else:
-            print("You failed to pass game 2\nReceive your punishment!")
-            
-            body_part = self.player.choose_body_part()
-            self.player.lose(body_part)
-            self.choose_body_part_anim(body_part)
-            time.sleep(2)
-            self.screen_flickering_anim(body_part)
-            print(f"You lost your {body_part}...")
-            print("You are forced into game 3...")
+        # if(self.game2.result):
+        #     print("You successfully passed game 2")
+        #     input("Press any key to proceed to game 3...")
+        # else:
+        #     ############################################################### animiation example 
+        #     print("You failed to pass game 2\nReceive your punishment!")
+        #     body_part = self.player.choose_body_part()
+        #     self.player.lose(body_part)
+        #     self.choose_body_part_anim(body_part) # This part should should be dealt with in each individual game
+        #     time.sleep(2)
+        #     self.screen_flickering_anim(body_part)
+        #     print(f"You lost your {body_part}...")
+        #     print("You are forced into game 3...")
+        #     ################################################################
+
         # game3
         self.load_game_anim(3)
         self.game3.run()
@@ -94,50 +95,7 @@ class Game:
             time.sleep(random.randint(50, 80)/100)
         print(f"\rGame {num} successfully loaded...")
 
-    def choose_body_part_anim(self, body_part):
-        t = 0.3
-        dt = 0.025
-        last_output = None
-        for i in range(32):
-            choice = random.choice(self.player.bodyParts)
-            while choice  == last_output:
-                choice = random.choice(self.player.bodyParts)
-            print(f"\rChoosing body parts: [{choice}]{' '*100}", end='', flush = True)
-            last_output = choice
-            time.sleep(t)
-            if t < 0.05:
-                dt*=-1
-            t-=dt
-        print(f"\rChoosing body parts: [{body_part}]{' '*100}")
 
-    def screen_flickering_anim(self, body_part):
-        for i in range(15):
-            os.system("cls")
-            time.sleep(0.01)
-            print('A', end='', flush = True)
-            color_code="\033[91m"
-            print(f"{color_code}{'a'*i}!", end='', flush = True)
-            time.sleep(0.05)
-
-        os.system("cls")
-        print("Aaaaaaaaaaaaaaaa!")
-        time.sleep(1.2)
-        os.system("cls")
-        time.sleep(1.8)
-        output = ["It hurts...", "", f"My {body_part}!", "", f"Where is my {body_part}!", "",  "Aaaaaaaaa!", "", ""]
-        for i in output:
-            os.system("cls")
-            print(i, end='', flush = True)
-            time.sleep(1.1)
-
-        print("\033[0m", end='')
-        for i in range(2):
-            for j in range(1, 4):
-                print(f"\r{'.'*j}", end='', flush = True)
-                time.sleep(0.7)
-            os.system("cls")
-            time.sleep(0.7)
-        os.system("cls")
 
 
 

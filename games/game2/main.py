@@ -1,7 +1,7 @@
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-
+from games.common.BodyPartsAnim import BodyPartsAnim
 from games.game2.human import Human
 from games.game2.bot import Bot
 from games.game2.deck import Deck
@@ -9,7 +9,8 @@ from games.common.GameHandler import GameHandler
 from games.common.format import Format
 import time
 class Game2:
-    def __init__(self, player_num):
+    def __init__(self, player):
+        self.player = player
         self.running = True
         self.result = False
         # initialise deck of cards
@@ -17,7 +18,7 @@ class Game2:
         self.deck.initialise()
         self.deck.shuffle()
         # initialise player
-        self.player_num = player_num # 3 players
+        self.player_num = 3                     # 3 players, this can be changed
         self.initialise_player(self.player_num)
 
     def initialise_player(self, num):
@@ -81,7 +82,7 @@ class Game2:
     def run(self):
         print("Game2 starts")
         time.sleep(1)
-        self.print_rules(True)
+        # self.print_rules(True)
         print("**Enter 0 to review game rules at any time**")
         print("Drawing phase:")
         # initial draw
@@ -248,6 +249,24 @@ class Game2:
                             print('')
                     else:
                         print(f"Player {i+1} choose not to draw")
+        # end of game
+        self.handle_game_result()
+
+    def handle_game_result(self):
+        if self.result:
+            print("You successfully passed game 2")
+            input("Press any key to proceed to game 3...")
+        else:
+            print("You failed to pass game 2\nReceive your punishment!")
+            body_part = self.player.choose_body_part()
+            self.player.lose(body_part)
+            anim = BodyPartsAnim(self.player)
+            anim.choose_body_part_anim(body_part)
+            time.sleep(2)
+            anim.screen_flickering_anim(body_part)
+            print(f"You lost your {body_part}...")
+            print("You are forced into game 3...")
+
     def print_handcard(self, num):
         if num == -1:
             for i in range(len(self.player_list)):
@@ -293,7 +312,7 @@ class Game2:
                         
 format = Format()
 
-g = Game2(3)
-g.run()
+# g = Game2( ... ) # peremeter is player object
+# g.run()
 
 

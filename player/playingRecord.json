@@ -1,5 +1,5 @@
 {
-    "Total Player": 11,
+    "Total Player": 15,
     "1": {
         "Name": "Leo",
         "Date": "2025-12-21",
@@ -133,6 +133,62 @@
             "Game 4": null
         },
         "Lost body parts": [
+            "right hand"
+        ]
+    },
+    "12": {
+        "Name": "Test",
+        "Date": "2026-01-05",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": null,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
+    },
+    "13": {
+        "Name": "Testing",
+        "Date": "2026-01-05",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": null,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
+    },
+    "14": {
+        "Name": "111",
+        "Date": "2026-01-05",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": null,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
+    },
+    "15": {
+        "Name": "111",
+        "Date": "2026-01-05",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": null,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": [
+            "right foot",
+            "left foot",
+            "right foot",
+            "right hand",
+            "right hand",
+            "left foot",
             "right hand"
         ]
     }
