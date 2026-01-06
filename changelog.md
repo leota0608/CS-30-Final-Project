@@ -11,6 +11,10 @@ example:
 ## Change Log
 > 12.20  
 
+0.3.6:
+- Problem with vscode that it cannot find the modules is solved.
+- the Teller class printing everything in statements is solved by
+flushing the stdout buffer earlier before escape characters.
 0.3.5:
 - Rules of the game of Hearts had been written.
 0.3.4:

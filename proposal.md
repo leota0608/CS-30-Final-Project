@@ -55,6 +55,11 @@ People who love excitement...
 4. The lost body parts affects how the player play the game
 5. Use `.json` or `.txt` file to store the players' information
 
+# VS Code Problem not finding the Modules
+1. Hit CNTRL + SHIFT + P
+2. Go to users.setting.json
+3. add this line "terminal.integrated.env.windows": { "PYTHONPATH": "${workspaceFolder}" }
+
 ## Wish List
 1. Print the cards the player has using charactor art(better UI), possibly use file to store the shape of the cards and load them
 2. Add more games

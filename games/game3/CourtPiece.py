@@ -1,8 +1,6 @@
 import random as rd
 import time as tm
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
 from games.teller.Teller import Teller
 from games.common.GameHandler import GameHandler
 from games.game3.CPGameData import CPGameData
@@ -25,7 +23,7 @@ class CourtPiece(GameHandler):
         self.rounds = 2 * (4 - mode) + 7
         self.data = CPGameData()
         self.createCardEntries()
-        self.rules = Teller("rules.txt")
+        self.rules = Teller("games/game3/rules.txt")
         GameHandler.__init__(self, self.players, self.data)
 
     def createCardEntries(self):

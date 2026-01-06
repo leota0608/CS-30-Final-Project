@@ -1,8 +1,6 @@
 import random as rd
 import time as tm
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
 from games.common.GameHandler import GameHandler
 from games.game4.HeartsGameData import HeartsGameData
 from games.game4.HeartsBot import HeartsBot
@@ -23,7 +21,7 @@ class Hearts(GameHandler):
         # initializing game data
         self.data = HeartsGameData()
         self.initGameData()
-        self.rules = Teller("rules.txt")
+        self.rules = Teller("games/game4/rules.txt")
 
         super().__init__(self.players, self.data)
 

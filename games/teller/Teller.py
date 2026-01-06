@@ -35,16 +35,17 @@ class Teller:
         self.options = ["(WORD):", "(LETTER):", "(SENTENCE):", "(NORMAL):"]
 
     def loadDoc(self, filename):
-        with open(f"games/game3/{filename}", 'r') as f:
+        with open(filename, 'r') as f:
             lines = f.readlines()
             self.lines = lines
 
     @staticmethod
     def printList(list_, delay, bet=""):
-        for i, w in enumerate(list_):
-            print(w, end="")
+        for i in range(len(list_)):
+            w = list_[i]
+            print(w, end="", flush=True)
             if i < len(list_) - 1:
-                print(bet, end="")
+                print(bet, end="", flush=True)
             tm.sleep(delay)
 
     def display(self):
