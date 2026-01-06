@@ -30,6 +30,5 @@
     "Isaac",
     "Julian",
     "Kevin"
-  ],
-  "_comment": "Python example:\nimport json, random\n\nwith open(\"robot_names.json\", \"r\") as f:\n    names = json.load(f)[\"robot_names\"]\n\nrobot_name = random.choice(names)\nprint(robot_name)"
+  ]
 }

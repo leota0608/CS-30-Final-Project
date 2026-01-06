@@ -1,4 +1,2 @@
-from games.game4.Hearts import Hearts
-
-h = Hearts(["H", "I", "J", "K"])
-h.run()
+from games.common.Name import select_name
+print(select_name("Tom", 3))
