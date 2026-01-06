@@ -7,16 +7,20 @@ from games.game4.HeartsBot import HeartsBot
 from games.game4.HeartsHumanPlayer import HeartsHumanPlayer
 from games.common.GameCard import *
 from games.teller.Teller import Teller
-
+import games.common.Name as nm
 
 class Hearts(GameHandler):
-    def __init__(self, names):
+    def __init__(self, user):
+
+        # the actual user
+        self.user = user
 
         # initializing players
         self.players = [None, None, None, None]
+        names = nm.select_name(self.user.name, 3)
         for i in range(3):
             self.players[i] = HeartsBot(names[i])
-        self.players[3] = HeartsHumanPlayer(names[3])
+        self.players[3] = HeartsHumanPlayer(self.user.name)
 
         # initializing game data
         self.data = HeartsGameData()

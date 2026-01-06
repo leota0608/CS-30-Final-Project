@@ -11,6 +11,8 @@ example:
 ## Change Log
 > 12.20  
 
+0.3.7:
+- changed the game 3 and game 4 to only take user as parameter.
 0.3.6:
 - Problem with vscode that it cannot find the modules is solved.
 - the Teller class printing everything in statements is solved by
