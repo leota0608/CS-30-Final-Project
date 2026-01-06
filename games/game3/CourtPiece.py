@@ -7,6 +7,7 @@ from games.game3.CPGameData import CPGameData
 from games.game3.CPBot import CPBot
 from games.game3.CPHumanPlayer import CPHumanPlayer
 from games.common.GameCard import *
+import games.common.Name as nm
 
 
 class CourtPiece(GameHandler):
@@ -14,13 +15,20 @@ class CourtPiece(GameHandler):
     TRIPLE_PLAY = 3
     QUADRUPLE_PLAY = 4
 
-    def __init__(self, mode, names):
-        self.players = []
-        for i in range(mode - 1):
-            self.players.append(CPBot(names[i]))
-        self.players.append(CPHumanPlayer(names[mode - 1]))
+    def __init__(self, user):
 
-        self.rounds = 2 * (4 - mode) + 7
+        # set the premode
+        self.mode = self.QUADRUPLE_PLAY
+        
+        self.user = user
+
+        self.players = []
+        names = nm.select_name(self.user.name, self.mode - 1)
+        for i in range(self.mode - 1):
+            self.players.append(CPBot(names[i]))
+        self.players.append(CPHumanPlayer(self.user.name))
+
+        self.rounds = 2 * (4 - self.mode) + 7
         self.data = CPGameData()
         self.createCardEntries()
         self.rules = Teller("games/game3/rules.txt")
