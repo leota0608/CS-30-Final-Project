@@ -63,13 +63,3 @@ People who love excitement...
 5. Add a ranking(wall of fame) for all players who had play the games
 
 
-To do list: 1/5/2026
-1. move bodypart animation to common (done 1.3.2)
-2. lose body parts in every game, not in main(done for **game1** and **game2** 1.3.2)
-3. make palyer object a peremeter for all 4 games(only use player object for peremeters), set the other peremeters inside games(done for **game1** and **game2** 1.3.2)
-4. make text files for actual cards
-5. make a name database of names for robots in common (done 1.3.2)
-
-
-Future:
-1. maybe put rules in Teller class

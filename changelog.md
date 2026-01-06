@@ -124,3 +124,19 @@ demonstrate the use of this framework.
 - added [crossblade] effect
 - debug
 
+> 1.5 1.3.3
+- update [negate] effect to all trick cards
+- fix bugs: ex. checking None when bot equipping armor and weapen
+
+---
+To do list: 1/5/2026
+1. move bodypart animation to common (done 1.3.2)
+2. lose body parts in every game, not in main(done for **game1** and **game2** 1.3.2)
+3. make palyer object a peremeter for all 4 games(only use player object for peremeters), set the other peremeters inside games(done for **game1** and **game2** 1.3.2)
+4. make text files for actual cards
+5. make a name database of names for robots in common (done 1.3.2)
+
+
+Future:
+1. maybe put rules in Teller class
+---
