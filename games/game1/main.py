@@ -1,7 +1,3 @@
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-
 from games.common.Character import Character
 from games.common.format import Format
 from games.game1.bot import Bot
@@ -1539,7 +1535,7 @@ class Game1:
                         if action["target"] == 0:
                             print("you")
                         else:
-                            print(f"Player {action["target"]}")
+                            print(f"Player {action['target']}")
                         self.player[num].handcards.pop(action["index"])
                         for i in range(1, len(self.player)):
                             if i == num or not self.player[i].alive:

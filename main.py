@@ -20,8 +20,8 @@ class Game:
         # if no player information has been stored yet
         self.game1 = Game1(self.player) # 3 players, 4 initial health
         self.game2 = Game2(self.player) # 3 players
-        self.game3 = CourtPiece()
-        self.game4 = Hearts()
+        self.game3 = CourtPiece(self.player)
+        self.game4 = Hearts(self.player)
         self.run()
         self.ending()
         

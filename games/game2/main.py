@@ -1,6 +1,3 @@
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 from games.common.BodyPartsAnim import BodyPartsAnim
 from games.game2.human import Human
 from games.game2.bot import Bot
