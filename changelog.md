@@ -132,6 +132,10 @@ demonstrate the use of this framework.
 - update [negate] effect to all trick cards
 - fix bugs: ex. checking None when bot equipping armor and weapen
 
+> 1.6 1.3.3.1 - 1.3.3.4
+- add gitignore
+- create random name selector for robots to use in common
+- 
 ---
 To do list: 1/5/2026
 1. move bodypart animation to common (done 1.3.2)
