@@ -11,7 +11,7 @@ class Game:
     def __init__(self):
         self.player = Player()
 
-        self.test_game(1) # testing
+        # self.test_game(1) # testing
 
         self.greeting()
         self.player.get_name()
@@ -63,13 +63,11 @@ class Game:
         # game3
         self.load_game_anim(3)
         self.game3.run()
-        if(self.game3.result):
-            pass
+        
         # game4
         self.load_game_anim(4)
         self.game4.run()
-        if(self.game4.result):
-            pass
+        
 
     def ending(self):
         print("Goodbye, be alive")

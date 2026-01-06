@@ -6,9 +6,7 @@ class GameCard:
              "six": 4, "seven": 5, "eight": 6, "nine": 7, "ten": 8,
              "jack": 9, "queen": 10, "king": 11, "ace": 12}
     
-    PRINT_CARDS = {
-        "one": 
-    }
+
     
 
     def __init__(self, kind, rank):

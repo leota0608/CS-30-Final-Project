@@ -1,5 +1,5 @@
 {
-    "Total Player": 15,
+    "Total Player": 16,
     "1": {
         "Name": "Leo",
         "Date": "2025-12-21",
@@ -191,5 +191,17 @@
             "left foot",
             "right hand"
         ]
+    },
+    "16": {
+        "Name": "Test 1.6",
+        "Date": "2026-01-06",
+        "Score": 0,
+        "Game record": {
+            "Game 1": null,
+            "Game 2": null,
+            "Game 3": null,
+            "Game 4": null
+        },
+        "Lost body parts": []
     }
 }

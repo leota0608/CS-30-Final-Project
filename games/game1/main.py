@@ -76,6 +76,26 @@ class Game1:
                 self.discard_phase(i)
         self.handle_game_result()
 
+    def verify_admin_mode(self, input):
+        chioce = input
+        #####################################################    
+        if choice.lower() == "admin":
+            choice = input("Admin code: ")
+            if choice == "0710":
+                choice = input("Win or lose(1/0):")
+                if choice == '1':
+                    print("You win...(Admin mode)")
+                    time.sleep(2)
+                    self.running = False
+                    self.result = True
+                    return
+                if choice == '0':
+                    print("You lost...(Admin mode)")
+                    time.sleep(2)
+                    self.running = False
+                    self.result = False
+                    return
+        #####################################################        
     def handle_game_result(self):
         if self.result:
             print("You successfully passed game 1")
