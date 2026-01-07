@@ -137,7 +137,10 @@ demonstrate the use of this framework.
 > 1.6 1.3.3.1 - 1.3.3.4
 - add gitignore
 - create random name selector for robots to use in common
-- 
+
+> 1.7 1.3.4
+-fix admin mode bug
+- the code can now run for game 1 and 2 without crashing(if there are no bugs within game1 and game2)
 ---
 To do list: 1/5/2026
 1. move bodypart animation to common (done 1.3.2)
