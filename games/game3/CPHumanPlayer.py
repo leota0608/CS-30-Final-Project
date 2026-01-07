@@ -1,5 +1,5 @@
 from games.common.Character import Character
-from games.common.GameCard import GameCard
+from games.common.GameCard import *
 
 
 class CPHumanPlayer(Character):
@@ -32,13 +32,7 @@ class CPHumanPlayer(Character):
 
     def printCards(self):
         cards = self.gameData.cards[self.name]
-        for kind in cards:
-            print(f" - {kind}")
-            if len(cards[kind]) != 0:
-                for card in cards[kind]:
-                    print(f"     - {card}")
-            else:
-                print("     None")
+        printDeck(cards)
 
     def doesExist(self, current_card):
         cards = self.gameData.cards[self.name][GameCard.getKindName(current_card.kind)]

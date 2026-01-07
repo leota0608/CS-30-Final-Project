@@ -1,7 +1,7 @@
 import time as tm
 
 from games.common.Character import Character
-from games.common.GameCard import GameCard
+from games.common.GameCard import *
 
 
 class HeartsHumanPlayer(Character):
@@ -56,13 +56,7 @@ class HeartsHumanPlayer(Character):
     def printCards(self):
         cards = self.gameData.cards[self.name]
 
-        for suit in cards:
-            print(f" - {suit}")
-            if len(cards[suit]) != 0:
-                for card in cards[suit]:
-                    print(f"     - {card}")
-            else:
-                print("     None")
+        printDeck(cards)
 
     def chooseExchangeCards(self):
         exchange_cards = []

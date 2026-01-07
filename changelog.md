@@ -11,6 +11,8 @@ example:
 ## Change Log
 > 12.20  
 
+0.3.8:
+- the ability to print cards had been added.
 0.3.7:
 - changed the game 3 and game 4 to only take user as parameter.
 0.3.6:

@@ -9,6 +9,7 @@ from games.common.GameCard import *
 from games.teller.Teller import Teller
 import games.common.Name as nm
 
+
 class Hearts(GameHandler):
     def __init__(self, user):
 
@@ -167,7 +168,7 @@ class Hearts(GameHandler):
             for i in range(0, starter):
                 print(f"player {self.players[i].name}, put your card> ")
                 self.data.table[i] = self.players[i].provoke("play")
-                print(f"player {self.players[i].name} played {self.data.table[i]}.")
+                print(self.data.table[i])
 
             self.data.starter_player = self.decideRoundWinner()
             name = self.players[self.data.starter_player].name

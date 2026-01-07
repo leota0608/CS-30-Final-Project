@@ -1,4 +1,9 @@
 from CourtPiece import CourtPiece
 
-game = CourtPiece(CourtPiece.QUADRUPLE_PLAY, ["Ali", "Bagher", "Karim", "Mossa"])
+
+class d:
+    name = "Hamid"
+
+
+game = CourtPiece(d())
 game.run()

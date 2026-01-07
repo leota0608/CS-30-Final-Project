@@ -1,4 +1,9 @@
 from Hearts import Hearts
 
-h = Hearts(["Ali", "Arya", "Morteza", "Karim"])
+
+class d:
+    name = "Morteza"
+
+
+h = Hearts(d())
 h.run()

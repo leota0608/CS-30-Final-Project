@@ -5,9 +5,14 @@ class GameCard:
     RANKS = {"two": 0, "three": 1, "four": 2, "five": 3,
              "six": 4, "seven": 5, "eight": 6, "nine": 7, "ten": 8,
              "jack": 9, "queen": 10, "king": 11, "ace": 12}
-    
 
-    
+    PRINT_CARD = """
+┌─────┐
+│{}  {}│
+│  {}  │
+│{}  {}│
+└─────┘
+"""
 
     def __init__(self, kind, rank):
         kind_t = type(kind)
@@ -22,6 +27,43 @@ class GameCard:
         else:
             raise TypeError(f"unsupported data types provided for class"
                             f" {self.__class__.__name__}")
+
+    @staticmethod
+    def getCardRankForPrint(rank):
+        if 0 <= rank <= 8:
+            return str(rank + 2)
+        elif rank == 9:
+            return "J"
+        elif rank == 10:
+            return "Q"
+        elif rank == 11:
+            return "K"
+        elif rank == 12:
+            return "A"
+
+    @staticmethod
+    def getCardSuitForPrint(suit):
+        if suit == GameCard.KINDS["club"]:
+            return '♧'
+        elif suit == GameCard.KINDS["heart"]:
+            return '♡'
+        elif suit == GameCard.KINDS["diamond"]:
+            return '♢'
+        elif suit == GameCard.KINDS["spade"]:
+            return '♠'
+
+    def constructPrintCard(self):
+        rank = self.getCardRankForPrint(self.rank)
+        suit = self.getCardSuitForPrint(self.kind)
+
+        rank1 = rank
+        rank2 = rank
+
+        if len(rank) == 1:
+            rank1 = rank + " "
+            rank2 = " " + rank
+
+        return self.PRINT_CARD.format(rank1, suit, suit, suit, rank2)
 
     @staticmethod
     def getKindName(kind):
@@ -44,8 +86,7 @@ class GameCard:
         return self.rank == other.rank
 
     def __str__(self):
-        name = self.getName()
-        return f"card({name[0]}, {name[1]})"
+        return self.constructPrintCard()
 
     def __eq__(self, other):
         return other.kind == self.kind and \
@@ -74,11 +115,44 @@ def generateDeck():
             cards.append(GameCard(kind, rank))
     return cards
 
-format_ = """
-┌─────┐
-│10  {}│
-│  {}  │
-│{}  10│
-└─────┘
-"""
 
+def formatCard(card_str):
+    """
+    Takes the ASCII card string and ensures that ranks
+    inside the card are properly aligned (handles '10').
+    Returns a list of lines, all same width.
+    """
+    lines = card_str.splitlines()
+    max_line_len = max(len(line) for line in lines)
+    formatted_lines = [line.ljust(max_line_len) for line in lines]
+    return formatted_lines
+
+
+def printDeck(deck, row_length=7):
+    """
+    deck is a dict of suits -> list of cards
+    Each card prints as multi-line ASCII art
+    """
+
+    for suit in deck:
+        symbol = GameCard.getCardSuitForPrint(GameCard.KINDS[suit])
+        print(f" - {suit}({symbol}):")
+
+        cards = deck[suit]
+        if not cards:
+            print("None")
+            continue
+
+        # Convert each card to a list of lines
+        card_lines = [str(card).splitlines() for card in cards]
+        card_height = len(card_lines[0])
+
+        # Process cards in chunks of row_length
+        for i in range(0, len(card_lines), row_length):
+            chunk = card_lines[i:i + row_length]
+
+            # Print cards side-by-side line by line
+            for line_idx in range(card_height):
+                for card in chunk:
+                    print(card[line_idx], end="  ")
+                print()

@@ -19,7 +19,7 @@ class CourtPiece(GameHandler):
 
         # set the premode
         self.mode = self.QUADRUPLE_PLAY
-        
+
         self.user = user
 
         self.players = []
@@ -108,7 +108,7 @@ class CourtPiece(GameHandler):
             print(f"player {name} put your card.")
             card = self.players[i_].provoke("pick")
             self.data.table[i_] = card
-            print(f"player {name} put the {card} on the table!")
+            print(card)
             tm.sleep(2)
 
         start = self.data.last_winner_ind
