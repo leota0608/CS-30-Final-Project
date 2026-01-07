@@ -66,7 +66,7 @@ class Game1:
                 self.start_phase(i)
 
                 if not self.running:
-                    if not self.player[0].alive:
+                    if not self.player[0].alive or not self.result:
                         self.result = False
                     else:
                         print("You won!")
@@ -76,24 +76,24 @@ class Game1:
                 self.discard_phase(i)
         self.handle_game_result()
 
-    def verify_admin_mode(self, input):
-        chioce = input
+    def verify_admin_mode(self, choice):
         #####################################################    
         if choice.lower() == "admin":
-            choice = input("Admin code: ")
-            if choice == "0710":
-                choice = input("Win or lose(1/0):")
-                if choice == '1':
+            code = input("Admin code: ")
+            if code == "0710":
+                result = input("Win or lose(1/0):")
+                if result == '1':
                     print("You win...(Admin mode)")
                     time.sleep(2)
                     self.running = False
                     self.result = True
                     return
-                if choice == '0':
+                if result == '0':
                     print("You lost...(Admin mode)")
                     time.sleep(2)
                     self.running = False
                     self.result = False
+                    self.player[0].alive = False
                     return
         #####################################################        
     def handle_game_result(self):
@@ -1111,7 +1111,14 @@ class Game1:
                 self.print_handcards(num)
                 print(f"Available moves:\n{len(self.player[num].handcards) + 1}. end turn")
                 valid_choices = [str(i) for i in range(1, len(self.player[num].handcards) + 2)]
-                choice = int(choose("Choice: ", valid_choices))
+                valid_choices.append("admin")
+                choice = choose("Choice: ", valid_choices)
+                ##################
+                self.verify_admin_mode(choice)
+                if not self.running:
+                    return
+                #################
+                choice = int(choice)
                 if choice == len(self.player[num].handcards) + 1:
                     print("Turn ended")
                     break

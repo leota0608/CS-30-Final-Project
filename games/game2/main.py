@@ -79,7 +79,7 @@ class Game2:
     def run(self):
         print("Game2 starts")
         time.sleep(1)
-        # self.print_rules(True)
+        self.print_rules(True)
         print("**Enter 0 to review game rules at any time**")
         print("Drawing phase:")
         # initial draw
