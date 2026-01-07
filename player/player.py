@@ -10,6 +10,7 @@ class Player:
     def __init__(self):
         self.date = date.today()
         self.score = 0
+        self.money = 0
         self.lost_body_parts = []
         try:
             with open("player/bodyParts.json", 'r') as content:

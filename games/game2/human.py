@@ -1,5 +1,7 @@
 import json
+import random
 from games.common.Character import Character
+from games.common.GameCard import GameCard
 
 
 class Human(Character):
@@ -8,9 +10,13 @@ class Human(Character):
         self.handcard = []
         self.alive = True
         self.sum = []
+        self.handcard_display = []
 
     def add_card(self, name):
         self.handcard.append(name)
+        card = ["ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king"]
+        name = card[name-1]
+        self.handcard_display.append(GameCard(random.choice(["club", "spade", "heart", "diamond"]), name))
 
     def find_sum(self):
         total = 0

@@ -4,6 +4,7 @@ from games.game2.bot import Bot
 from games.game2.deck import Deck
 from games.common.GameHandler import GameHandler
 from games.common.format import Format
+from games.common.GameCard import printCardList
 import time
 class Game2:
     def __init__(self, player):
@@ -79,7 +80,7 @@ class Game2:
     def run(self):
         print("Game2 starts")
         time.sleep(1)
-        self.print_rules(True)
+        #self.print_rules(True)
         print("**Enter 0 to review game rules at any time**")
         print("Drawing phase:")
         # initial draw
@@ -273,37 +274,40 @@ class Game2:
                     print("Your", end=' ')
                 else:
                     print(f"Player {i+1}'s", end=' ')
-                print(f"handcard: [", end=' ')
-                for j in self.player_list[i].handcard:
-                    if j == 1:
-                        print('A', end=' ')
-                    elif j == 11:
-                        print('J', end=' ')
-                    elif j == 12:
-                        print('Q', end=' ')
-                    elif j == 13:
-                        print('K', end=' ')
-                    else:
-                        print(j, end= ' ')
-                print(']')
+                print(f"handcard:")
+                printCardList(self.player_list[num].handcard_display)
+                # for j in self.player_list[i].handcard:
+                #     if j == 1:
+                #         print('A', end=' ')
+                #     elif j == 11:
+                #         print('J', end=' ')
+                #     elif j == 12:
+                #         print('Q', end=' ')
+                #     elif j == 13:
+                #         print('K', end=' ')
+                #     else:
+                #         print(j, end= ' ')
+                # print(']')
         else:
             if num == 0:
                 print("Your", end=' ')
             else:
                 print(f"Player {num+1}'s", end=' ')
-            print(f"handcard: [", end=' ')
-            for j in self.player_list[num].handcard:
-                if j == 1:
-                    print('A', end=' ')
-                elif j == 11:
-                    print('J', end=' ')
-                elif j == 12:
-                    print('Q', end=' ')
-                elif j == 13:
-                    print('K', end=' ')
-                else:
-                    print(j, end= ' ')
-            print(']')
+            print(f"handcard: ")
+            
+            printCardList(self.player_list[num].handcard_display)
+            # for j in self.player_list[num].handcard:
+            #     if j == 1:
+            #         print('A', end=' ')
+            #     elif j == 11:
+            #         print('J', end=' ')
+            #     elif j == 12:
+            #         print('Q', end=' ')
+            #     elif j == 13:
+            #         print('K', end=' ')
+            #     else:
+            #         print(j, end= ' ')
+            # print(']')
                         
 
                         

@@ -11,7 +11,7 @@ class Game:
     def __init__(self):
         self.player = Player()
 
-        # self.test_game(1) # testing
+        self.test_game(2) # testing
 
         self.greeting()
         self.player.get_name()
@@ -20,8 +20,8 @@ class Game:
         # if no player information has been stored yet
         self.game1 = Game1(self.player) # 3 players, 4 initial health
         self.game2 = Game2(self.player) # 3 players
-        self.game3 = CourtPiece(self.player)
-        self.game4 = Hearts(self.player)
+        self.game3 = CourtPiece(self.player, 1000)
+        self.game4 = Hearts(self.player, 10000)
         self.run()
         self.ending()
         

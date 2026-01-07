@@ -156,3 +156,17 @@ def printDeck(deck, row_length=7):
                 for card in chunk:
                     print(card[line_idx], end="  ")
                 print()
+
+def printCardList(cards, row_length=2):
+    # Convert each card to a list of lines
+    card_lines = [str(card).splitlines() for card in cards]
+    card_height= len(card_lines[0])
+    # Process cards in chunks of row_length
+    for i in range(0, len(card_lines), row_length):
+        chunk = card_lines[i:i+ row_length]
+        # Print cards side-by-side line by line
+        for line_idx in range(card_height):
+            for card in chunk:
+                print(card[line_idx],end="  ")
+            print()
+
