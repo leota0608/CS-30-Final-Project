@@ -2,15 +2,15 @@ import random as rd
 import time as tm
 
 from games.common.GameHandler import GameHandler
-from games.game4.HeartsGameData import HeartsGameData
-from games.game4.HeartsBot import HeartsBot
-from games.game4.HeartsHumanPlayer import HeartsHumanPlayer
+from games.Hearts.HeartsGameData import HeartsGameData
+from games.Hearts.HeartsBot import HeartsBot
+from games.Hearts.HeartsHumanPlayer import HeartsHumanPlayer
 from games.common.GameCard import *
 from games.teller.Teller import Teller
 import games.common.Name as nm
 
 
-class Hearts(GameHandler):
+class HeartsGame(GameHandler):
     def __init__(self, user):
 
         # the actual user
@@ -26,9 +26,9 @@ class Hearts(GameHandler):
         # initializing game data
         self.data = HeartsGameData()
         self.initGameData()
-        self.rules = Teller("games/game4/rules.txt")
+        self.rules = Teller("games/Hearts/rules.txt")
 
-        super().__init__(self.players, self.data)
+        super().__init__(self.players, self.data, "hearts")
 
     def initGameData(self):
         # initializing cards

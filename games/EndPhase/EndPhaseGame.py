@@ -1,21 +1,22 @@
 from games.common.Character import Character
 from games.common.format import Format
-from games.game1.bot import Bot
-from games.game1.choose import choose
-from games.game1.human import Human
-from games.game1.deck import Deck
-from games.game1.card import Card
+from games.EndPhase.bot import Bot
+from games.EndPhase.choose import choose
+from games.EndPhase.human import Human
+from games.EndPhase.deck import Deck
+from games.EndPhase.card import Card
 from games.common.BodyPartsAnim import BodyPartsAnim
+from games.common.GameHandler import GameHandler
 import time
 import json
 import random
 
-with open("games/game1/card.json", 'r') as file:
+with open("games/EndPhase/card.json", 'r') as file:
     content = json.load(file)
     card = content["card"]
     card_nums = content["card nums"]
 
-class Game1:
+class EndPhaseGame(GameHandler):
     def __init__(self, user):
         player_num = 3
         initial_health = 4 # these two can be changed
@@ -32,10 +33,9 @@ class Game1:
         self.game_rule_key = 'q'
         self.card_description_key = 'w'
 
+        GameHandler.__init__(self, self.player, None, "end phase")
 
     def run(self):
-        print("Game1 starts")
-        time.sleep(0.7)
         self.print_rules(True) # need animation
         time.sleep(0.7)
         self.print_card_description(True)
@@ -106,10 +106,10 @@ class Game1:
         #####################################################        
     def handle_game_result(self):
         if self.result:
-            print("You successfully passed game 1")
-            input("Press any key to proceed to game 2...")
+            print(f"You successfully passed {self.name}")
+            input("Press any key to proceed to the next game...")
         else:
-            print("You failed to pass game 1\nReceive your punishment!")
+            print(f"You failed to pass {self.name}\nReceive your punishment!")
             body_part = self.user.choose_body_part()
             self.user.lose(body_part)
             anim = BodyPartsAnim(self.user)
@@ -117,7 +117,7 @@ class Game1:
             time.sleep(2)
             anim.screen_flickering_anim(body_part)
             print(f"You lost your {body_part}...")
-            print("You are forced into game 2...")
+            print("You are forced into the next game...")
     
     def check_win(self):
         for i in range(1, len(self.player)):
@@ -1673,7 +1673,7 @@ class Game1:
 
     def print_rules(self, anim):
         format.newline()
-        with open("games/game1/rules1.txt", 'r') as rules:
+        with open("games/EndPhase/rules1.txt", 'r') as rules:
             text = rules.read()
         if not anim:
             print(text)
@@ -1700,7 +1700,7 @@ class Game1:
 
     def print_card_description(self, anim):
         format.newline()
-        with open("games/game1/rules2.txt", 'r') as rules:
+        with open("games/EndPhase/rules2.txt", 'r') as rules:
             text = rules.read()
         if not anim:
             print(text)

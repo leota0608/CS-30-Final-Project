@@ -1,4 +1,7 @@
-class Human:
+from games.common.Character import Character
+
+
+class Human(Character):
     def __init__(self, name, health, index):
         self.initial_health = health
         self.name = name

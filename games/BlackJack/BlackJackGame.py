@@ -1,12 +1,15 @@
 from games.common.BodyPartsAnim import BodyPartsAnim
-from games.game2.human import Human
-from games.game2.bot import Bot
-from games.game2.deck import Deck
+from games.BlackJack.human import Human
+from games.common.GameHandler import GameHandler
+from games.BlackJack.bot import Bot
+from games.BlackJack.deck import Deck
 from games.common.GameHandler import GameHandler
 from games.common.format import Format
 from games.common.GameCard import printCardList
 import time
-class Game2:
+
+
+class BlackJackGame(GameHandler):
     def __init__(self, player):
         self.player = player
         self.running = True
@@ -19,6 +22,8 @@ class Game2:
         self.player_num = 3                     # 3 players, this can be changed
         self.initialise_player(self.player_num)
 
+        GameHandler.__init__(self, self.player_list, None, "black jack")
+
     def initialise_player(self, num):
         self.player_list = []
         self.player_list.append(Human())
@@ -26,8 +31,8 @@ class Game2:
             self.player_list.append(Bot())
 
     def print_rules(self, anim):
-        format.newline()
-        with open("games/game2/rules.txt", 'r') as rules:
+        Format().newline()
+        with open("games/BlackJack/rules.txt", 'r') as rules:
             text = rules.read()
         if not anim:
             print(text)
@@ -49,7 +54,7 @@ class Game2:
                     print(text[space1:space2+1], end='', flush = True)
                     space1 = space2+1
                 time.sleep(0.05)
-        format.newline()
+        Format().newline()
         input("Press any key to continue...")
 
 
@@ -78,8 +83,6 @@ class Game2:
 
 
     def run(self):
-        print("Game2 starts")
-        time.sleep(1)
         self.print_rules(True)
         print("**Enter 0 to review game rules at any time**")
         print("Drawing phase:")
@@ -149,11 +152,11 @@ class Game2:
             human_draw = False
             for i in range(self.player_num):
                 if i == 0:
-                    format.newline()
+                    Format().newline()
                     print("Your turn to draw...")
                     time.sleep(0.5)
                     self.print_handcard(-1)
-                    format.newline()
+                    Format().newline()
                     choice = input("Do you choose to draw? (y/n)")
                     #####################################################    
                     if choice.lower() == "admin":
@@ -255,8 +258,8 @@ class Game2:
 
     def handle_game_result(self):
         if self.result:
-            print("You successfully passed game 2")
-            input("Press any key to proceed to game 3...")
+            print(f"You successfully passed {self.name}")
+            input("Press any key to proceed to next game...")
         else:
             print("You failed to pass game 2\nReceive your punishment!")
             body_part = self.player.choose_body_part()
@@ -266,7 +269,7 @@ class Game2:
             time.sleep(2)
             anim.screen_flickering_anim(body_part)
             print(f"You lost your {body_part}...")
-            print("You are forced into game 3...")
+            print("You are forced into the next game...")
 
     def print_handcard(self, num):
         if num == -1:
@@ -313,11 +316,5 @@ class Game2:
             # print(']')
 
 
-
-                        
-format = Format()
-
-# g = Game2( ... ) # peremeter is player object
-# g.run()
 
 

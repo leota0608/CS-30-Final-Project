@@ -1,9 +1,9 @@
 import json
 import random
-from games.game1.human import Human 
+from games.EndPhase.human import Human 
 
 
-with open("games/game1/card.json", 'r') as file:
+with open("games/EndPhase/card.json", 'r') as file:
     content = json.load(file)
     card = content["card"]
     card_nums = content["card nums"]

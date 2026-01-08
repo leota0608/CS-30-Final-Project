@@ -1,4 +1,3 @@
-import json
 from games.common.Character import Character
 import random
 

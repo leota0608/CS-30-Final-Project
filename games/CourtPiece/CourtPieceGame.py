@@ -3,14 +3,14 @@ import time as tm
 
 from games.teller.Teller import Teller
 from games.common.GameHandler import GameHandler
-from games.game3.CPGameData import CPGameData
-from games.game3.CPBot import CPBot
-from games.game3.CPHumanPlayer import CPHumanPlayer
+from games.CourtPiece.CPGameData import CPGameData
+from games.CourtPiece.CPBot import CPBot
+from games.CourtPiece.CPHumanPlayer import CPHumanPlayer
 from games.common.GameCard import *
 import games.common.Name as nm
 
 
-class CourtPiece(GameHandler):
+class CourtPieceGame(GameHandler):
     DOUBLE_PLAY = 2
     TRIPLE_PLAY = 3
     QUADRUPLE_PLAY = 4
@@ -31,8 +31,8 @@ class CourtPiece(GameHandler):
         self.rounds = 2 * (4 - self.mode) + 7
         self.data = CPGameData()
         self.createCardEntries()
-        self.rules = Teller("games/game3/rules.txt")
-        GameHandler.__init__(self, self.players, self.data)
+        self.rules = Teller("games/CourtPiece/rules.txt")
+        GameHandler.__init__(self, self.players, self.data, "court piece")
 
     def createCardEntries(self):
         for player in self.players:
