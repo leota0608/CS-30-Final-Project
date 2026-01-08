@@ -15,7 +15,7 @@ class Bot(Character):
     def add_card(self, name):
         self.handcard.append(name)
         card = ["ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king"]
-        name = card[name]
+        name = card[name-1]
         self.handcard_display.append(GameCard(random.choice(["club", "spade", "heart", "diamond"]), name))
 
     def find_sum(self):

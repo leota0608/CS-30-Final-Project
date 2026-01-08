@@ -88,7 +88,7 @@ class Game:
     def load_game_anim(self, num):
         load = 0
         while load < 100:
-            progress = random.randint(10, 20)
+            progress = random.randint(10, 0)
             load += progress
             if load > 100:
                 load = 100

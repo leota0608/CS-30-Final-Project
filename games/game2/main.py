@@ -185,7 +185,7 @@ class Game2:
                         human_draw =True
                         print("Drawing card...")
                         time.sleep(1.2)
-                        self.player_list[0].handcard.append(self.deck.draw())
+                        self.player_list[0].add_card(self.deck.draw())
                         self.print_handcard(0)
                         r = self.check_sum(i)
                         self.player_list[0].find_sum()
@@ -227,7 +227,7 @@ class Game2:
                         time.sleep(0.7)
                         print(f"Player {i+1} drawing...")
                         time.sleep(1.2)
-                        self.player_list[i].handcard.append(self.deck.draw())
+                        self.player_list[i].add_card(self.deck.draw())
                         self.print_handcard(i)
                         r = self.check_sum(i)
                         
@@ -247,6 +247,9 @@ class Game2:
                             print('')
                     else:
                         print(f"Player {i+1} choose not to draw")
+
+                if not self.running:
+                    break
         # end of game
         self.handle_game_result()
 
@@ -274,8 +277,8 @@ class Game2:
                     print("Your", end=' ')
                 else:
                     print(f"Player {i+1}'s", end=' ')
-                print(f"handcard:")
-                printCardList(self.player_list[num].handcard_display)
+                print(f"handcard:", end='')
+                printCardList(self.player_list[i].handcard_display, 5)
                 # for j in self.player_list[i].handcard:
                 #     if j == 1:
                 #         print('A', end=' ')
@@ -293,9 +296,9 @@ class Game2:
                 print("Your", end=' ')
             else:
                 print(f"Player {num+1}'s", end=' ')
-            print(f"handcard: ")
+            print(f"handcard: ", end='')
             
-            printCardList(self.player_list[num].handcard_display)
+            printCardList(self.player_list[num].handcard_display, 5)
             # for j in self.player_list[num].handcard:
             #     if j == 1:
             #         print('A', end=' ')
