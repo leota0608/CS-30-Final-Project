@@ -1,0 +1,20 @@
+**Card Descriptions**
+Basic Cards:
+- Slash: Choose one opponent to attack with Slash. The opponent must play a Slash in response or lose 1 health point.
+- Dodge: Used to block a Slash.
+- Peach: Restore 1 health point.
+
+Equipment Cards:
+- Crossbow: While equipped, the player is not restricted to playing only one Slash per turn.
+- Crossblade: While equipped, the player may lose 1 health point to deal 1 damage to an opponent.
+- Evasion: While equipped, the player has a 50% chance to automatically dodge an opponent's Slash.
+
+Trick Cards:
+- Duel: Choose one opponent to duel. The two players alternately play Slash cards.
+  The first player who cannot play a Slash loses 1 health point.
+- Dismantle: Choose one opponent and discard one of their hand cards or equipped cards.
+- Snatch: Choose one opponent and take one of their hand cards or equipped cards.
+- Archery: All other players must play a Dodge; any player who does not loses 1 health point.
+- Savage: All other players must play a Slash; any player who does not loses 1 health point.
+- Benevolence: Play this card to draw two additional hand cards.
+- Negate: Can be played when targeted by a trick card to cancel its effect.

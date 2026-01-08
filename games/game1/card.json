@@ -11,7 +11,7 @@
         "archery":{"name": "archery", "type": "trick", "description": "Every one needs to play a dosge, if not, the person who didn't loses one health point"},
         "savage":{"name": "savage", "type": "trick", "description": "Every one needs to play a slash, if not, the person who didn't loses one health point"},
         "benevolence":{"name": "benevolence", "type": "trick", "description": "play it to gain two more handcards"},
-        "negate":{"name": "negate", "type": "trick", "description": ""}},
+        "negate":{"name": "negate", "type": "trick", "description": "Can be playerd when being targeted by a trick card, can be used to counter it."}},
 
     "card nums":{
         "slash": 20,

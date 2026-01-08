@@ -1,0 +1,13 @@
+**Game Rules**
+The game is divided up into three phases:
+Draw Phase:
+At the start of each turn, the active player draws 2 cards from the deck, and add them to the player's handcards.
+
+Action Phase:
+During this phase, players can play cards from their handcards in any order until they choose to end their turn:
+
+Discard Phase:
+If a player holds more cards than their maximum handcard number (equal to current health), they must discard down to the 
+limit. Players eliminated during any phase can use "peach" from their hand to survive with 1 health, otherwise they die.
+
+Your goal is to beat all other players and win the game.

@@ -105,7 +105,7 @@ def clear_all_playing_records():
     with open("player/playingRecord.json", 'w') as file:
         json.dump({"Total Player": 0}, file, indent = 4)
 
-# clear_all_playing_records()
+clear_all_playing_records()
 
 # p = Player()
 # p.choose_body_part()

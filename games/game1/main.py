@@ -29,10 +29,19 @@ class Game1:
             self.player.append(Bot(f"player{i+1}", initial_health, player_num - 1, i))
         self.initialise_deck()
         self.initialise_handcards()
+        self.game_rule_key = 'q'
+        self.card_description_key = 'w'
 
 
     def run(self):
         print("Game1 starts")
+        time.sleep(0.7)
+        self.print_rules(True) # need animation
+        time.sleep(0.7)
+        self.print_card_description(True)
+        print(f"(You can review the game rules and card descriptions by entering {self.game_rule_key} and {self.card_description_key})")
+        print("**Game starts**")
+        time.sleep(0.7)
         while self.running:
             if self.check_win():
                 self.result = True
@@ -41,7 +50,6 @@ class Game1:
                 if not self.player[i].alive:
                     continue
                 format.newline()
-
                 # draw cards
                 print("Drawing cards...")
                 time.sleep(0.7)
@@ -150,7 +158,7 @@ class Game1:
         format.newline()
         weapen_name = "Not equipped" if self.player[num].equipment['weapen'] is None else self.player[num].equipment['weapen'].name
         armor_name = "Not equipped" if self.player[num].equipment['armor'] is None else self.player[num].equipment['armor'].name
-        print(f"Your handcards:")
+        print(f"Your handcards:           (Review Game Rules: q)  (Review Card Descriptions: w)")
         for i in range(max(len(self.player[num].handcards), 6)):
             if i < len(self.player[num].handcards):
                 card_name = f"{i+1}. {self.player[num].handcards[i].name}"
@@ -804,7 +812,7 @@ class Game1:
     def archery(self, num, human):# num is the index of the player who played the card, which don't need to play a dodge,
         # human=1: player is the card user, human = 0: AI playerd the card
         for i in range(0, len(self.player)):
-            if i == num:
+            if i == num or not self.player[i].alive:
                 continue
             if i == 0:
                 find_dodge = -1
@@ -919,7 +927,7 @@ class Game1:
     def savage(self, num, human):# num is the index of the player who played the card, which don't need to play a dodge,
         # human=1: player is the card user, human = 0: AI playerd the card
         for i in range(0, len(self.player)):
-            if i == num:
+            if i == num or not self.player[i].alive:
                 continue
             if i == 0:
                 find_slash = -1
@@ -1107,12 +1115,28 @@ class Game1:
         if num == 0:
             print("Your turn:")
             act_step = 1
-            while True:# shouldn't exit when act_step == 0, there are other cards
+            while True:
+                if not self.running:
+                    return
                 self.print_handcards(num)
                 print(f"Available moves:\n{len(self.player[num].handcards) + 1}. end turn")
                 valid_choices = [str(i) for i in range(1, len(self.player[num].handcards) + 2)]
                 valid_choices.append("admin")
+                valid_choices.append("q")
+                valid_choices.append("w")
                 choice = choose("Choice: ", valid_choices)
+                while choice == 'q' or choice == 'w':
+                    if choice == 'q':
+                        self.print_rules(False)
+                        for i in range(18):
+                            print("\033[A\033[2K", end='')
+                        choice = choose("Choice: ", valid_choices)
+                    elif choice == 'w':
+                        self.print_card_description(False)
+                        for i in range(25):
+                            print("\033[A\033[2K", end='')
+                        choice = choose("Choice: ", valid_choices)
+
                 ##################
                 self.verify_admin_mode(choice)
                 if not self.running:
@@ -1370,10 +1394,10 @@ class Game1:
         else:
             print(f"Player {num+1}'s turn:")
             #### for testing
-            print("########")
-            print(f"Player {num+1}'s handcard: (for testing)")
-            self.print_handcards(num)
-            print("########")
+            # print("########")
+            # print(f"Player {num+1}'s handcard: (for testing)")
+            # self.print_handcards(num)
+            # print("########")
             ####
             #initialise act_step
             self.player[num].act_step = 1
@@ -1381,7 +1405,8 @@ class Game1:
                 # Bot move
                 
                 action = self.player[num].take_move(self.player)
-                
+                if not self.running:
+                    return
                 if action == -1:
                     print(f"Player {num+1} end its turn...")
                     time.sleep(0.7)
@@ -1496,9 +1521,9 @@ class Game1:
                             if  index != -1:
                                 print(f"Player {num+1} choose to snatch your card")
                                 time.sleep(0.7)
-                                input = choose(f"Do you choose to use [negate] to counter Player {num+1}'s snatch?")
+                                _input = choose(f"Do you choose to use [negate] to counter Player {num+1}'s snatch?")
                                 time.sleep(0.7)
-                                if input.lower() in ['y', "yes"]:
+                                if _input.lower() in ['y', "yes"]:
                                     self.playNegate(0, index)
                                 else:
                                     self.snatch(num, action["target"], -1)
@@ -1531,8 +1556,8 @@ class Game1:
                             if index != -1:
                                 print(f"Player {num+1} choose to dismantle your card")
                                 time.sleep(0.7)
-                                input = choose(f"Do you choose to use [negate] to counter Player {num+1}'s dismantle?")
-                                if input.lower() in ['y', "yes"]:
+                                _input = choose(f"Do you choose to use [negate] to counter Player {num+1}'s dismantle?")
+                                if _input.lower() in ['y', "yes"]:
                                     self.playNegate(0, index)
                                 else:
                                     self.dismantle(num, action["target"], -1)
@@ -1576,8 +1601,8 @@ class Game1:
                         if action["target"] == 0:
                             index = self.findNegate(action["target"])
                             if  index != -1:
-                                input = choose(f"Do you choose to use [negate] to counter Player {num+1}'s duel?(y/n)")
-                                if input.lower() in ['y', "yes"]:
+                                _input = choose(f"Do you choose to use [negate] to counter Player {num+1}'s duel?(y/n)")
+                                if _input.lower() in ['y', "yes"]:
                                     self.playNegate(0, index)
                             else:
                                 print("     **[DUEL]**")
@@ -1646,6 +1671,59 @@ class Game1:
             print(f"Current number of handcards: {len(self.player[num].handcards)}\nmaximum number of handcards: {self.player[num].max_handcards}")
             print("Discard phase skipped...")
 
+    def print_rules(self, anim):
+        format.newline()
+        with open("games/game1/rules1.txt", 'r') as rules:
+            text = rules.read()
+        if not anim:
+            print(text)
+        else:
+            space1 = 0
+            space2 = 0
+            newline = 0
+            while space2 < len(text)-1 and space2 >= 0:
+                space2 = text.find(' ', space1)
+                newline = text.find("\n", space1)
+                if space2 == -1:
+                    space2 = len(text)-1
+                if newline == -1:
+                    newline = 666666
+                if newline < space2:
+                    print(text[space1:newline+1], end='', flush = True)
+                    space1 = newline+1
+                else:
+                    print(text[space1:space2+1], end='', flush = True)
+                    space1 = space2+1
+                time.sleep(0.05)
+        format.newline()
+        input("Press any key to continue...") 
+
+    def print_card_description(self, anim):
+        format.newline()
+        with open("games/game1/rules2.txt", 'r') as rules:
+            text = rules.read()
+        if not anim:
+            print(text)
+        else:
+            space1 = 0
+            space2 = 0
+            newline = 0
+            while space2 < len(text)-1 and space2 >= 0:
+                space2 = text.find(' ', space1)
+                newline = text.find("\n", space1)
+                if space2 == -1:
+                    space2 = len(text)-1
+                if newline == -1:
+                    newline = 666666
+                if newline < space2:
+                    print(text[space1:newline+1], end='', flush = True)
+                    space1 = newline+1
+                else:
+                    print(text[space1:space2+1], end='', flush = True)
+                    space1 = space2+1
+                time.sleep(0.05)
+        format.newline()
+        input("Press any key to continue...")
    
 
 format = Format()
