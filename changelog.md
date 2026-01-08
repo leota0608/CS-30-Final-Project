@@ -152,6 +152,9 @@ demonstrate the use of this framework.
   -Fixed small bugs in game1 and game2
   -Add rules printing to game 1
   -Improve the two games on UI
+
+> 1.8 1.4.#
+- create shop.py and update shop
 ---
 To do list: 1/5/2026
 1. move bodypart animation to common (done 1.3.2)
