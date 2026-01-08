@@ -7,6 +7,75 @@ import json
 import time
 
 class Player:
+
+    HEAD_PARTS = {
+        "head": """
+  ┌───────────┐        
+0}| {}     {} |{0
+  |    |||    |
+  |     {}    |
+  └───────────┘
+""",
+        "eye": "*",
+        "blind_eye": "~",
+        "smile": "└────┘",
+        "sad": "┌────┐",
+    }
+
+    BODY_ELEMNTS = {
+        "main_body": """
+┌───────┐
+|   o   |
+|   o   |
+|   o   |
+|   o   |
+└───────┘
+""",
+        "right arm": """
+┌──────────┐
+└──────────┘
+""",
+        "left arm": """
+┌──────────┐
+└──────────┘
+""",
+        "right leg": """
+┌─┐
+| |
+| |
+| |
+| |
+└─┘
+""",
+        "left leg": """
+┌─┐
+| |
+| |
+| |
+| |
+└─┘
+""",
+        "left hand": """
+\
+=||
+/
+""", 
+        "right hand": """
+  /
+||=
+  \
+""",
+        "left foot": """
+___
+|||
+""",
+        "right foot": """
+___
+|||
+""", 
+
+    }
+
     def __init__(self):
         self.date = date.today()
         self.score = 0
