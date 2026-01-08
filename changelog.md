@@ -10,7 +10,9 @@ example:
 + 0.1.1 means amir committed his first commit to version 1.  
 ## Change Log
 
-
++ 0.3.9:
+  - the games are named by their real name.
+  - all the packages are renamed accordingly.
 + 0.3.8:  
   - the ability to print cards had been added.  
 + 0.3.7:  
