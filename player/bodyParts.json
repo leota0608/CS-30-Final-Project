@@ -1,4 +1,15 @@
 {
-    "bodyParts": ["head", "eye", "right arm", "left arm", "left leg", "right leg","left hand", "right hand", "left foot", "right foot"],
+    "bodyParts": ["head", "eye", "right arm", "left arm", "left leg", "right leg", "left hand", "right hand", "left foot", "right foot"],
+    "prices": {"head": 10000,
+                "eye": 5000, 
+                "right arm": 2000,
+                "left arm": 1800,
+                "left leg": 1800,
+                "right leg": 2000,
+                "left hand": 1300,
+                "right hand": 1500,
+                "left foot": 800,
+                "right foot": 1000
+                },
     "probability": [30, 60, 150, 250, 330, 420, 565, 710, 855, 1000]
 }
