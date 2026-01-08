@@ -2,7 +2,9 @@ from games.EndPhase.EndPhaseGame import EndPhaseGame
 from games.BlackJack.BlackJackGame import BlackJackGame
 from games.CourtPiece.CourtPieceGame import CourtPieceGame # game3 
 from games.Hearts.HeartsGame import HeartsGame # game4
-from player.Player import Player
+from player.player import Player
+from games.EndPhase.choose import choose
+from player.shop import Shop
 import random
 import time
 
@@ -10,7 +12,7 @@ import time
 class Game:
     def __init__(self):
         self.player = Player()
-
+        self.shop = Shop(self.player)
 
         self.greeting()
         self.player.get_name()
@@ -36,23 +38,35 @@ class Game:
     def run(self):
         print("Game starts")
         # game1
+        self.lobby(1)
         self.load_game_anim(self.game1.name)
         self.game1.run()
+        self.player.update_score()
 
+        self.lobby(2)
         # game2
         self.load_game_anim(self.game2.name)
         self.game2.run()
         self.player.store_game_result(2, self.game2.result)
         self.player.update_score()
         
+        self.lobby(3)
         # game3
         self.load_game_anim(self.game3.name)
         self.game3.run()
         
+        self.lobby(4)
         # game4
         self.load_game_anim(self.game4.name)
         self.game4.run()
         
+    def lobby(self, num):
+        chiose = None
+        while choice != '3':
+            choice = int(choose(f"You are in the lobby...\n1. Shop\n2. Check self\n3. Continue to game {num}", ['1', '2', '3']))
+            if choice == 1:
+                self.shop.buy()
+
 
     def load_game_anim(self, name: str):
         load = 0
