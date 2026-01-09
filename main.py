@@ -61,9 +61,9 @@ class Game:
         self.game4.run()
         
     def lobby(self, num):
-        chiose = None
-        while choice != '3':
-            choice = int(choose(f"You are in the lobby...\n1. Shop\n2. Check self\n3. Continue to game {num}", ['1', '2', '3']))
+        choice = None
+        while choice != 3:
+            choice = int(choose(f"You are in the lobby...\n1. Shop\n2. Check self\n3. Proceed to game {num}\nChoice: ", ['1', '2', '3']))
             if choice == 1:
                 self.shop.buy()
 
@@ -78,6 +78,7 @@ class Game:
             print(f"\rLoading {name}: [{load}%]", end='', flush = True)
             time.sleep(random.randint(50, 80)/100)
         print(f"\r{name.capitalize()} successfully loaded...")
+        time.sleep(0.7)
         print(f"\r{name.capitalize()} starts ... good luck.")
         time.sleep(3)
 
