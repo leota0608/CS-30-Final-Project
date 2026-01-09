@@ -169,6 +169,15 @@ ___
         with open("player/playingRecord.json", 'w') as file:
             json.dump(record, file, indent = 4)
 
+    def gain(self, body_part):
+        self.lost_body_parts.remove(body_part)
+        with open("player/playingRecord.json", 'r') as file:
+            record = json.load(file)
+        record[str(record["Total Player"])]["Lost body parts"].remove(body_part)
+        #save
+        with open("player/playingRecord.json", 'w') as file:
+            json.dump(record, file, indent = 4)
+
 
 def clear_all_playing_records():
     with open("player/playingRecord.json", 'w') as file:

@@ -5,7 +5,7 @@ from games.EndPhase.choose import choose
 class Shop:
     def __init__(self, player):
         self.player = player
-        with open("games/player/bodyParts.json", 'r') as content:
+        with open("player/bodyParts.json", 'r') as content:
                 data = json.load(content)
                 self.bodyParts = data["bodyParts"]
                 self.prices = data["prices"]
@@ -20,31 +20,42 @@ class Shop:
         
     
     def print_shop(self):
-        self.refresh_store_items()
         print("**Shop**")
         if len(self.items) == 0:
             print("There are no body parts available right now!")
         else:
             print("Available body parts:")
             for i in range(len(self.items)):
-                print(f"{i+1}. {self.items[i]} (${self.prices[i]})")
+                print(f"{i+1}. {self.items[i]} (${self.prices[self.items[i]]})")
         print(f"{len(self.items)+1}. Leave")
         return len(self.items) + 1
 
     def buy(self):
-        item_num = self.shop.print_shop() # put missing next to the missing body parts
-        valid_choices = []
-        for j in range(item_num):
-            valid_choices.append(str(j+1))
-        item_choice = int(choose(f"What do you want to buy?(Current money: ${self.player.money})", valid_choices, "yes"))
-        if item_choice == item_num: # leave
-            print("You left the shop")
-            time.sleep(0.7)
-            return
-        if self.player.money >= self.prices[self.bodyParts[item_choice]]:
-            # buy
-            pass
-        else:
-            print("You've got not enough money")
+        self.refresh_store_items()
+        skip = False
+        while True:
+            if not skip:
+                item_num = self.print_shop() # put missing next to the missing body parts
+                valid_choices = []
+                for j in range(item_num):
+                    valid_choices.append(str(j+1))
+            item_choice = int(choose(f"What do you want to buy?(Current money: ${self.player.money})", valid_choices, "yes"))
+            
+            if item_choice == item_num: # leave
+                print("You left the shop")
+                time.sleep(0.7)
+                return
+            body_part = self.bodyParts[item_choice]
+            if self.player.money >= self.prices[body_part]:
+                # buy
+                self.player.money -= self.prices[body_part]
+                print(f"{body_part} successfully attatched to your body...")
+                time.sleep(0.7)
+                self.player.gain(body_part)
+                self.items.remove(body_part)
+            else:
+                print("Your money is not enough...")
+                skip = True
+
             
     
