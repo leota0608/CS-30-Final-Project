@@ -26,7 +26,11 @@ class Shop:
         else:
             print("Available body parts:")
             for i in range(len(self.items)):
-                print(f"{i+1}. {self.items[i]} (${self.prices[self.items[i]]})")
+                print(f"{i+1}. {self.items[i]} (${self.prices[self.items[i]]})", end='')
+                if self.items[i] in self.player.lost_body_part:
+                    print("-Lost-")
+                else:
+                    print("")
         print(f"{len(self.items)+1}. Leave")
         return len(self.items) + 1
 
@@ -45,8 +49,10 @@ class Shop:
                 print("You left the shop")
                 time.sleep(0.7)
                 return
-            body_part = self.bodyParts[item_choice]
-            if self.player.money >= self.prices[body_part]:
+            body_part = self.items[item_choice-1]
+            if not body_part in self.player.lost_body_parts:
+                print(f"You already have {body_part}")
+            elif self.player.money >= self.prices[body_part]:
                 # buy
                 self.player.money -= self.prices[body_part]
                 print(f"{body_part} successfully attatched to your body...")

@@ -14,9 +14,9 @@
         "negate":{"name": "negate", "type": "trick", "description": "Can be playerd when being targeted by a trick card, can be used to counter it."}},
 
     "card nums":{
-        "slash": 20,
+        "slash": 22,
         "dodge": 16,
-        "peach": 8,
+        "peach": 6,
         "crossbow": 2,
         "crossblade": 2,
         "evasion": 3,

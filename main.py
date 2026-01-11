@@ -6,14 +6,14 @@ from player.player import Player
 from games.EndPhase.choose import choose
 from player.shop import Shop
 import random
+import os
 import time
 
-# the imports assumes that there are four classes named Game1-4 in the four py files
+
 class Game:
     def __init__(self):
         self.player = Player()
         self.shop = Shop(self.player)
-
         self.greeting()
         self.player.get_name()
         self.player.store_player_information()
@@ -66,6 +66,12 @@ class Game:
             choice = int(choose(f"You are in the lobby...\n1. Shop\n2. Check self\n3. Proceed to game {num}\nChoice: ", ['1', '2', '3']))
             if choice == 1:
                 self.shop.buy()
+            elif choice == 2:
+                os.system("cls")
+                self.player.printBodyShape([], False)
+                time.sleep(0.7)
+                input("\rpress any key to continue...")
+                os.system("cls")
 
 
     def load_game_anim(self, name: str):
@@ -79,8 +85,8 @@ class Game:
             time.sleep(random.randint(50, 80)/100)
         print(f"\r{name.capitalize()} successfully loaded...")
         time.sleep(0.7)
-        print(f"\r{name.capitalize()} starts ... good luck.")
-        time.sleep(3)
+        print(f"\r{name.capitalize()} starts ... Good luck...")
+        time.sleep(2)
 
 
 game = Game()

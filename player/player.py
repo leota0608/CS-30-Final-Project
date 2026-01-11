@@ -1,6 +1,3 @@
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 import random
 from datetime import date
 import json
@@ -15,8 +12,7 @@ class Player:
 ?| {}       {} |?
  |    |||    |
  |  {}  |
- └───────────┘
-""",
+ └───────────┘""",
         "eye": "*",
         "blind_eye": "~",
         "smile": "└─────┘",
@@ -31,20 +27,17 @@ class Player:
 |   o   |
 |   o   |
 |   o   |
-└───────┘
-""",
+└───────┘""",
         "right arm": 
 """
 ┌──────────┐
 |          |
-└──────────┘
-""",
+└──────────┘""",
         "left arm": 
 """
 ┌──────────┐
 |          |
-└──────────┘
-""",
+└──────────┘""",
         "right leg": 
 """
 ┌─┐
@@ -52,36 +45,31 @@ class Player:
 | |
 | |
 | |
-└─┘
-""",
+└─┘""",
         "left leg": """
 ┌─┐
 | |
 | |
 | |
 | |
-└─┘
-""",
+└─┘""",
         "left hand": 
 """
 =||
 """, 
         "right hand": 
 """
-||=
-""",
+||=""",
         "left foot": 
 """
 ┌─┐
 ___
-|||
-""",
+|||""",
         "right foot": 
 """
 ┌─┐
 ___
-|||
-""", 
+|||""", 
 
     }
 
@@ -326,8 +314,8 @@ ___
 def clear_all_playing_records():
     with open("player/playingRecord.json", 'w') as file:
         json.dump({"Total Player": 0}, file, indent = 4)
-
+ 
 clear_all_playing_records()
 
 p = Player()
-p.printBodyShape([], False)
+# p.printBodyShape([], False)

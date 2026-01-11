@@ -22,7 +22,7 @@ class BlackJackGame(GameHandler):
         self.player_num = 3                     # 3 players, this can be changed
         self.initialise_player(self.player_num)
 
-        GameHandler.__init__(self, self.player_list, None, "black jack")
+        GameHandler.__init__(self, self.player_list, None, "Black Jack")
 
     def initialise_player(self, num):
         self.player_list = []
@@ -83,7 +83,10 @@ class BlackJackGame(GameHandler):
 
 
     def run(self):
-        self.print_rules(True)
+        if self.player.name.lower() == "test":
+            self.print_rules(False)
+        else:
+            self.print_rules(True)
         print("**Enter 0 to review game rules at any time**")
         print("Drawing phase:")
         # initial draw
@@ -126,14 +129,18 @@ class BlackJackGame(GameHandler):
                             max_score = self.player_list[i].max_sum
                             max_index = i
                     if max_index == 0:# win
-                        print("The judge came, and decided you are the winner\nReturning to lobby in 3s")
-                        time.sleep(2)
+                        print("The judge came, and decided you are the winner")
+                        for i in range(3, 1, -1):
+                            print(f"\rReturning to lobby in {i}s")
+                            time.sleep(2)
                         self.running = False
                         self.result = True
                         break
                     else:# lost
-                        print("The judge believes you are the problem and declared you as lost...\nReturning to lobby in 3s")
-                        time.sleep(2)
+                        print("The judge believes you are the problem and declared you as lost...")
+                        for i in range(3, 1, -1):
+                            print(f"\rReturning to lobby in {i}s")
+                            time.sleep(1)
                         self.running = False
                         self.result = False
                         self.alive = False
@@ -144,8 +151,10 @@ class BlackJackGame(GameHandler):
                 if i.alive:
                     player_alive += 1
             if player_alive == 1:# win
-                print("You win\nReturning to lobby in 3s...")
-                time.sleep(2)
+                print("You win")
+                for i in range(3, 1, -1):
+                    print(f"\rReturning to lobby in {i}s")
+                    time.sleep(1)
                 self.running = False
                 self.result = True
                 break
@@ -193,15 +202,19 @@ class BlackJackGame(GameHandler):
                         r = self.check_sum(i)
                         self.player_list[0].find_sum()
                         if  r == 0:# lost
-                            print("You lost... \nReturning to lobby in 3s...")
-                            time.sleep(2)
+                            print("You lost...")
+                            for i in range(3, 1, -1):
+                                print(f"\rReturning to lobby in {i}s")
+                                time.sleep(1)
                             self.running = False
                             self.result = False
                             self.alive = False
                             break
                         if r == 1:# win
-                            print("You win by getting 21...  \nReturning to lobby in 3s...")
-                            time.sleep(2)
+                            print("You win by getting 21...")
+                            for i in range(3, 1, -1):
+                                print(f"\rReturning to lobby in {i}s")
+                                time.sleep(1)
                             self.running = False
                             self.result = True
                             break
@@ -236,8 +249,10 @@ class BlackJackGame(GameHandler):
                         
                         self.player_list[i].find_sum()
                         if  r == 1:# human lost
-                            print(f"You lost... Player {i+1} got 21\nReturning to lobby in 3s...")
-                            time.sleep(3)
+                            print(f"You lost... Player {i+1} got 21")
+                            for i in range(3, 1, -1):
+                                print(f"\rReturning to lobby in {i}s")
+                                time.sleep(1)
                             self.running = False
                             self.result = False
                             break
@@ -261,7 +276,9 @@ class BlackJackGame(GameHandler):
             print(f"You successfully passed {self.name}")
             input("Press any key to proceed to next game...")
         else:
-            print("You failed to pass game 2\nReceive your punishment!")
+            print("You failed to pass game 2")
+            time.sleep(0.7)
+            print("Receive your punishment!")
             body_part = self.player.choose_body_part()
             self.player.lose(body_part)
             anim = BodyPartsAnim(self.player)
