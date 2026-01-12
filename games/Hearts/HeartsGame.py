@@ -1,6 +1,7 @@
 import random as rd
 import time as tm
 
+import games.common.score as score
 from games.common.GameHandler import GameHandler
 from games.Hearts.HeartsGameData import HeartsGameData
 from games.Hearts.HeartsBot import HeartsBot
@@ -8,13 +9,17 @@ from games.Hearts.HeartsHumanPlayer import HeartsHumanPlayer
 from games.common.GameCard import *
 from games.teller.Teller import Teller
 import games.common.Name as nm
-
+from games.common.BodyPartsAnim import BodyPartsAnim
 
 class HeartsGame(GameHandler):
     def __init__(self, user):
 
         # the actual user
         self.user = user
+        self.result = None
+
+        # animations
+        self.anims = BodyPartsAnim(self.user)
 
         # initializing players
         self.players = [None, None, None, None]
@@ -219,3 +224,13 @@ class HeartsGame(GameHandler):
         else:
             print(f"player {winner} won this game!!!!!!!")
             print(f"congrats to you player {winner}")
+            
+        isTie = winner == None
+
+        if winner != self.user.name or winner == None:
+            self.result = False
+        else:
+            self.result = True
+        
+        score.updateScore(self.result, self.user, isTie)
+        

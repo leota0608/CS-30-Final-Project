@@ -1,4 +1,5 @@
 from games.common.BodyPartsAnim import BodyPartsAnim
+import games.common.score as score
 from games.BlackJack.human import Human
 from games.common.GameHandler import GameHandler
 from games.BlackJack.bot import Bot
@@ -272,21 +273,7 @@ class BlackJackGame(GameHandler):
         self.handle_game_result()
 
     def handle_game_result(self):
-        if self.result:
-            print(f"You successfully passed {self.name}")
-            input("Press any key to proceed to next game...")
-        else:
-            print("You failed to pass game 2")
-            time.sleep(0.7)
-            print("Receive your punishment!")
-            body_part = self.player.choose_body_part()
-            self.player.lose(body_part)
-            anim = BodyPartsAnim(self.player)
-            anim.choose_body_part_anim(body_part)
-            time.sleep(2)
-            anim.screen_flickering_anim(body_part)
-            print(f"You lost your {body_part}...")
-            print("You are forced into the next game...")
+        score.updateScore(self.result, self.player)
 
     def print_handcard(self, num):
         if num == -1:

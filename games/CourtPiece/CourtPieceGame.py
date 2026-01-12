@@ -1,6 +1,7 @@
 import random as rd
 import time as tm
 
+import games.common.score as score
 from games.teller.Teller import Teller
 from games.common.GameHandler import GameHandler
 from games.CourtPiece.CPGameData import CPGameData
@@ -8,7 +9,7 @@ from games.CourtPiece.CPBot import CPBot
 from games.CourtPiece.CPHumanPlayer import CPHumanPlayer
 from games.common.GameCard import *
 import games.common.Name as nm
-
+from games.common.BodyPartsAnim import BodyPartsAnim
 
 class CourtPieceGame(GameHandler):
     DOUBLE_PLAY = 2
@@ -19,8 +20,9 @@ class CourtPieceGame(GameHandler):
 
         # set the premode
         self.mode = self.QUADRUPLE_PLAY
-
+        self.anims = BodyPartsAnim(user)
         self.user = user
+        self.result = None
 
         self.players = []
         names = nm.select_name(self.user.name, self.mode - 1)
@@ -204,4 +206,14 @@ class CourtPieceGame(GameHandler):
             print(f"--------- No Body Except Player {winner} --------")
         else:
             print(f"nobody actually won, it was a tie.")
+
+        isTie = winner == None
+
+        if winner != self.user.name or winner == None:
+            self.result = False
+        else:
+            self.result = True
+        
+        score.updateScore(self.result, self.user, isTie)
+
 

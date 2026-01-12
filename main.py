@@ -24,7 +24,6 @@ class Game:
         self.game3 = CourtPieceGame(self.player)#, 1000)
         self.game4 = HeartsGame(self.player)#, 10000)
         self.run()
-        self.ending()
         
     def greeting(self):
         # print greetings
@@ -47,18 +46,19 @@ class Game:
         # game2
         self.load_game_anim(self.game2.name)
         self.game2.run()
-        self.player.store_game_result(2, self.game2.result)
         self.player.update_score()
         
         self.lobby(3)
         # game3
         self.load_game_anim(self.game3.name)
         self.game3.run()
+        self.player.update_score()
         
         self.lobby(4)
         # game4
         self.load_game_anim(self.game4.name)
         self.game4.run()
+        self.player.update_score()
         
     def lobby(self, num):
         choice = None

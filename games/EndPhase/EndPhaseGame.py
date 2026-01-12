@@ -1,3 +1,4 @@
+from games.common.score import *
 from games.common.Character import Character
 from games.common.format import Format
 from games.EndPhase.bot import Bot
@@ -103,21 +104,10 @@ class EndPhaseGame(GameHandler):
                     self.result = False
                     self.player[0].alive = False
                     return
+        
           
     def handle_game_result(self):
-        if self.result:
-            print(f"You successfully passed {self.name}")
-            input("Press any key to proceed to the next game...")
-        else:
-            print(f"You failed to pass {self.name}\nReceive your punishment!")
-            body_part = self.user.choose_body_part()
-            self.user.lose(body_part)
-            anim = BodyPartsAnim(self.user)
-            anim.choose_body_part_anim(body_part)
-            time.sleep(2)
-            anim.screen_flickering_anim(body_part)
-            print(f"You lost your {body_part}...")
-            print("You are forced into the next game...")
+        updateScore(self.result, self.user)
     
     def check_win(self):
         for i in range(1, len(self.player)):
