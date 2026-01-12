@@ -20,7 +20,7 @@ class Player:
     }
 
     BODY_ELEMNTS = {
-        "main_body": 
+        "main body": 
 """
 ┌───────┐
 |   o   |
@@ -175,7 +175,7 @@ ___
         with open("player/playingRecord.json", 'w') as file:
             json.dump(record, file, indent = 4)
 
-    def indent_lines(self, text: str, spaces: int):
+    def indentLines(self, text: str, spaces: int):
         padding = " " * spaces
         # Split into lines, prepend spaces, then join back
         return "\n".join(padding + line for line in text.splitlines())
@@ -194,128 +194,121 @@ ___
         # Slice the list
         return lst[start:end+1] if start <= end else []
 
-    def printBodyShape(self, missing_parts, isSad):
+    def printBodyShape(self):
+        missing_parts = self.lost_body_parts
+        isSad = len(self.lost_body_parts) != 0
+        """
+        """
+        def printBodyAcross(first, body_print_list, bet):
+            """
+            Prints the body line by line.
+            first: number of spaces printed before each line.
+            body_print_list: a prepared list of configured parts.
+            See the comments below for more information regarding this
+            parameter.
+            bet: number of spaces printed after each line
+            """
+            # would be False when fully printed
+            didPrint = True
+            while didPrint:
+                didPrint = False
+                print(" " * first, end="")
+
+                for part in body_print_list:
+                    p = part[0]     # configured body part
+                    which = part[1]     # current print index
+                    space = part[2]     # number of placeholder spaces
+
+                    # check if current index is inbound
+                    if 0 <= which < len(p):
+                        print(p[which], end="")
+                        print(" " * bet, end="")
+                        didPrint = True
+                    else:
+
+                        print(" " * space, end="")
+                        print(" " * bet, end="")
+                    part[1] += 1
+                print()     # advance the print marker to the next line
+
+        def configurePart(element):
+            """
+            It checks if the given element had been
+            removed. If so it splits it into several lines otherwise
+            returns empty string.
+            Removed all leading spaces from front and end of all the
+            lines.
+            element: the name of the body part.(str)
+            """
+            lines = ("" if element in missing_parts
+                        else self.BODY_ELEMNTS[element]).split("\n")
+            return self.removeLeadingSpace(lines)
+        
+        # Prepration phase before printing.
         # ---------- HEAD ----------
+        # check if any of the facial elements where removed!
         eye = (self.HEAD_PARTS["blind_eye"]
                if "eye" in missing_parts
                else self.HEAD_PARTS["eye"])
-        
         mouth = (self.HEAD_PARTS["sad"]
                  if isSad
                  else self.HEAD_PARTS["smile"])
-
         head = ("" if "head" in missing_parts
                 else self.HEAD_PARTS["head"].format(eye, eye, mouth))
-
         # ---------- ARMS ----------
-        left_arm = ( "" if "left arm" in missing_parts
-            else self.BODY_ELEMNTS["left arm"]).split("\n")
-        left_arm = self.removeLeadingSpace(left_arm)
-        right_arm = ("" if "right arm" in missing_parts
-            else self.BODY_ELEMNTS["right arm"]).split("\n")
-        right_arm = self.removeLeadingSpace(right_arm)
+        # check if elements of hands where removed.
+        # replacing it with empty string instead.
+        left_arm = configurePart("left arm")
+        right_arm = configurePart("right arm")
         # ---------- BODY ----------
-        body = self.BODY_ELEMNTS["main_body"].split("\n")
-        body = self.removeLeadingSpace(body)
+        body = configurePart("main body")
         # ---------- HANDS ----------
-        left_hand = ("" if "left hand" in missing_parts
-            else self.BODY_ELEMNTS["left hand"]).split("\n")
-        left_hand = self.removeLeadingSpace(left_hand)
-        right_hand = ("" if "right hand" in missing_parts
-            else self.BODY_ELEMNTS["right hand"]).split("\n")
-        right_hand = self.removeLeadingSpace(right_hand)
+        left_hand = configurePart("left hand")
+        right_hand = configurePart("right hand")
         # ---------- LEGS ----------
-        left_leg = ("" if "left leg" in missing_parts
-            else self.BODY_ELEMNTS["left leg"]).split("\n")
-        left_leg = self.removeLeadingSpace(left_leg)
-        right_leg = ("" if "right leg" in missing_parts
-            else self.BODY_ELEMNTS["right leg"]).split("\n")
-        right_leg = self.removeLeadingSpace(right_leg)
+        left_leg = configurePart("left leg")
+        right_leg = configurePart("right leg")
         # ---------- FEET ----------
-        left_foot = ("" if "left foot" in missing_parts
-            else self.BODY_ELEMNTS["left foot"]).split("\n")
-        left_foot = self.removeLeadingSpace(left_foot)
-        right_foot = ("" if "right foot" in missing_parts
-            else self.BODY_ELEMNTS["right foot"]).split("\n")
-        right_foot = self.removeLeadingSpace(right_foot)
+        left_foot = configurePart("left foot")
+        right_foot = configurePart("right foot")
 
-        head = self.indent_lines(head, 12)
-        didPrint = True
-
+        # printing body elements
+        head = self.indentLines(head, 12)   # indent each line 12 spaces
         print(head)
+        # Note: follow these guidelines to create a prepared body
+        # print list.
+        # printing list prepares each round of body parts
+        # for printing.
+        # [configured body part, current_line_index, replacement_spaces]
+        # configuted body part:
+        # refers to the list of lines the body part has.
+        # current_line_index:
+        # the current index that should be removed.
+        # Note: if the index is out of bounds, it will only
+        # be advanced and instead " " * replacement_spaces
+        # will be printed until a inbound index is reached.
+        # replacement_spaces:
+        # number of spaces to be printed when there is body element
+        # line to print. 
         body_print_list = [[left_hand, -1, 3], [left_arm, 0, 12],
-                           [body, 0, 9], [right_arm, 0, 12], [right_hand, -1, 3]]
-        
+                           [body, 0, 9], [right_arm, 0, 12],
+                           [right_hand, -1, 3]]
         # printing upper body
-        while didPrint:
-
-            didPrint = False
-
-            for part in body_print_list:
-                p = part[0]
-                which = part[1]
-                space = part[2]
-                
-                if which >= 0 and which < len(p):
-                    print(p[which], end = "")
-                    didPrint = True
-                else:
-                    print(" " * space, end = "", flush = True)
-                part[1] += 1
-            print()
-
+        printBodyAcross(0, body_print_list, 0)
         # printing lower body
         body_print_list = [[left_leg, 0, 3], [right_leg, 0, 3]]
-        didPrint = True
-
-        while didPrint:
-
-            didPrint = False
-            print(" " * 14, end = "")
-
-            for part in body_print_list:
-                p = part[0]
-                which = part[1]
-                space = part[2]
-
-                if which >= 0 and which < len(p):
-                    print(p[which], end = "")
-                    print(" " * 5, end = "")
-                    didPrint = True
-                else:
-                    print(" " * space, end = "")
-                part[1] += 1
-            print()
-
+        printBodyAcross(14, body_print_list, 5)
+        # printing the feet
         body_print_list = [[left_foot, 0, 3], [right_foot, 0, 3]]
-        didPrint = True
+        printBodyAcross(14, body_print_list, 5)
 
-        while didPrint:
 
-            didPrint = False
-            print(" " * 14, end = "")
-
-            for part in body_print_list:
-                p = part[0]
-                which = part[1]
-                space = part[2]
-
-                if which >= 0 and which < len(p):
-                    print(p[which], end = "")
-                    print(" " * 5, end = "")
-                    didPrint = True
-                else:
-                    print(" " * space, end = "")
-                part[1] += 1
-            if didPrint:
-                print()
-
-    
 def clear_all_playing_records():
     with open("player/playingRecord.json", 'w') as file:
-        json.dump({"Total Player": 0}, file, indent = 4)
- 
+        json.dump({"Total Player": 0}, file, indent=4)
+
+
 clear_all_playing_records()
 
-p = Player()
-# p.printBodyShape([], False)
+Player = Player()
+Player.printBodyShape()

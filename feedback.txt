@@ -1,0 +1,14 @@
+These steps to improve our code:
+1) Use comments instead of spaces between blocks of code.
+2) Add docstring and comments to explain the code.
+3) Add header for each python module.
+4) Use if __name__ == "__main__" for each run file.
+5) Make the information to be printed at a slower rate.
+6) Use flushing to remove unwanted information from terminal.
+7) Pause the player, so they can follow the logic of the game and confirm.
+8) Use indentation when printing to make things clearer.
+9) Let the user repeat a game.
+10) Add option so that the player can get out of a game by
+paying or losing a body part.
+11) BUG: In first game(End Phase) there were two weapons displayed during
+dismantle time. The correct thing was for one weapon be displayed to the user.
