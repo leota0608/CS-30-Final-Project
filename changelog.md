@@ -10,6 +10,9 @@ example:
 + 0.1.1 means amir committed his first commit to version 1.  
 ## Change Log
 
++ 0.4.2.2 and 0.4.2.3:
+- the bug that multiple body parts was printed solved.
+
 + 0.4.2.1:
 - Games are now able to add and lose moeny to the player
 + 0.4.1.3:
