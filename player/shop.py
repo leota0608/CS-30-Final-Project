@@ -5,7 +5,7 @@ from games.EndPhase.choose import choose
 class Shop:
     def __init__(self, player):
         self.player = player
-        with open("player/bodyParts.json", 'r') as content:
+        with open("player/PlayerStarterData.json", 'r') as content:
                 data = json.load(content)
                 self.bodyParts = data["bodyParts"]
                 self.prices = data["prices"]
@@ -27,7 +27,7 @@ class Shop:
             print("Available body parts:")
             for i in range(len(self.items)):
                 print(f"{i+1}. {self.items[i]} (${self.prices[self.items[i]]})", end='')
-                if self.items[i] in self.player.lost_body_part:
+                if self.items[i] in self.player.lost_body_parts:
                     print("-Lost-")
                 else:
                     print("")
@@ -51,7 +51,11 @@ class Shop:
                 return
             body_part = self.items[item_choice-1]
             if not body_part in self.player.lost_body_parts:
+                print()
+                print("you bastard!")
+                print("check what you have and what you do not have before coming here.")
                 print(f"You already have {body_part}")
+                print()
             elif self.player.money >= self.prices[body_part]:
                 # buy
                 self.player.money -= self.prices[body_part]

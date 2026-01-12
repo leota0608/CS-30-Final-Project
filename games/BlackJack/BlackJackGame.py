@@ -11,10 +11,11 @@ import time
 
 
 class BlackJackGame(GameHandler):
-    def __init__(self, player):
+    def __init__(self, player, money):
         self.player = player
         self.running = True
         self.result = False
+        self.money = money
         # initialise deck of cards
         self.deck = Deck()
         self.deck.initialise()
@@ -186,6 +187,12 @@ class BlackJackGame(GameHandler):
                                 self.result = False
                                 self.alive = False
                                 break
+                    if choice.lower() == "end":
+                        out = score.handleMidGameClose(self.player, self.money)
+                        if out == True:
+                            self.running = False
+                            self.result = True
+                            self.alive = True
                     #####################################################        
                     while choice == '0':
                         self.print_rules(False)
@@ -273,7 +280,7 @@ class BlackJackGame(GameHandler):
         self.handle_game_result()
 
     def handle_game_result(self):
-        score.updateScore(self.result, self.player)
+        score.updateScore(self.result, self.player, self.money)
 
     def print_handcard(self, num):
         if num == -1:

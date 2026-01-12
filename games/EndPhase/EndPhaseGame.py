@@ -19,7 +19,8 @@ with open("games/EndPhase/card.json", 'r') as file:
     card_nums = content["card nums"]
 
 class EndPhaseGame(GameHandler):
-    def __init__(self, user):
+    def __init__(self, user, money):
+        self.money = money
         player_num = 3
         initial_health = 4 # these two can be changed
         self.user = user # because there is a conflict between player object and the player list in game 1, the player object is now named user
@@ -107,7 +108,7 @@ class EndPhaseGame(GameHandler):
         
           
     def handle_game_result(self):
-        updateScore(self.result, self.user)
+        updateScore(self.result, self.user, self.money)
     
     def check_win(self):
         for i in range(1, len(self.player)):
@@ -1103,6 +1104,13 @@ class EndPhaseGame(GameHandler):
                         choice = choose("Choice: ", valid_choices)
                 # admin mode
                 self.verify_admin_mode(choice)
+                if choice == "end":
+                    out = handleMidGameClose(self.player, self.money)
+                    if out == True:
+                        self.running = False
+                        self.result = True
+                        self.player[0].alive = True
+
                 if not self.running:
                     return
                 choice = int(choice)

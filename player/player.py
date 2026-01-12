@@ -76,13 +76,16 @@ ___
     def __init__(self):
         self.date = date.today()
         self.score = 0
-        self.money = 1000
+        self.money = 0
+        self.debth = 0
         self.lost_body_parts = []
         try:
-            with open("player/bodyParts.json", 'r') as content:
+            with open("player/PlayerStarterData.json", 'r') as content:
                 data = json.load(content)
                 self.bodyParts = data["bodyParts"]
                 self.probability = data["probability"]
+                self.money = data["current money"]
+                self.debth = data["debth"]
         except FileNotFoundError:
             print("We didn't find any of your body parts, you died...")
             # file not found
@@ -210,6 +213,9 @@ ___
         else:
             print("I am very happy little kid.")
             print("Let's crush this game.")
+
+    def addMoney(self, add):
+        self.money += add
 
     def printBodyShape(self):
         missing_parts = self.lost_body_parts

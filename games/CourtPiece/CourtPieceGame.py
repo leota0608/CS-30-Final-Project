@@ -16,13 +16,14 @@ class CourtPieceGame(GameHandler):
     TRIPLE_PLAY = 3
     QUADRUPLE_PLAY = 4
 
-    def __init__(self, user):
+    def __init__(self, user, money):
 
         # set the premode
         self.mode = self.QUADRUPLE_PLAY
         self.anims = BodyPartsAnim(user)
         self.user = user
         self.result = None
+        self.money = money
 
         self.players = []
         names = nm.select_name(self.user.name, self.mode - 1)
@@ -214,6 +215,6 @@ class CourtPieceGame(GameHandler):
         else:
             self.result = True
         
-        score.updateScore(self.result, self.user, isTie)
+        score.updateScore(self.result, self.user, self.money, isTie)
 
 

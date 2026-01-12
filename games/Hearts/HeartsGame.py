@@ -12,11 +12,12 @@ import games.common.Name as nm
 from games.common.BodyPartsAnim import BodyPartsAnim
 
 class HeartsGame(GameHandler):
-    def __init__(self, user):
+    def __init__(self, user, money):
 
         # the actual user
         self.user = user
         self.result = None
+        self.money = money
 
         # animations
         self.anims = BodyPartsAnim(self.user)
@@ -232,5 +233,5 @@ class HeartsGame(GameHandler):
         else:
             self.result = True
         
-        score.updateScore(self.result, self.user, isTie)
+        score.updateScore(self.result, self.user, self.money, isTie)
         
