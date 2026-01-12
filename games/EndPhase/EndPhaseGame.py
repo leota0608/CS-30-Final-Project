@@ -38,6 +38,7 @@ class EndPhaseGame(GameHandler):
         GameHandler.__init__(self, self.player, None, "End Phase")
 
     def run(self):
+        """This method runs the game."""
         if self.user.name.lower() == "test":
             self.print_rules(False) # no animation
             time.sleep(0.7)
@@ -88,6 +89,8 @@ class EndPhaseGame(GameHandler):
         self.handle_game_result()
 
     def verify_admin_mode(self, choice):
+        """This is a developer mode, it helps developers quickly skip the game and get results.
+        choice is a string that can be admin to open admin mode"""
         if choice.lower() == "admin":
             code = input("Admin code: ")
             if code == "0710":
@@ -108,15 +111,18 @@ class EndPhaseGame(GameHandler):
         
           
     def handle_game_result(self):
+        """Is called after the game ends, and update all the player information"""
         updateScore(self.result, self.user, self.money)
     
     def check_win(self):
+        """Check if all other bots have died, if so, the human player wins"""
         for i in range(1, len(self.player)):
             if self.player[i].alive:
                 return False
         return True
     
     def initialise_deck(self):
+        """Create deck of cards and randomize it."""
         deck_card = []
         for i, j in card_nums.items():
             for p in range(j):
@@ -125,6 +131,7 @@ class EndPhaseGame(GameHandler):
         self.deck.shuffle()
     
     def initialise_handcards(self):
+        """Draw each player a certain amount of cards and add them to their handcards."""
         for i in range(len(self.player)):
             handcards = self.deck.card_list[0:self.player[i].health]
             self.player[i].add_handcards(handcards)

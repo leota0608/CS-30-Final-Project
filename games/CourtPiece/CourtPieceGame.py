@@ -17,20 +17,17 @@ class CourtPieceGame(GameHandler):
     QUADRUPLE_PLAY = 4
 
     def __init__(self, user, money):
-
         # set the premode
-        self.mode = self.QUADRUPLE_PLAY
+        self.mode = self.TRIPLE_PLAY
         self.anims = BodyPartsAnim(user)
         self.user = user
         self.result = None
         self.money = money
-
         self.players = []
         names = nm.select_name(self.user.name, self.mode - 1)
         for i in range(self.mode - 1):
             self.players.append(CPBot(names[i]))
         self.players.append(CPHumanPlayer(self.user.name))
-
         self.rounds = 2 * (4 - self.mode) + 7
         self.data = CPGameData()
         self.createCardEntries()
