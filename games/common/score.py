@@ -55,6 +55,6 @@ def updateScore(result, user, money, wasTie = False):
         print("we move on ...")
     else:
         user.addMoney(money)
-        print(f"You successfully passed {user.name}")
+        print(f"You successfully passed, {user.name}!")
         input("Press any key to proceed to next game...")
     user.store_game_result(3, result)

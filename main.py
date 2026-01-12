@@ -27,7 +27,8 @@ class Game:
 
     def greeting(self):
         # print greetings
-        self.story.display()
+        # self.story.display()
+        pass
         
     def runGame(self, gameName):
         print("Game starts")
@@ -55,7 +56,7 @@ class Game:
         self.printOptions(self.play_game_options)
         
         while True:
-            choice = input("which game do you wanna play> ")
+            choice = input("Which game do you wanna play> ")
             try:
                 choice = self.play_game_options[int(choice) - 1]
             except (TypeError, ValueError):
@@ -133,13 +134,13 @@ class Game:
                 elif choice == "leave arcade":
                     print("you have not still paid your money.")
                     time.sleep(2)
-                    print("We would just kill you and then sell your body for your debth.")
+                    print("We would just kill you and then sell your body for your debt.")
                     print("Listen, we have to sympathy we only care about money!")
-                    choice = input("do you really want that>(Y/n) ")
-                    while choice not in ["Y", "n"]:
-                        choice = input("do you really want that>(Y/n) ")
+                    choice = input("Do you really want that>(y/n) ")
+                    while choice not in ["y", "n"]:
+                        choice = input("do you really want that>(y/n) ")
                         print("invalid, invalid, invalid, choice.")
-                    if choice == "Y":
+                    if choice == "y":
                         print("Ok, you bastard.")
                         print("we gonna chop of everything.")
                         time.sleep(2)
