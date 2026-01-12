@@ -157,7 +157,6 @@ ___
                 if self.bodyParts[i] in self.lost_body_parts:
                     self.choose_body_part()
                     break
-                self.lost_body_parts.append(self.bodyParts[i])
                 return self.bodyParts[i]
             
    
