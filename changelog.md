@@ -10,6 +10,9 @@ example:
 + 0.1.1 means amir committed his first commit to version 1.  
 ## Change Log
 
++ 0.4.1.2:
+ - a method to print the player's condition was addded.
+ - Note: There was bug were body parts were added twice to the self.lost_body_parts
 + 0.4.1.1:
  - the method for printing player was debugged.
  - comments was addded to imrpove its readability

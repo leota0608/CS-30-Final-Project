@@ -68,7 +68,7 @@ class Game:
                 self.shop.buy()
             elif choice == 2:
                 os.system("cls")
-                self.player.printBodyShape([], False)
+                self.player.printBodyShape()
                 time.sleep(0.7)
                 input("\rpress any key to continue...")
                 os.system("cls")

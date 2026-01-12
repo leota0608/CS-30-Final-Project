@@ -193,6 +193,23 @@ ___
 
         # Slice the list
         return lst[start:end+1] if start <= end else []
+    
+    def printPlayerMessage(self, isSad):
+        print(f"my name is {self.name}")
+        if isSad:
+            print("I am not feeling good.")
+            print("I have lost", end = "")
+            for part in self.lost_body_parts:
+                print(" " + part, end="")
+            print(".")
+            print("you know ", end = "", flush = True)
+            time.sleep(1)
+            print("it hurts so much.")
+            print("please help me.")
+            print("please ...")
+        else:
+            print("I am very happy little kid.")
+            print("Let's crush this game.")
 
     def printBodyShape(self):
         missing_parts = self.lost_body_parts
@@ -302,6 +319,8 @@ ___
         body_print_list = [[left_foot, 0, 3], [right_foot, 0, 3]]
         printBodyAcross(14, body_print_list, 5)
 
+        self.printPlayerMessage(isSad)
+
 
 def clear_all_playing_records():
     with open("player/playingRecord.json", 'w') as file:
@@ -309,6 +328,3 @@ def clear_all_playing_records():
 
 
 clear_all_playing_records()
-
-Player = Player()
-Player.printBodyShape()
