@@ -53,6 +53,7 @@ def updateScore(result, user, money, wasTie = False):
         tm.sleep(3)
         anims.screen_flickering_anim(chosen_part)
         print("we move on ...")
+        user.lose(chosen_part)
     else:
         user.addMoney(money)
         print(f"You successfully passed {user.name}")

@@ -159,8 +159,10 @@ ___
                     break
                 self.lost_body_parts.append(self.bodyParts[i])
                 return self.bodyParts[i]
-    
+            
+   
     def lose(self, body_part):
+
         self.lost_body_parts.append(body_part)
         with open("player/playingRecord.json", 'r') as file:
             record = json.load(file)
@@ -203,7 +205,7 @@ ___
             print("I am not feeling good.")
             print("I have lost", end = "")
             for part in self.lost_body_parts:
-                print(" " + part, end="")
+                print(", " + part, end="")
             print(".")
             print("you know ", end = "", flush = True)
             time.sleep(1)

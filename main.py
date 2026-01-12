@@ -17,22 +17,26 @@ class Game:
         self.shop = Shop(self.player)
         self.story = Teller("gameStory.txt")
 
-        self.lobby_options = ["body shop", "check self", "check money", "play game", "leave arcade"]
-        self.play_game_options = ["End Phase", "Black Jack", "Court Piece", "Hearts", "exit"]
+        self.lobby_options = ["body shop", "check self",
+                              "check money", "play game",
+                              "leave arcade"]
+        self.play_game_options = ["End Phase", "Black Jack",
+                                  "Court Piece", "Hearts",
+                                  "exit"]
 
-        self.games = {"End Phase": (EndPhaseGame, 3000),
-                      "Black Jack": (BlackJackGame, 4000),
-                      "Court Piece": (CourtPieceGame, 2000),
-                      "Hearts": (HeartsGame, 5000)}
+        self.games = {"End Phase": EndPhaseGame,
+                      "Black Jack": BlackJackGame,
+                      "Court Piece": CourtPieceGame,
+                      "Hearts": HeartsGame}
 
     def greeting(self):
         # print greetings
         self.story.display()
         
-    def runGame(self, gameName):
+    def runGame(self, gameName, money):
         print("Game starts")
         # game1
-        game = self.games[gameName][0](self.player, self.games[gameName][1])
+        game = self.games[gameName](self.player, money)
         self.load_game_anim(game.name)
         game.run()
         self.player.update_score()
@@ -74,10 +78,19 @@ class Game:
                         confirm = input(f"are you sure you wanna play {choice}?(Y/n)")
                         print("error: option invalid")
                     if confirm == "Y":
-                        print("start your game in (3) seconds.")
-                        time.sleep(3)
-                        self.runGame(choice)
-                        break
+                        money = random.randint(2000, 6000)
+                        print(f"if you win, you will get almost {money}")
+
+                        confirm = input(f"are you ok with it?(Y/n)")
+                        while confirm not in ["Y", "n"]:
+                            confirm = input(f"are you ok with this?(Y/n)")
+                            print("error: option invalid")
+                        if confirm == "Y":
+                            print("OK")
+                            self.runGame(choice, money)
+                            break
+                        else:
+                            print("yup, yup, not enough.")
                     else:
                         print("choose a game fast, I do not have time!")
 
@@ -92,6 +105,15 @@ class Game:
             print("Now get out ...")
             time.sleep(2)
             print()
+            return True
+        elif "head" in self.player.lost_body_parts:
+            print()
+            print("ehhhhhhhhhhhh")
+            print("you lost big ugly head.")
+            print("you are now a dead pumpkin.")
+            print("RIP")
+            time.sleep(2)
+            print("we are going to take out all of your parts and sell them!")
             return True
         else:
             print(f"you still need to pay something like {self.player.debth - self.player.money}.")
@@ -147,7 +169,6 @@ class Game:
                         print("contiue your game and do not come here again.")
 
                     
-
     def load_game_anim(self, name: str):
         load = 0
         while load < 100:
