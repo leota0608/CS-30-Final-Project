@@ -31,8 +31,7 @@ class Game:
 
     def greeting(self):
         # print greetings
-        #self.story.display()
-        pass
+        self.story.display()
     
     def runGame(self, gameName, money):
         print("Game starts")
