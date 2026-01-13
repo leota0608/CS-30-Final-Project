@@ -2,13 +2,18 @@ import json
 import random
 from games.EndPhase.human import Human 
 
-
+# this code opens card.json stores the card and card_nums dictionary
 with open("games/EndPhase/card.json", 'r') as file:
     content = json.load(file)
     card = content["card"]
     card_nums = content["card nums"]
 
 class Bot(Human):
+    """This class is inherited from Human class, these are the perimeters:
+    name: the name of the bot
+    health: the initial health of the bot
+    enemy_num: the enemy number that bot has
+    index: the index the bot has in the list of players"""
     def __init__(self, name, health, enemy_num, index):
         Human.__init__(self, name, health, index)
         self.enemy_num = enemy_num
@@ -18,15 +23,8 @@ class Bot(Human):
         self.alive = True
         self.act_step = 1
 
-    def evaluate_cardnums(self, card_nums):
-        self.card_nums = card_nums
-
-    def update_cardnums(self, card_name, change):
-        self.card_nums[card_name] += change
-        if self.card_nums[card_name] < 0:
-            print("**ERROR: Wrong card numbers**")
-
     def creat_enemies(self):
+        """This method creates the enemies of the bot according to enemy_nums and store it as a dictionary."""
         total_card_nums = 0
         for i, j in self.card_nums.items():
             total_card_nums += j
@@ -40,14 +38,10 @@ class Bot(Human):
                                "estimated_handcards": self.card_nums.copy(), 
                                "equipment": {"weapen": None, "armor": None},
                                "handcard_num": self.health})
-    
-    def update_total_cardnums(self):
-        num = 0
-        for i, j in self.card_nums.items():
-            num += j
-        self.total_cardnums = num
 
     def find_high_value_target(self, player):
+        """This method has a player perimeter which is the player list, it then returns the player
+         with highest value: with equipment or has lowest health."""
         targets_with_equipment = []
         player_health = []
         for i in range(len(player)):
@@ -71,6 +65,11 @@ class Bot(Human):
             return player_health[0][1]
     
     def take_move(self, player):# choose the card to play in start phase
+        """
+        This method is the core strategy of the bot.
+        it has a perimeter of list of players.
+        After it make decision, it returns the cards object and the index in handcard.
+        """
         # select available cards to play from handcards
         available_moves = []
         for i in range(0, len(self.handcards)):
@@ -152,11 +151,10 @@ class Bot(Human):
                     else:
                         target = target[random.randint(1, len(target)-1)]
                         return {"card": self.handcards[i[1]], "target": target[1], "index": i[1]}
-
-        
         return -1
     
     def choose_target(self):
+        """This method returns the player list sorted according health in ascending order"""
         target = []
         for e in self.enemy:
             if e == "self" or not e["alive"]:
@@ -166,6 +164,8 @@ class Bot(Human):
         return target
     
     def discard_card(self):
+        """This methods lets the bot discard cards according to their value.
+        else it returns a random card index"""
         for i in range(0, len(self.handcards)):
             if self.handcards[i].name == "duel":
                 return i
@@ -179,6 +179,3 @@ class Bot(Human):
             if self.handcards[i].name == "peach":
                 return i
         return random.randint(0, len(self.handcards)-1)
-      
-            
-    # update enemy in main

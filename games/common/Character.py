@@ -5,7 +5,7 @@ class Character:
         self.name = name
 
     def setGameData(self, gameData):
-        """ GameHander will provide gameData for each
+        """ GameHandler will provide gameData for each
         player through this method.
         """
         self.gameData = gameData

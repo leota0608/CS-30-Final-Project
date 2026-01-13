@@ -1,5 +1,5 @@
 (LETTER):
-*0.1
+*0.03
 Hi dear, Welcome to the End of the World Arcade.
 This is really the end of the world!
 (LETTER):
@@ -9,13 +9,13 @@ This is really the end of the world!
 💀💀💀💀💀
 **2
 (LETTER):
-*0.1
+*0.03
 So, you see what I mean, it is really the end.
 
 **2
 
 (LETTER):
-*0.1
+*0.03
 You, like every other player, are here because you had
 a very high debt that you should pay. Do not cry remember
 when you were doing every thing to get money from the Boss.
@@ -25,7 +25,7 @@ You either gonna pay off our money or we will take your whole body instead.
 **2
 
 (LETTER):
-*0.1
+*0.03
 To get out safe and clean of every debt, you have to play
 four games. If you do not know how to play each game we have game assistants
 that would help you get settled.
@@ -35,7 +35,7 @@ to the end is small, so do not try so hard.
 **2
 
 (LETTER):
-*0.1
+*0.03
 Losing in any game comes at the cost of losing a body part. Though you can buy
 a body part and fix yourself if you had enough money to do so. 
 At the end we at END OF THE WORLD ARCADE are so happy to sell your body
@@ -44,7 +44,7 @@ parts and make money off it.
 **2
 
 (LETTER):
-*0.1
+*0.03
 If you do not have any more questions ... actually you cannot ask any question
 never.
 We just take you to the lobby, eaither you will come or we will take you there
@@ -53,5 +53,5 @@ by force.
 **1
 
 (LETTER):
-*0.1
+*0.03
 HAAAAA... HAAAA... HAAA... HAAA .... HAAAAAAAAAAAAA, HAAAAAAAA

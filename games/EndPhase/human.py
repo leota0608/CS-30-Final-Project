@@ -2,6 +2,12 @@ from games.common.Character import Character
 
 
 class Human(Character):
+    """The class inherits form Character class, which includes
+    user name and game data. It has following perimeters:
+    name: human player name
+    health: initial health of player
+    index: the index of the player(0)
+    """
     def __init__(self, name, health, index):
         self.initial_health = health
         self.name = name
@@ -14,4 +20,7 @@ class Human(Character):
         self.index = index
     
     def add_handcards(self, new_handcards):
+        """
+        This method add a list of handcards to the current handcard list
+        """
         self.handcards.extend(new_handcards)

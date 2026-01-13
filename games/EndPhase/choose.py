@@ -1,5 +1,8 @@
 def choose(output, input_range = "none", confirm = "no"):
     """
+    output: a string, usually the question
+    input_range: a list of strings the input can be.
+    confirm: a string that indicates if confirmation is needed
     This function lets the user picks anything, parameters include n output,
     asking the user for input and input range is if there is a certain range
     required for the input.

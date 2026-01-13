@@ -10,15 +10,22 @@ from games.common.BodyPartsAnim import BodyPartsAnim
 from games.common.GameHandler import GameHandler
 import time
 import json
+import os
 import random
 
-
+# this block of code opens card.json from games.EndPhase.card.json, it stores the card nums and card types.
 with open("games/EndPhase/card.json", 'r') as file:
     content = json.load(file)
     card = content["card"]
     card_nums = content["card nums"]
 
 class EndPhaseGame(GameHandler):
+    """This class runs the entire end phase game. It has two perimeters:
+    user, which is the player object and money, which is the money the player gets after winning the game.
+    Some important features are self.running, which is checked to keep the game running and self.result, 
+    which is checked by to determine did the player win or not.
+    The class inherits from GameHandler class, which has game information and player information
+    """
     def __init__(self, user, money):
         self.money = money
         player_num = 3
@@ -38,7 +45,8 @@ class EndPhaseGame(GameHandler):
         GameHandler.__init__(self, self.player, None, "End Phase")
 
     def run(self):
-        """This method runs the game."""
+        """This method runs the whole game. It then deal with game result, punishments or rewards"""
+        # checks if print the game rules and card description with animation
         if self.user.name.lower() == "test":
             self.print_rules(False) # no animation
             time.sleep(0.7)
@@ -50,6 +58,7 @@ class EndPhaseGame(GameHandler):
         print(f"(You can review the game rules and card descriptions by entering {self.game_rule_key} and {self.card_description_key})")
         print("**Game starts**")
         time.sleep(0.7)
+        # This while loop loops infinitely till the game ends
         while self.running:
             if self.check_win():
                 self.result = True
@@ -91,7 +100,7 @@ class EndPhaseGame(GameHandler):
     def verify_admin_mode(self, choice):
         """This is a developer mode, it helps developers quickly skip the game and get results.
         choice is a string that can be admin to open admin mode"""
-        if choice.lower() == "admin":
+        if choice.lower() == "admin":# admin mode provide convenience for developers
             code = input("Admin code: ")
             if code == "0710":
                 result = input("Win or lose(1/0):")
@@ -138,6 +147,8 @@ class EndPhaseGame(GameHandler):
             self.deck.card_list = self.deck.card_list[self.player[i].health:]
     
     def draw_cards(self, num):# 2 cards
+        """This method reads an int peremeter, which is the player that is drawing cards, it then draws
+        2 cards and adds them to the player handcards."""
         if len(self.deck.card_list) < 2:
             self.running = False
             return 
@@ -152,6 +163,8 @@ class EndPhaseGame(GameHandler):
             self.player[i].enemy[num]["handcard_num"] += 2
             
     def print_handcards(self, num):
+        """This method reads the peremeter: num, and prints the handcards of the player num and the other player 
+        information."""
         format.newline()
         weapen_name = "Not equipped" if self.player[num].equipment['weapen'] is None else self.player[num].equipment['weapen'].name
         armor_name = "Not equipped" if self.player[num].equipment['armor'] is None else self.player[num].equipment['armor'].name
@@ -162,7 +175,7 @@ class EndPhaseGame(GameHandler):
             else:
                 card_name = ""
             if i == 0:
-                output = "| Your Info:"
+                output = "| Your Info:" # these code prints player information side by side
                 while len(output)<=35:
                         output += ' '
                 for p in range(1, len(self.player)):
@@ -233,6 +246,8 @@ class EndPhaseGame(GameHandler):
             print("")
 
     def nearly_dead(self, num):
+        """This method reads the peremeter num and checks if player num is really dead because of the 
+        existance of peach."""
         for i in range(len(self.player[num].handcards)):
             if self.player[num].handcards[i].name == "peach":
                 # relpace player 1 with You
@@ -263,7 +278,18 @@ class EndPhaseGame(GameHandler):
             self.player[i].enemy[num]["alive"] = False # update bot's prediction
         self.player[num].alive = False
 
-    def attack(self, num1, num2, human):# human = 1: player attack AI; human = 0: AI attacks AI; human = -1: AI attacks human
+    def attack(self, num1, num2, human):
+        """This method is the attack method.
+        Explanation of the peremeters:
+        all peremeters are integers
+        num1: the attacking side
+        num2: the player being attacked
+        human = 1: player attack AI; human = 0: AI attacks AI; human = -1: AI attacks human
+        The method checks if the player being attacked has a dodge.
+        If so, and the player is the human player, it asks if the player wants to play a dodge.
+        if its a bot, it plays a dodge
+        if not, the player being attacked lose one health point
+        """
         # Check if num2 has evasion armor equipped
         if self.player[num2].equipment["armor"] is not None and self.player[num2].equipment["armor"].name == "evasion":
             # 50% chance to automatically dodge
@@ -485,7 +511,7 @@ class EndPhaseGame(GameHandler):
                             if self.player[num2].health == 0:
                                 self.nearly_dead(num2)
                     break
-        if lose_health:
+        if lose_health:# checks if a player is nearly dead
             self.player[num2].health -= 1
             for i in range(1, len(self.player)):
                 if i == num2 or not self.player[i].alive:
@@ -502,6 +528,10 @@ class EndPhaseGame(GameHandler):
                 self.nearly_dead(num2)
 
     def peach(self, num): # num: the player who uses the peach
+        """
+        This is the peach method, num is a integer that represents the player number
+        the method is called when the player uses a peach
+        """
         target = f"Player {num+1} uses" if num != 0 else "You use"
         self.player[num].health += 1
         self.player[num].max_handcards += 1
@@ -516,7 +546,16 @@ class EndPhaseGame(GameHandler):
             if self.player[i].enemy[num]["estimated_handcards"]["peach"] < 0:
                 print("**ERROR: 2function-peach<0**")
    
-    def duel(self, num1, num2, human):# human = 1: num1 human, -1: num2 is human, 0: two AI dueling
+    def duel(self, num1, num2, human):
+        """
+        This is the duel method, it is called when one player uses duel
+        Perimeters description:
+        num1: the player that starts the duel
+        num2: the player that is being targeted by the duel
+        human = 1: num1 is human, human = -1: num2 is human, human = 0: two AI dueling
+        This is a recursive function, because the two players needs to play slash one by one,
+        so the method calls itself and switch num1 and num2 and human value accordingly. 
+        """
         # num1 is the initiator of duel
         # num2 is the target who needs to respond first 
         # Check if target player (num2) has slash
@@ -578,11 +617,19 @@ class EndPhaseGame(GameHandler):
                     continue
                 self.player[i].enemy[num2]["health"] -= 1 # update bot's prediction
             self.player[num2].max_handcards -= 1
-            if self.player[num2].health == 0:
+            if self.player[num2].health == 0: # checks if player is nearly dead
                 self.nearly_dead(num2)
 
-    def dismantle(self, num1, num2, human):# human = 1: human dismantle AI| -1:AI dismantle human| 0: two AI 
-        if human <= 0:
+    def dismantle(self, num1, num2, human):
+        """
+        This is the dismantle method.
+        Perimeter explanations:
+        num1: the player that uses dismantle
+        num2: the player being targeted at
+        human = 1: human dismantle AI| -1:AI dismantle human| 0: two AI 
+        The method checks if num2 has negate and asks which card num1 wants to dismantle
+        """
+        if human <= 0: # AI dismantle human or AI
             if not self.player[num2].equipment["weapen"] is None:
                 if human == 0:
                     player = f"player {num2+1}"
@@ -618,7 +665,7 @@ class EndPhaseGame(GameHandler):
                         continue
                     self.player[i].enemy[num2]["estimated_handcards"][card_choice.name] -= 1 # update bot's prediction
                     self.player[i].enemy[num2]["handcard_num"] -= 1
-        else:
+        else: # human dismantle AI
             print(f"Player {num2 + 1} has {len(self.player[num2].handcards)} handcards, which one do you want to dismantle?")
             valid_choice = []
             for i in range(len(self.player[num2].handcards)):
@@ -671,8 +718,15 @@ class EndPhaseGame(GameHandler):
                 if self.player[i].enemy[num2]["estimated_handcards"][selected_card.name] < 0:
                     print("**ERROR: dismantle<0**")
 
-    def snatch(self, num1, num2, human): # human = 1: human snatch AI| -1:AI snatch human| 0: two AI 
-        if human <= 0:
+    def snatch(self, num1, num2, human): 
+        """This is the snatch method
+        Perimeters explanation:
+        num1: the player who played snatch
+        num2: the player who is targeted by
+        human = 1: human snatch AI| -1:AI snatch human| 0: two AI 
+        The method works basically the same as dismantle but it adds the cards player
+        num1 snatches to its handcards."""
+        if human <= 0: # AI dismantle human or AI
             if not self.player[num2].equipment["weapen"] is None:
                 print(f"The card player Player {num1} chose is [{self.player[num2].equipment['weapen'].name}]")
                 print(f"[{self.player[num2].equipment['weapen'].name}] added to Player {num1}'s handcards")
@@ -701,7 +755,7 @@ class EndPhaseGame(GameHandler):
                     self.player[i].enemy[num1]["estimated_handcards"][self.player[num2].equipment["armor"].name] += 1 # update bot's prediction
                     self.player[i].enemy[num1]["handcard_num"] += 1                
                 self.player[num2].equipment["armor"] = None
-            else:
+            else: # human dismantle AI
                 random_index = random.randint(0, len(self.player[num2].handcards)-1)
                 card_choice = self.player[num2].handcards[random_index]
                 print(f"The card Player {num1+1} chose is {card_choice.name}")
@@ -787,13 +841,21 @@ class EndPhaseGame(GameHandler):
                 self.player[i].enemy[num1]["handcard_num"] += 1
                 if self.player[i].enemy[num1]["estimated_handcards"][selected_card.name] < 0:
                     print("**ERROR: snatch2<0**")         
+
     def archery(self, num, human):# num is the index of the player who played the card, which don't need to play a dodge,
-        # human=1: player is the card user, human = 0: AI playerd the card
+        """
+        This is the archery method
+        Perimeter explanations:
+        num: the player who played  archery
+        human=1: player is the card user, human = 0: AI played the card
+        the method checks all players except the player who played the card
+        for dodge and negate
+        """
         for i in range(0, len(self.player)):
             if i == num or not self.player[i].alive:
                 continue
             if i == 0:
-                find_dodge = -1
+                find_dodge = -1 # look for dodge and negate
                 find_negate = -1
                 for j in range(len(self.player[0].handcards)):
                     if self.player[0].handcards[j].name == "dodge":
@@ -868,7 +930,7 @@ class EndPhaseGame(GameHandler):
                             if self.player[j].enemy[0]["estimated_handcards"]["negate"] < 0:
                                 print("**ERROR: archery-player1-negate<0**")
                         self.player[0].handcards.pop(find_negate)
-            else:
+            else:# AI
                 lose_health = True
                 find_negate = self.findNegate(i)
                 count_dodge = self.countDodge(i)
@@ -902,7 +964,12 @@ class EndPhaseGame(GameHandler):
                         self.nearly_dead(i)
 
     def savage(self, num, human):# num is the index of the player who played the card, which don't need to play a dodge,
-        # human=1: player is the card user, human = 0: AI playerd the card
+        """
+        This is the savage method
+        num is the index of the player who played the card
+        human=1: player is the card user, human = 0: AI played the card
+        the method works basically the same as archery, but it checks for slash instead of dodge
+        """
         for i in range(0, len(self.player)):
             if i == num or not self.player[i].alive:
                 continue
@@ -978,7 +1045,7 @@ class EndPhaseGame(GameHandler):
                             if self.player[j].enemy[0]["estimated_handcards"]["negate"] < 0:
                                 print("**ERROR: savage-player1-negate<0**")
                         self.player[0].handcards.pop(find_negate)
-            else:
+            else: # AI
                 lose_health = True
                 find_negate = self.findNegate(i)
                 count_slash = self.countSlash(i)
@@ -1012,20 +1079,33 @@ class EndPhaseGame(GameHandler):
                         self.nearly_dead(i)
                 
     def benevolence(self, num, human):
+        """
+        This the benevolence method
+        num is the index of the player who played the card
+        human is if num is human or not, is a number between 0 and 1
+        """
         string = "You" if human != 0 else f"Player {num+1}"
-        print(f"{string} drawed two cards from the deck of cards...")
+        print(f"{string} drew two cards from the deck of cards...")
         self.draw_cards(num)
         if not self.running:
             self.result = True
-            print("You fought to the end, there are no cards left.\nThe judeg came and decided you are the winner...")
+            print("You fought to the end, there are no cards left.\nThe judge came and decided you are the winner...")
             return
         
     def negate(self):
-        # only can be used when the player is targeted by a trick card. 
-        # Is considered in other methods, nothing here
+        """
+        only can be used when the player is targeted by a trick card. 
+        Is considered in other methods, nothing here
+        """
         pass
     
     def findDodge(self, num):
+        """
+        num is the index of the player being checked
+        This method finds if player num has any dodge
+        it returns the last index of dodge of the chosen player
+        id no dodge is found, it returns -1
+        """
         find_dodge = -1
         for j in range(len(self.player[num].handcards)):
             if self.player[num].handcards[j].name == "dodge":
@@ -1033,6 +1113,10 @@ class EndPhaseGame(GameHandler):
         return find_dodge
         
     def countDodge(self, num):
+        """
+        num is the index of the player being counted 
+        the method counts the number of dodge the player has and returns the number of dodge
+        """
         count_dodge = 0
         for j in range(len(self.player[num].handcards)):
             if self.player[num].handcards[j].name == "dodge":
@@ -1040,6 +1124,12 @@ class EndPhaseGame(GameHandler):
         return count_dodge
     
     def playDodge(self, num, index):
+        """
+        This method has two perimeters: 
+        num is the index of player who played the dodge
+        index if the index of the dodge in the player's handcards
+        the method removes the dodge from the player's handcards and update robot prediction
+        """
         for i in range(1, len(self.player)):                            
             if i == num or not self.player[i].alive:
                 continue
@@ -1048,6 +1138,11 @@ class EndPhaseGame(GameHandler):
         self.player[num].handcards.pop(index)
 
     def countSlash(self, num):
+        """
+        This method has a perimeter num, which is the index of the player
+        being checked.
+        it returns the number of slashed the player has
+        """
         count_slash = 0
         for j in range(len(self.player[num].handcards)):
             if self.player[num].handcards[j].name == "slash":
@@ -1055,6 +1150,11 @@ class EndPhaseGame(GameHandler):
         return count_slash
     
     def findSlash(self, num):
+        """
+        This method finds if player num has any slashes.
+        it returns th last index of slash in the players handcards.
+        num is the perimeter of the index of the player
+        """
         find_slash = -1
         for j in range(len(self.player[num].handcards)):
             if self.player[num].handcards[j].name == "slash":
@@ -1062,6 +1162,12 @@ class EndPhaseGame(GameHandler):
         return find_slash
     
     def playSlash(self, num, index):
+        """
+        the method has two perimeters:
+        num: the index of the player that played the slash
+        index: the index of the slash in the list of handcards
+        the method removes the slash from player nums handcards
+        """
         for i in range(1, len(self.player)):                            
             if i == num or not self.player[i].alive:
                 continue
@@ -1070,6 +1176,12 @@ class EndPhaseGame(GameHandler):
         self.player[num].handcards.pop(index)
     
     def findNegate(self, num):
+        """
+        num is the index of the player being checked
+        This method finds if player num has any slashed
+        if there is it returns the last index of the negate card
+        else it returns -1
+        """
         find_negate = -1
         for j in range(len(self.player[num].handcards)):
             if self.player[num].handcards[j].name == "negate":
@@ -1077,6 +1189,11 @@ class EndPhaseGame(GameHandler):
         return find_negate
         
     def playNegate(self, num, index):
+        """
+        This method has two perimeters:
+        num if the index of the player that plays negate and index 
+        if the index of the card in the list of handcards
+        """
         for i in range(1, len(self.player)):                            
             if i == num or not self.player[i].alive:
                 continue
@@ -1085,7 +1202,12 @@ class EndPhaseGame(GameHandler):
         self.player[num].handcards.pop(index)
 
     def start_phase(self, num):
-        if num == 0:
+        """
+        This methods deals with all the player movements in start phase.
+        num is a perimeter that represents the index of the player
+        The method includes playing cards and calling other methods function the game
+        """
+        if num == 0: # human's turn
             print("Your turn:")
             act_step = 1
             while True:
@@ -1102,7 +1224,7 @@ class EndPhaseGame(GameHandler):
                     if choice == 'q':
                         self.print_rules(False)
                         for i in range(18):
-                            print("\033[A\033[2K", end='')
+                            print("\033[A\033[2K", end='')# erase the previous line
                         choice = choose("Choice: ", valid_choices)
                     elif choice == 'w':
                         self.print_card_description(False)
@@ -1126,7 +1248,7 @@ class EndPhaseGame(GameHandler):
                     break
                 choice -= 1 # 0 indexing
                 chosen_card = self.player[num].handcards[choice]
-                if chosen_card.type == "basic":
+                if chosen_card.type == "basic": # basic cards
                     if chosen_card.name == "slash":
                         has_crossbow = (self.player[num].equipment["weapen"] is not None and self.player[num].equipment["weapen"].name == "crossbow")
                         if act_step == 0 and not has_crossbow:
@@ -1161,7 +1283,7 @@ class EndPhaseGame(GameHandler):
                             self.player[num].handcards.pop(choice)
                     if chosen_card.name == "dodge":
                         print("**You can only use [dodge] when another player attacks you**")
-                if chosen_card.type == "equipment":
+                if chosen_card.type == "equipment": # equipment cards
                     if chosen_card.name in ["crossbow", "crossblade"]:
                         if self.player[num].equipment["weapen"] is None:
                             self.player[num].equipment["weapen"] = chosen_card
@@ -1219,7 +1341,7 @@ class EndPhaseGame(GameHandler):
                                     if self.player[i].enemy[num]["estimated_handcards"][chosen_card.name] < 0:
                                         print("**ERROR: function-start_phase-armor<0**")
                                 self.player[num].handcards.pop(choice)
-                if chosen_card.type == "trick":
+                if chosen_card.type == "trick": # trick cards
                     card_name = chosen_card.name
                     if card_name == "duel":
                         output = "Who do you want to duel with?"
@@ -1366,12 +1488,6 @@ class EndPhaseGame(GameHandler):
                         print("**You can only use [negate] when another player use a trick card on you**")
         else:
             print(f"Player {num+1}'s turn:")
-            #### for testing
-            # print("########")
-            # print(f"Player {num+1}'s handcard: (for testing)")
-            # self.print_handcards(num)
-            # print("########")
-            ####
             #initialise act_step
             self.player[num].act_step = 1
             while True:
@@ -1579,15 +1695,14 @@ class EndPhaseGame(GameHandler):
                             else:
                                 print("     **[DUEL]**")
                                 self.duel(num, action["target"], 0)
-                '''
-                action:
-                action["card"]: card object
-                action["target"]: if -1: archery or savage, or peach
-                                  else: other cards, call method "card_name"(num, target, human)
-                '''
             return
 
     def discard_phase(self, num):
+        """
+        num is the index of the player that is in discard phase
+        This method operates the discards phase for player num.
+        it checks the player health and max card nums
+        """
         print("     [Discard phase]")
         time.sleep(0.7)
         if num != 0:
@@ -1610,6 +1725,7 @@ class EndPhaseGame(GameHandler):
                     print(f"Player {num+1} discarded [{discarded_card.name}]")
                     time.sleep(0.7)
             return
+        # human player
         if len(self.player[num].handcards) > self.player[num].max_handcards:
             while(len(self.player[num].handcards) > self.player[num].max_handcards):
                 print(f"Current number of handcards: {len(self.player[num].handcards)}\nmaximum number of handcards: {self.player[num].max_handcards}")
@@ -1630,6 +1746,12 @@ class EndPhaseGame(GameHandler):
             print("Discard phase skipped...")
 
     def print_rules(self, anim):
+        """
+        This method prints rules with r with out animation according to the value fo anim,
+        which is a boolean preimeter
+        With animation, the rules are printed word by word
+        """
+        os.system("cls")
         format.newline()
         with open("games/EndPhase/rules1.txt", 'r') as rules:
             text = rules.read()
@@ -1647,7 +1769,7 @@ class EndPhaseGame(GameHandler):
                 if newline == -1:
                     newline = 666666
                 if newline < space2:
-                    print(text[space1:newline+1], end='', flush = True)
+                    print(text[space1:newline+1], end='', flush = True) # flush prints the output instantaniously
                     space1 = newline+1
                 else:
                     print(text[space1:space2+1], end='', flush = True)
@@ -1657,6 +1779,8 @@ class EndPhaseGame(GameHandler):
         input("Press any key to continue...") 
 
     def print_card_description(self, anim):
+        """This method prints out the card descriptions of all types of cards.
+        anim is a bool value that indicates if the description needs to be printed with animation or not"""
         format.newline()
         with open("games/EndPhase/rules2.txt", 'r') as rules:
             text = rules.read()

@@ -31,8 +31,9 @@ class Game:
 
     def greeting(self):
         # print greetings
-        self.story.display()
-        
+        #self.story.display()
+        pass
+    
     def runGame(self, gameName, money):
         print("Game starts")
         # game1
@@ -43,7 +44,7 @@ class Game:
 
     def printOptions(self, options):
         for i in range(len(options)):
-            print(f"{i + 1} - {options[i]}")
+            print(f"{i + 1}. {options[i]}")
 
     def printMoney(self):
         print("Hi, I am your ecountant.")
@@ -73,26 +74,13 @@ class Game:
                     time.sleep(3)
                     break
                 else:
-                    confirm = input(f"are you sure you wanna play {choice}?(Y/n)")
-                    while confirm not in ["Y", "n"]:
-                        confirm = input(f"are you sure you wanna play {choice}?(Y/n)")
-                        print("error: option invalid")
-                    if confirm == "Y":
+                    confirm = choose(f"Are you sure you wanna play {choice}?(y/n)", ["yes", 'y', "no", 'n'])
+                    if confirm in ["yes", 'y']:
                         money = random.randint(2000, 6000)
-                        print(f"if you win, you will get almost {money}")
-
-                        confirm = input(f"are you ok with it?(Y/n)")
-                        while confirm not in ["Y", "n"]:
-                            confirm = input(f"are you ok with this?(Y/n)")
-                            print("error: option invalid")
-                        if confirm == "Y":
-                            print("OK")
-                            self.runGame(choice, money)
-                            break
-                        else:
-                            print("yup, yup, not enough.")
-                    else:
-                        print("choose a game fast, I do not have time!")
+                        print(f"If you win, you can get up tp ${money}")
+                        time.sleep(0.7)
+                        self.runGame(choice, money)
+                        break
 
     def checkEnd(self):
         if self.player.money >= self.player.debth:
@@ -157,10 +145,7 @@ class Game:
                     time.sleep(2)
                     print("We would just kill you and then sell your body for your debt.")
                     print("Listen, we have no sympathy we only care about money!")
-                    choice = input("Do you really want that>(y/n) ")
-                    while choice not in ["y", "n"]:
-                        choice = input("do you really want that>(y/n) ")
-                        print("invalid, invalid, invalid, choice.")
+                    choice = choose("Do you really want that>(y/n)", ["yes", 'y', "no", 'n'])
                     if choice == "y":
                         print("Ok, you bastard.")
                         print("we gonna chop of everything.")
