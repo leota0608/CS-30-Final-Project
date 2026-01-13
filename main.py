@@ -31,8 +31,7 @@ class Game:
 
     def greeting(self):
         # print greetings
-        # self.story.display()
-        pass
+        self.story.display()
         
     def runGame(self, gameName, money):
         print("Game starts")
@@ -110,7 +109,7 @@ class Game:
         elif "head" in self.player.lost_body_parts:
             print()
             print("ehhhhhhhhhhhh")
-            print("you lost big ugly head.")
+            print("you lost your big ugly head.")
             print("you are now a dead pumpkin.")
             print("RIP")
             time.sleep(2)
@@ -157,7 +156,7 @@ class Game:
                     print("you have not still paid your money.")
                     time.sleep(2)
                     print("We would just kill you and then sell your body for your debt.")
-                    print("Listen, we have to sympathy we only care about money!")
+                    print("Listen, we have no sympathy we only care about money!")
                     choice = input("Do you really want that>(y/n) ")
                     while choice not in ["y", "n"]:
                         choice = input("do you really want that>(y/n) ")
@@ -165,7 +164,9 @@ class Game:
                     if choice == "y":
                         print("Ok, you bastard.")
                         print("we gonna chop of everything.")
+                        print("RIP")
                         time.sleep(2)
+                        break
                     else:
                         print("contiue your game and do not come here again.")
 
