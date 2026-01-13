@@ -172,8 +172,19 @@ demonstrate the use of this framework.
   -Add rules printing to game 1
   -Improve the two games on UI
 
-> 1.8 1.4.#
+> 1.8 1.4.1
 - create shop.py and update shop
+> 1.10 1.4.1.2
+- finish shop
+> 1.11 1.4.3
+- General improvement on format, fixed some bugs
+> 1.12 1.4.4
+- add some descriptions for code
+> 1.13 
+- 1.4.5
+  - add all kinds of coments for End Phase Game
+- 1.4.6
+  - update alphatest.md
 ---
 To do list: 1/5/2026
 1. move bodypart animation to common (done 1.3.2)
