@@ -5,7 +5,9 @@ class GameHandler:
         """
         characters is a list of all the players 
         that will play the game. The actual human player
-        must always be at index 0.
+        can be at any index. 
+        characters: the list of characters that will participate.
+        They all inherit from Character class. (Character)
         """
         self.characters = characters
         self.gameData = gameData
@@ -18,4 +20,4 @@ class GameHandler:
         """
         execute this method and the game will start.
         """
-        
+        pass
