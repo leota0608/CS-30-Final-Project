@@ -1,3 +1,11 @@
+###############################################################################
+#Coder: Leo
+#Last date modified: 1/14/2026
+###############################################################################
+"""This module is the main code for the mini game Black Jack. It 
+imports other modules in EndPhase folder and is imported by the 
+main code."""
+###############################################################################
 from games.common.BodyPartsAnim import BodyPartsAnim
 import games.common.score as score
 from games.BlackJack.human import Human
@@ -14,7 +22,8 @@ class BlackJackGame(GameHandler):
     """This class is inherited from GameHandler class,
     it has two perimeters:
     player, which is the human player object
-    and money, which is the maximum reward the player will get after finishing the game.
+    and money, which is the maximum reward the player will get 
+    after finishing the game.
     """
     def __init__(self, player, money):
         self.player = player
@@ -26,15 +35,16 @@ class BlackJackGame(GameHandler):
         self.deck.initialise()
         self.deck.shuffle()
         # initialise player
-        self.player_num = 3                     # 3 players, this can be changed
+        self.player_num = 3     # 3 players, this can be changed
         self.initialise_player(self.player_num)
         GameHandler.__init__(self, self.player_list, None, "Black Jack")
 
     def initialise_player(self, num):
         """
-        num is the perimeter of the function, it is the number of total players
-        The method initialises a list of players of number num, including one human player and 
-        num-1 bots.
+        num is the perimeter of the function, it is the number of 
+        total players
+        The method initializes a list of players of number num, 
+        including one human player and num-1 bots.
         """
         self.player_list = []
         self.player_list.append(Human())
@@ -44,10 +54,9 @@ class BlackJackGame(GameHandler):
     def print_rules(self, anim):
         """
         This method prints the rules of the game.
-        anim is the perimeter, which is a boolean value that indicates if the rules
-        will be printed with animation or not.
+        anim is the perimeter, which is a boolean value that indicates 
+        if the rules will be printed with animation or not.
         """
-
         Format().newline()
         # opens tules.txt and store it in text
         with open("games/BlackJack/rules.txt", 'r') as rules:
@@ -78,7 +87,8 @@ class BlackJackGame(GameHandler):
     def check_sum(self, index):
         """This method checks the sum of all cards the player have.
         index is the perimeter of the index of the player in the list.
-        It checks if the sum is over 21 or equals 21 and return 0, -1 and 1(lost, continue or win)."""
+        It checks if the sum is over 21 or equals 21 and return 0, -1 
+        and 1(lost, continue or win)."""
         sum = 0
         count_a = 0
         for i in self.player_list[index].handcard:
@@ -102,8 +112,8 @@ class BlackJackGame(GameHandler):
         return -1
 
     def run(self):
-        """This method runs the entire game, including printing game rules, 
-        starting game and dealing with game results."""
+        """This method runs the entire game, including printing game 
+        rules, starting game and dealing with game results."""
         if self.player.name.lower() == "test":
             self.print_rules(False)
         else:
@@ -133,7 +143,8 @@ class BlackJackGame(GameHandler):
             if_draw += 1
             if if_draw == 3:
                 if_draw = 0
-                choice = input("Do you want to call the judge over for no one choosing to draw cards ? (y/n)")
+                choice = input("Do you want to call the judge over \
+                        for no one choosing to draw cards ? (y/n)")
                 while choice == '0':
                     self.print_rules(False)
                     for i in range(20):
@@ -149,7 +160,8 @@ class BlackJackGame(GameHandler):
                             max_score = self.player_list[i].max_sum
                             max_index = i
                     if max_index == 0:# win
-                        print("The judge came, and decided you are the winner")
+                        print("The judge came, and decided you are the\
+                               winner")
                         for i in range(3, 1, -1):
                             print(f"\rReturning to lobby in {i}s")
                             time.sleep(2)
@@ -157,7 +169,8 @@ class BlackJackGame(GameHandler):
                         self.result = True
                         break
                     else:# lost
-                        print("The judge believes you are the problem and declared you as lost...")
+                        print("The judge believes you are the problem and \
+                              declared you as lost...")
                         for i in range(3, 1, -1):
                             print(f"\rReturning to lobby in {i}s")
                             time.sleep(1)
@@ -246,14 +259,20 @@ class BlackJackGame(GameHandler):
                         if choice.lower() == 'n' or choice.lower() == 'no':
                             pass
                         else:
-                            print("Your respond is seen as a No...\nRemember to answer correctly next time...")
+                            print("Your respond is seen as a No...\nRemember\
+                                   to answer correctly next time...")
                         compare = True
                         for i in range(1, len(self.player_list)):
-                            if self.player_list[i].alive and self.player_list[i].max_sum <= self.player_list[0].max_sum:
+                            if self.player_list[i].alive and \
+                                self.player_list[i].max_sum <= \
+                                self.player_list[0].max_sum:
                                 compare = False
                                 break
                         if compare:
-                            print("You lost...\n Everyone else choose not to draw and has a high score than you\nRemember their is no backing down\nReturning to lobby in 3s...")
+                            print("You lost...\n Everyone else choose not\
+                                   to draw and has a high score than you\n\
+                                  Remember their is no backing down\n\
+                                  Returning to lobby in 3s...")
                             time.sleep(2)
                             self.running = False
                             self.result = False
@@ -261,7 +280,8 @@ class BlackJackGame(GameHandler):
                 # bot
                 elif self.player_list[i].alive:
                     print(f"Player {i+1}'s turn")
-                    choice = self.player_list[i].evaluate_draw(human_draw, self.player_list, self.deck, i)
+                    choice = self.player_list[i].evaluate_draw(human_draw, 
+                                        self.player_list, self.deck, i)
                     if choice:
                         if_draw = 0
                         time.sleep(0.7)
@@ -280,7 +300,8 @@ class BlackJackGame(GameHandler):
                             self.result = False
                             break
                         if r == 0:# robot lost
-                            print(f"Player {i+1} lost...\nRemaining player: ", end='')
+                            print(f"Player {i+1} lost...\nRemaining player: "
+                                  , end='')
                             self.player_list[i].alive = False
                             for i in range(self.player_num):
                                 if self.player_list[i].alive:
@@ -294,11 +315,13 @@ class BlackJackGame(GameHandler):
         self.handle_game_result()
 
     def handle_game_result(self):
-        """This method handles the game result and update the score to the player object"""
+        """This method handles the game result and update the score to the
+        player object"""
         score.updateScore(self.result, self.player, self.money)
 
     def print_handcard(self, num):
-        """This method prints the player's handcards of player with index num.
+        """This method prints the player's handcards of player with
+        index num. 
         num is the index of the player list"""
         if num == -1:
             for i in range(len(self.player_list)):
@@ -316,5 +339,6 @@ class BlackJackGame(GameHandler):
             else:
                 print(f"Player {num+1}'s", end=' ')
             print(f"handcard: ", end='')
-            
-            printCardList(self.player_list[num].handcard_display, 5) # print actual cards
+            # print actual cards
+            printCardList(self.player_list[num].handcard_display, 5) 
+           

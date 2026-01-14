@@ -1,3 +1,10 @@
+###############################################################################
+#Coder: Leo
+#Last date modified: 1/14/2026
+###############################################################################
+"""This module is the human code for the mini game EndPhase. It is 
+imported by EndPhase.py. The code contains the Human class."""
+###############################################################################
 from games.common.Character import Character
 
 
@@ -21,6 +28,6 @@ class Human(Character):
     
     def add_handcards(self, new_handcards):
         """
-        This method add a list of handcards to the current handcard list
-        """
+        This method add a list of handcards to the current 
+        handcard list"""
         self.handcards.extend(new_handcards)

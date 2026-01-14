@@ -1,3 +1,11 @@
+###############################################################################
+#Coder: Leo
+#Last date modified: 1/14/2026
+###############################################################################
+"""This module is the deck code for the mini game Black Jack. It is 
+imported by BlackJackGame.py. The code contains the Deck class.
+The class contains the deck of cards in the game"""
+###############################################################################
 import random
 
 
@@ -18,7 +26,8 @@ class Deck:
         random.shuffle(self.card_list)
         
     def draw(self):
-        """draws a card. The method returns the last element of the card list and removes it."""
+        """draws a card. The method returns the last element of the 
+        card list and removes it."""
         self.remaining -= 1
         if self.remaining < 0:
             print("**Error: remaining deck of cards < 0 (game2-deck)**")
