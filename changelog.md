@@ -10,6 +10,8 @@ example:
 + 0.1.1 means amir committed his first commit to version 1.  
 ## Change Log
 
++0.4.3.1:
+ - Added comments to modules in the common folder.
 + 0.4.2.4:
  - spelling mistakes in the main corrected.
 + 0.4.2.2 and 0.4.2.3:
