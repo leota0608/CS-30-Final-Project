@@ -25,6 +25,10 @@ import time
 
 
 class Game:
+    """The game class  runs the entire game, it contains four
+    mini game objects, a shop object and aplayer object.
+    It prints the rules and give instructions to player to 
+    play the game."""
     def __init__(self):
         self.player = Player()
         self.shop = Shop(self.player)
@@ -36,17 +40,21 @@ class Game:
         self.play_game_options = ["End Phase", "Black Jack",
                                   "Court Piece", "Hearts",
                                   "exit"]
-
         self.games = {"End Phase": EndPhaseGame,
                       "Black Jack": BlackJackGame,
                       "Court Piece": CourtPieceGame,
                       "Hearts": HeartsGame}
 
     def greeting(self):
-        # print greetings
+        """This method prints greetings for player"""
         self.story.display()
     
     def runGame(self, gameName, money):
+        """This method runs one of the four games according to 
+        the two perimeters:
+        gameName is a string indicating the name of the game.
+        money is a integer which is the maximum reward the
+        player can get finishing the game. """
         print("Game starts")
         # game1
         game = self.games[gameName](self.player, money)
@@ -55,22 +63,27 @@ class Game:
         self.player.update_score()
 
     def printOptions(self, options):
+        """This method prints options for the player to choose.
+        options is a list of strings to be printed."""
         for i in range(len(options)):
             print(f"{i + 1}. {options[i]}")
 
     def printMoney(self):
+        """This method outputs the money the player has and the debt
+        he has to pay."""
         print("Hi, I am your ecountant.")
         print("currently: ")
         print(f"your money: {self.player.money}")
         print(f"amount you must pay: {self.player.debth}")
 
     def handlePlayGame(self):
+        """This method lets the player choose which game 
+        he wants to play. After choosing, it calls runGame
+        to start the game accordingly."""
         print("ok, soo you wanna play a game ...")
         time.sleep(1)
         print()
-
         self.printOptions(self.play_game_options)
-        
         while True:
             choice = input("Which game do you wanna play> ")
             try:
@@ -86,7 +99,8 @@ class Game:
                     time.sleep(3)
                     break
                 else:
-                    confirm = choose(f"Are you sure you wanna play {choice}?(y/n)", ["yes", 'y', "no", 'n'])
+                    confirm = choose(f"Are you sure you wanna play \
+                        {choice}?(y/n)", ["yes", 'y', "no", 'n'])
                     if confirm in ["yes", 'y']:
                         money = random.randint(2000, 6000)
                         print(f"If you win, you can get up tp ${money}")
@@ -95,11 +109,14 @@ class Game:
                         break
 
     def checkEnd(self):
+        """This method checks if the player has earn enough 
+        money to pay his debt, or if the player got his head cut off."""
         if self.player.money >= self.player.debth:
             print()
             print("Wow ....")
             print("You paid off the denth.")
-            print(f"you made {self.player.money} and your denth was {self.player.debth}")
+            print(f"you made {self.player.money} and your denth was \
+                  {self.player.debth}")
             print(f"you will keep {self.player.money - self.player.debth}")
             print("Congrats anyway, you bought your life.")
             print("Now get out ...")
@@ -116,12 +133,16 @@ class Game:
             print("we are going to take out all of your parts and sell them!")
             return True
         else:
-            print(f"you still need to pay something like {self.player.debth - self.player.money}.")
+            print(f"you still need to pay something like {self.player.debth \
+                                            - self.player.money}.")
             print("go on.")
             print()
             return False
 
     def lobby(self):
+        """This method is the lobby, which is where the player goto
+        after finishing a game. The player can then choose to his
+        next moves."""
         while True:
             self.printOptions(self.lobby_options)
             print()
@@ -155,9 +176,12 @@ class Game:
                 elif choice == "leave arcade":
                     print("you have not still paid your money.")
                     time.sleep(2)
-                    print("We would just kill you and then sell your body for your debt.")
-                    print("Listen, we have no sympathy we only care about money!")
-                    choice = choose("Do you really want that>(y/n)", ["yes", 'y', "no", 'n'])
+                    print("We would just kill you and then sell \
+                          your body for your debt.")
+                    print("Listen, we have no sympathy we only care \
+                          about money!")
+                    choice = choose("Do you really want that>(y/n)", \
+                                    ["yes", 'y', "no", 'n'])
                     if choice == "y":
                         print("Ok, you bastard.")
                         print("we gonna chop of everything.")
@@ -166,9 +190,10 @@ class Game:
                         break
                     else:
                         print("contiue your game and do not come here again.")
-
                     
     def load_game_anim(self, name: str):
+        """This methods loads the load-game animation, which a 
+        percentage inside a pair of middle brackets."""
         load = 0
         while load < 100:
             progress = random.randint(10, 25)
@@ -183,11 +208,14 @@ class Game:
         time.sleep(2)
 
     def run(self):
+        """This method starts the game, greet the player, 
+        read player's name and starts the game."""
         self.greeting()
         self.player.get_name()
         self.player.store_player_information()
         self.lobby()
 
+# run the game
 if __name__ == "__main__":
     game = Game()
     game.run()

@@ -1,10 +1,22 @@
+###############################################################################
+#Coder: Leo
+#Last date modified: 1/14/2026
+###############################################################################
+"""This module is the player module. It contains the player class, 
+which stores all information of the player"""
+###############################################################################
 import random
 from datetime import date
 import json
 import time
 
 class Player:
-
+    """This class is the player class, which has all the information
+    of the player and stores them in an external file.
+    It also prints all the body parts of the player as well as reads 
+    player name, store date, score, money, lost body parts, result of 
+    each game."""
+    # These are the body parts to be printed
     HEAD_PARTS = {
         "head": 
 """
@@ -16,9 +28,8 @@ class Player:
         "eye": "*",
         "blind_eye": "~",
         "smile": "└─────┘",
-        "sad": "┌─────┐",
+        "sad": "┌─────┐"
     }
-
     BODY_ELEMNTS = {
         "main body": 
 """
@@ -65,21 +76,19 @@ class Player:
 ┌─┐
 ___
 |||""",
-        "right foot": 
+        "right foot":
 """
 ┌─┐
 ___
-|||""", 
-
-    }
-
+|||"""}
+    
     def __init__(self):
         self.date = date.today()
         self.score = 0
         self.money = 0
         self.debth = 0
         self.lost_body_parts = []
-        try:
+        try: # read player information from previously stored file
             with open("player/PlayerStarterData.json", 'r') as content:
                 data = json.load(content)
                 self.bodyParts = data["bodyParts"]
@@ -100,6 +109,8 @@ ___
             time.sleep(0.7)
 
     def get_name(self):
+        """This method lets the player input their name and 
+        store them in self.name"""
         while True:
             string = input("Write down your name: ")
             confirm = input("Is this really your name?(y/n)")
@@ -108,7 +119,8 @@ ___
                 return
 
     def store_player_information(self):
-        # add try and except
+        """This method stores player information in an external file."""
+        # Add player information to existing records
         try:
             with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
@@ -126,7 +138,8 @@ ___
         record[str(total_num+1)] = {"Name": self.name,
                                     "Date": str(self.date),
                                     "Score": self.score,
-                                   "Game record": {"Game 1": None,# win/lose: True/False
+                                   "Game record": {"Game 1": None,
+                                                   # win/lose: True/False
                                                     "Game 2": None,
                                                     "Game 3": None,
                                                     "Game 4": None},
@@ -135,22 +148,32 @@ ___
             json.dump(record, file, indent = 4)
     
     def store_game_result(self, game_num, result):
+        """This method stores game result of each game after the
+        player finishes it."""
+        # store information in playingRecord.json
         with open("player/playingRecord.json", 'r') as file:
             record = json.load(file)
-        record[str(record["Total Player"])]["Game record"][f"Game {game_num}"] = result
+        record[str(record["Total Player"])]["Game record"][f"Game {game_num}"]\
+              = result
         with open("player/playingRecord.json", 'w') as file:
             json.dump(record, file, indent = 4)
 
     def update_score(self):
+        """This method update the score of the player according to
+        the game results."""
+        # update score in playingRecord.json
         with open("player/playingRecord.json", 'r') as file:
             record = json.load(file)
-        for i, j in record[str(record["Total Player"])]["Game record"].items():
+        for i, j in record[str(record["Total Player"])]["Game record"].\
+            items():
             if j == True:
                 record[str(record["Total Player"])]["Score"] += 25
         with open("player/playingRecord.json", 'w') as file:
             json.dump(record, file, indent = 4)
 
     def choose_body_part(self):
+        """This method chooses a body part from the player
+        randomly and returns the body part, which is a string"""
         r = random.randint(1, 1000)
         for i in range(0, len(self.probability)):
             if r <= self.probability[i]:
@@ -159,27 +182,33 @@ ___
                     break
                 return self.bodyParts[i]
             
-   
     def lose(self, body_part):
-
+        """This method removes the players body part and update 
+        it to playingRecord.json.
+        body_part is a string perimeter"""
         self.lost_body_parts.append(body_part)
         with open("player/playingRecord.json", 'r') as file:
             record = json.load(file)
-        record[str(record["Total Player"])]["Lost body parts"].append(body_part)
-        #save
+        record[str(record["Total Player"])]["Lost body parts"].\
+            append(body_part)
+        # save changes to playerRecord.json
         with open("player/playingRecord.json", 'w') as file:
             json.dump(record, file, indent = 4)
 
     def gain(self, body_part):
+        """This method adds a body part to the player and update
+        any other changes"""
         self.lost_body_parts.remove(body_part)
         with open("player/playingRecord.json", 'r') as file:
             record = json.load(file)
-        record[str(record["Total Player"])]["Lost body parts"].remove(body_part)
-        #save
+        record[str(record["Total Player"])]["Lost body parts"].\
+            remove(body_part)
+        #save changes to playingRecord.json
         with open("player/playingRecord.json", 'w') as file:
             json.dump(record, file, indent = 4)
 
     def indentLines(self, text: str, spaces: int):
+        """This method makes indentations for printing bodyparts"""
         padding = " " * spaces
         # Split into lines, prepend spaces, then join back
         return "\n".join(padding + line for line in text.splitlines())
@@ -328,7 +357,7 @@ ___
 
         self.printPlayerMessage(isSad)
 
-
+# This function clears all playing records if there are too much
 def clear_all_playing_records():
     with open("player/playingRecord.json", 'w') as file:
         json.dump({"Total Player": 0}, file, indent=4)
