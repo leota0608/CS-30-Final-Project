@@ -20,6 +20,7 @@ ____
         - Does the robot pick cards once the sum is over 21.
         - Are the robot cards printed correctly. (In the past it was observed that
         sometimes more or less cards are printed than existing in robot's deck)
+        - does find_sum works in finding maximum sum of 21
     * End Phase(Leo):
         - Is the player able to play all cards 
         - Is the bot able to play all cards
@@ -30,6 +31,8 @@ ____
         - Is all card changes updated and removed from enemy list of bot and handcards
         - Is the game able to end game after player died
         - Does the bot know to use peach, negate, dodge and other defensive cards in order to keep itself alive
+        - Can human player equipe equipment cards and benefit from effect
+        - Does the player lost after having a sum over 21
     * Court Piece(Amir):
         - Can the bot correctly identify the largest rank of card in its deck.
         Also is it able to find the smallest card of its deck.
@@ -56,6 +59,12 @@ ____
         and find the solution. It might happen when the hearts bot cannot find a solution
         maybe because a special case was not considered.
 
+    * General: 
+        - Can player exit all four game and return to lobby
+        - Does both winning condition and lost condition leads to reward and punishment
+        - Can player buy lost body parts from shop
+        - does shop class check if the player have enough money, and does player not have that body part
+        - can main code direct player to all four games
 
 <br>
 
