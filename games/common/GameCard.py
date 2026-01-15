@@ -2,14 +2,14 @@
 # Coder: Amir
 # Last date modified: 1/14/2026
 #######################################################################
-''' This module defines a class for standard playing cards. This class 
+""" This module defines a class for standard playing cards. This class
 standardize playing cards by facilitating comparison of different cards
 with different ranks. It also allows you to print the cards in a nice
 rectangular manner.
-Cards are internally represented using code numbers to facilitate 
+Cards are internally represented using code numbers to facilitate
 comparison of different ranks. However methods for transition from
 code number to string is also provided.
-'''
+"""
 #######################################################################
 class GameCard:
     """ Internally represents a card game. The card is transformed

@@ -1,6 +1,6 @@
 ###############################################################################
-#Coder: Leo
-#Last date modified: 1/14/2026
+# Coder: Leo
+# Last date modified: 1/14/2026
 ###############################################################################
 """This module is the player module. It contains the player class, 
 which stores all information of the player"""
@@ -10,6 +10,7 @@ from datetime import date
 import json
 import time
 
+
 class Player:
     """This class is the player class, which has all the information
     of the player and stores them in an external file.
@@ -18,8 +19,8 @@ class Player:
     each game."""
     # These are the body parts to be printed
     HEAD_PARTS = {
-        "head": 
-"""
+        "head":
+            """
  ┌───────────┐        
 ?| {}       {} |?
  |    |||    |
@@ -31,26 +32,26 @@ class Player:
         "sad": "┌─────┐"
     }
     BODY_ELEMNTS = {
-        "main body": 
-"""
+        "main body":
+            """
 ┌───────┐
 |   o   |
 |   o   |
 |   o   |
 |   o   |
 └───────┘""",
-        "right arm": 
-"""
+        "right arm":
+            """
 ┌──────────┐
 |          |
 └──────────┘""",
-        "left arm": 
-"""
+        "left arm":
+            """
 ┌──────────┐
 |          |
 └──────────┘""",
-        "right leg": 
-"""
+        "right leg":
+            """
 ┌─┐
 | |
 | |
@@ -64,31 +65,31 @@ class Player:
 | |
 | |
 └─┘""",
-        "left hand": 
-"""
+        "left hand":
+            """
 =||
-""", 
-        "right hand": 
-"""
+""",
+        "right hand":
+            """
 ||=""",
-        "left foot": 
-"""
+        "left foot":
+            """
 ┌─┐
 ___
 |||""",
         "right foot":
-"""
+            """
 ┌─┐
 ___
 |||"""}
-    
+
     def __init__(self):
         self.date = date.today()
         self.score = 0
         self.money = 0
         self.debth = 0
         self.lost_body_parts = []
-        try: # read player information from previously stored file
+        try:  # read player information from previously stored file
             with open("player/PlayerStarterData.json", 'r') as content:
                 data = json.load(content)
                 self.bodyParts = data["bodyParts"]
@@ -114,7 +115,7 @@ ___
         while True:
             string = input("Write down your name: ")
             confirm = input("Is this really your name?(y/n)")
-            if(confirm.lower() == "y" or confirm.lower() == "yes"):
+            if (confirm.lower() == "y" or confirm.lower() == "yes"):
                 self.name = string
                 return
 
@@ -125,7 +126,7 @@ ___
             with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
         except FileNotFoundError:
-            print("We cannot store your information, you died...") 
+            print("We cannot store your information, you died...")
             time.sleep(0.7)
         except:
             print("You died from some unknown reasons...")
@@ -135,21 +136,21 @@ ___
             time.sleep(0.7)
         total_num = record["Total Player"]
         record["Total Player"] += 1
-        record[str(total_num+1)] = {"Name": self.name,
-                                    "Date": str(self.date),
-                                    "Score": self.score,
-                                   "Game record": {"Game 1": None,
-                                                   # win/lose: True/False
-                                                    "Game 2": None,
-                                                    "Game 3": None,
-                                                    "Game 4": None},
-                                    "Lost body parts": []}
+        record[str(total_num + 1)] = {"Name": self.name,
+                                      "Date": str(self.date),
+                                      "Score": self.score,
+                                      "Game record": {"Game 1": None,
+                                                      # win/lose: True/False
+                                                      "Game 2": None,
+                                                      "Game 3": None,
+                                                      "Game 4": None},
+                                      "Lost body parts": []}
         try:
             with open("player/playingRecord.json", 'w') as file:
-                json.dump(record, file, indent = 4)
+                json.dump(record, file, indent=4)
         except:
             print("Failed to open playingRecord.json")
-    
+
     def store_game_result(self, game_num, result):
         """This method stores game result of each game after the
         player finishes it."""
@@ -159,11 +160,11 @@ ___
                 record = json.load(file)
         except:
             print("Failed to open playingRecord.json")
-        record[str(record["Total Player"])]["Game record"][f"Game {game_num}"]\
-              = result
+        record[str(record["Total Player"])]["Game record"][f"Game {game_num}"] \
+            = result
         try:
             with open("player/playingRecord.json", 'w') as file:
-                json.dump(record, file, indent = 4)
+                json.dump(record, file, indent=4)
         except:
             print("Failed to open playingRecord.json")
 
@@ -176,13 +177,13 @@ ___
                 record = json.load(file)
         except:
             print("Failed to open playingRecord.json")
-        for i, j in record[str(record["Total Player"])]["Game record"].\
-            items():
+        for i, j in record[str(record["Total Player"])]["Game record"]. \
+                items():
             if j == True:
                 record[str(record["Total Player"])]["Score"] += 25
-        try: 
+        try:
             with open("player/playingRecord.json", 'w') as file:
-                json.dump(record, file, indent = 4)
+                json.dump(record, file, indent=4)
         except:
             print("Failed to open playingRecord.json")
 
@@ -196,23 +197,23 @@ ___
                     self.choose_body_part()
                     break
                 return self.bodyParts[i]
-            
+
     def lose(self, body_part):
         """This method removes the players body part and update 
         it to playingRecord.json.
         body_part is a string perimeter"""
         self.lost_body_parts.append(body_part)
-        try: 
+        try:
             with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
         except:
             print("Failed to open playingRecord.json")
-        record[str(record["Total Player"])]["Lost body parts"].\
+        record[str(record["Total Player"])]["Lost body parts"]. \
             append(body_part)
         # save changes to playerRecord.json
         try:
             with open("player/playingRecord.json", 'w') as file:
-                json.dump(record, file, indent = 4)
+                json.dump(record, file, indent=4)
         except:
             print("Failed to open playingRecord.json")
 
@@ -220,17 +221,17 @@ ___
         """This method adds a body part to the player and update
         any other changes"""
         self.lost_body_parts.remove(body_part)
-        try: 
+        try:
             with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
         except:
             print("Failed to open playingRecord.json")
-        record[str(record["Total Player"])]["Lost body parts"].\
+        record[str(record["Total Player"])]["Lost body parts"]. \
             remove(body_part)
-        #save changes to playingRecord.json
+        # save changes to playingRecord.json
         try:
             with open("player/playingRecord.json", 'w') as file:
-                json.dump(record, file, indent = 4)
+                json.dump(record, file, indent=4)
         except:
             print("Failed to open playingRecord.json")
 
@@ -239,7 +240,7 @@ ___
         padding = " " * spaces
         # Split into lines, prepend spaces, then join back
         return "\n".join(padding + line for line in text.splitlines())
-    
+
     def removeLeadingSpace(self, lst):
         # Find first non-empty string
         start = 0
@@ -252,17 +253,17 @@ ___
             end -= 1
 
         # Slice the list
-        return lst[start:end+1] if start <= end else []
-    
+        return lst[start:end + 1] if start <= end else []
+
     def printPlayerMessage(self, isSad):
         print(f"my name is {self.name}")
         if isSad:
             print("I am not feeling good.")
-            print("I have lost", end = "")
+            print("I have lost", end="")
             for part in self.lost_body_parts:
                 print(", " + part, end="")
             print(".")
-            print("you know ", end = "", flush = True)
+            print("you know ", end="", flush=True)
             time.sleep(1)
             print("it hurts so much.")
             print("please help me.")
@@ -279,6 +280,7 @@ ___
         isSad = len(self.lost_body_parts) != 0
         """
         """
+
         def printBodyAcross(first, body_print_list, bet):
             """
             Prints the body line by line.
@@ -295,9 +297,9 @@ ___
                 print(" " * first, end="")
 
                 for part in body_print_list:
-                    p = part[0]     # configured body part
-                    which = part[1]     # current print index
-                    space = part[2]     # number of placeholder spaces
+                    p = part[0]  # configured body part
+                    which = part[1]  # current print index
+                    space = part[2]  # number of placeholder spaces
 
                     # check if current index is inbound
                     if 0 <= which < len(p):
@@ -309,7 +311,7 @@ ___
                         print(" " * space, end="")
                         print(" " * bet, end="")
                     part[1] += 1
-                print()     # advance the print marker to the next line
+                print()  # advance the print marker to the next line
 
         def configurePart(element):
             """
@@ -321,9 +323,9 @@ ___
             element: the name of the body part.(str)
             """
             lines = ("" if element in missing_parts
-                        else self.BODY_ELEMNTS[element]).split("\n")
+                     else self.BODY_ELEMNTS[element]).split("\n")
             return self.removeLeadingSpace(lines)
-        
+
         # Prepration phase before printing.
         # ---------- HEAD ----------
         # check if any of the facial elements where removed!
@@ -353,7 +355,7 @@ ___
         right_foot = configurePart("right foot")
 
         # printing body elements
-        head = self.indentLines(head, 12)   # indent each line 12 spaces
+        head = self.indentLines(head, 12)  # indent each line 12 spaces
         print(head)
         # Note: follow these guidelines to create a prepared body
         # print list.
@@ -384,13 +386,14 @@ ___
 
         self.printPlayerMessage(isSad)
 
+
 # This function clears all playing records if there are too much
 def clear_all_playing_records():
     try:
         with open("player/playingRecord.json", 'w') as file:
             json.dump({"Total Player": 0}, file, indent=4)
     except:
-            print("Failed to open playingRecord.json")
+        print("Failed to open playingRecord.json")
 
 
 clear_all_playing_records()
