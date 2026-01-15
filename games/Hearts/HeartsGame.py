@@ -44,6 +44,7 @@ class HeartsGame(GameHandler):
     def __init__(self, user, money):
         """ user: it is an object of the Player class which contains
         all methods to modify the player. (Player)
+            money: the amount of money to pay the player if they won.(int)
         """
         # the actual user
         self.user = user

@@ -4,7 +4,7 @@
 ###############################################################################
 """ HeartsGameData is a class that defines all information the game handler
 and every bot need to have access to. This object of this class is globally
-shared with both game handler and bots, and it is up to the characters and
+shared with both game handler and bots, and it is, up to the characters and
 game handler to ensure correct usage."""
 ###############################################################################
 

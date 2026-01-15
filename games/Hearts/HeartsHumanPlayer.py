@@ -149,7 +149,7 @@ class HeartsHumanPlayer(Character):
         """ it is the only function that is supposed to be called
         by game handler directly. It would return the response based
         on the request action.
-        action: if "exchange" return a list of cards for change. of
+        action: if "exchange" return a list of cards for change. if
                 "play" returns the next playing card.(str)
         """
         if action == "exchange":

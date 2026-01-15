@@ -1,8 +1,8 @@
 ###############################################################################
-#Coder: Leo
-#Last date modified: 1/14/2026
+# Coder: Leo
+# Last date modified: 1/14/2026
 ###############################################################################
-"""This module is the main code for the mini game Black Jack. It 
+"""This module is the main code for the mini-game Black Jack. It
 imports other modules in EndPhase folder and is imported by the 
 main code."""
 ###############################################################################
@@ -25,6 +25,7 @@ class BlackJackGame(GameHandler):
     and money, which is the maximum reward the player will get 
     after finishing the game.
     """
+
     def __init__(self, player, money):
         self.player = player
         self.running = True
@@ -35,7 +36,7 @@ class BlackJackGame(GameHandler):
         self.deck.initialise()
         self.deck.shuffle()
         # initialise player
-        self.player_num = 3     # 3 players, this can be changed
+        self.player_num = 3  # 3 players, this can be changed
         self.initialise_player(self.player_num)
         GameHandler.__init__(self, self.player_list, None, "Black Jack")
 
@@ -64,26 +65,26 @@ class BlackJackGame(GameHandler):
                 text = rules.read()
         except:
             print("Failed to load rules.txt")
-        
+
         if not anim:
             print(text)
         else:
             space1 = 0
             space2 = 0
             newline = 0
-            while space2 < len(text)-1 and space2 >= 0:
+            while space2 < len(text) - 1 and space2 >= 0:
                 space2 = text.find(' ', space1)
                 newline = text.find("\n", space1)
                 if space2 == -1:
-                    space2 = len(text)-1
+                    space2 = len(text) - 1
                 if newline == -1:
                     newline = 666666
                 if newline < space2:
-                    print(text[space1:newline+1], end='', flush = True)
-                    space1 = newline+1
+                    print(text[space1:newline + 1], end='', flush=True)
+                    space1 = newline + 1
                 else:
-                    print(text[space1:space2+1], end='', flush = True)
-                    space1 = space2+1
+                    print(text[space1:space2 + 1], end='', flush=True)
+                    space1 = space2 + 1
                 time.sleep(0.05)
         Format().newline()
         input("Press any key to continue...")
@@ -103,16 +104,16 @@ class BlackJackGame(GameHandler):
             else:
                 sum += i
         if sum + count_a > 21:
-            return 0 # 0: lost
+            return 0  # 0: lost
         if sum + count_a == 21:
             return 1
         while count_a > 0:
             sum += 11
             count_a -= 1
             if count_a >= 0 and sum + count_a == 21:
-                return 1 # 1: win
+                return 1  # 1: win
             if count_a >= 0 and sum + count_a > 21:
-                return -1 # -1: continue game
+                return -1  # -1: continue game
         return -1
 
     def run(self):
@@ -135,9 +136,9 @@ class BlackJackGame(GameHandler):
                 self.print_handcard(0)
                 self.player_list[0].find_sum()
             else:
-                print(f"Player {i+1}'s turn")
+                print(f"Player {i + 1}'s turn")
                 time.sleep(0.7)
-                print(f"Player {i+1} drawing...")
+                print(f"Player {i + 1} drawing...")
                 time.sleep(1.2)
                 self.player_list[i].add_card(self.deck.draw())
                 self.print_handcard(i)
@@ -163,7 +164,7 @@ class BlackJackGame(GameHandler):
                         if self.player_list[i].max_sum > max_score:
                             max_score = self.player_list[i].max_sum
                             max_index = i
-                    if max_index == 0:# win
+                    if max_index == 0:  # win
                         print("The judge came, and decided you are the\
                                winner")
                         for i in range(3, 1, -1):
@@ -172,7 +173,7 @@ class BlackJackGame(GameHandler):
                         self.running = False
                         self.result = True
                         break
-                    else:# lost
+                    else:  # lost
                         print("The judge believes you are the problem and \
                               declared you as lost...")
                         for i in range(3, 1, -1):
@@ -186,7 +187,7 @@ class BlackJackGame(GameHandler):
             for i in self.player_list:
                 if i.alive:
                     player_alive += 1
-            if player_alive == 1:# win
+            if player_alive == 1:  # win
                 print("You win")
                 for i in range(3, 1, -1):
                     print(f"\rReturning to lobby in {i}s")
@@ -227,7 +228,7 @@ class BlackJackGame(GameHandler):
                         if out == True:
                             self.running = False
                             self.result = True
-                            self.alive = True 
+                            self.alive = True
                     while choice == '0':
                         self.print_rules(False)
                         for i in range(20):
@@ -235,14 +236,14 @@ class BlackJackGame(GameHandler):
                         choice = input("Do you choose to draw? (y/n)")
                     if choice.lower() == "y" or choice.lower() == "yes":
                         if_draw = 0
-                        human_draw =True
+                        human_draw = True
                         print("Drawing card...")
                         time.sleep(1.2)
                         self.player_list[0].add_card(self.deck.draw())
                         self.print_handcard(0)
                         r = self.check_sum(i)
                         self.player_list[0].find_sum()
-                        if  r == 0:# lost
+                        if r == 0:  # lost
                             print("You lost...")
                             for i in range(3, 1, -1):
                                 print(f"\rReturning to lobby in {i}s")
@@ -251,7 +252,7 @@ class BlackJackGame(GameHandler):
                             self.result = False
                             self.alive = False
                             break
-                        if r == 1:# win
+                        if r == 1:  # win
                             print("You win by getting 21...")
                             for i in range(3, 1, -1):
                                 print(f"\rReturning to lobby in {i}s")
@@ -268,8 +269,8 @@ class BlackJackGame(GameHandler):
                         compare = True
                         for i in range(1, len(self.player_list)):
                             if self.player_list[i].alive and \
-                                self.player_list[i].max_sum <= \
-                                self.player_list[0].max_sum:
+                                    self.player_list[i].max_sum <= \
+                                    self.player_list[0].max_sum:
                                 compare = False
                                 break
                         if compare:
@@ -283,36 +284,36 @@ class BlackJackGame(GameHandler):
                             self.alive = False
                 # bot
                 elif self.player_list[i].alive:
-                    print(f"Player {i+1}'s turn")
-                    choice = self.player_list[i].evaluate_draw(human_draw, 
-                                        self.player_list, self.deck, i)
+                    print(f"Player {i + 1}'s turn")
+                    choice = self.player_list[i].evaluate_draw(human_draw,
+                                                               self.player_list, self.deck, i)
                     if choice:
                         if_draw = 0
                         time.sleep(0.7)
-                        print(f"Player {i+1} drawing...")
+                        print(f"Player {i + 1} drawing...")
                         time.sleep(1.2)
                         self.player_list[i].add_card(self.deck.draw())
                         self.print_handcard(i)
                         r = self.check_sum(i)
                         self.player_list[i].find_sum()
-                        if  r == 1:# human lost
-                            print(f"You lost... Player {i+1} got 21")
+                        if r == 1:  # human lost
+                            print(f"You lost... Player {i + 1} got 21")
                             for i in range(3, 1, -1):
                                 print(f"\rReturning to lobby in {i}s")
                                 time.sleep(1)
                             self.running = False
                             self.result = False
                             break
-                        if r == 0:# robot lost
-                            print(f"Player {i+1} lost...\nRemaining player: "
+                        if r == 0:  # robot lost
+                            print(f"Player {i + 1} lost...\nRemaining player: "
                                   , end='')
                             self.player_list[i].alive = False
                             for i in range(self.player_num):
                                 if self.player_list[i].alive:
-                                    print(f"Player {i+1} ", end='')
+                                    print(f"Player {i + 1} ", end='')
                             print('')
                     else:
-                        print(f"Player {i+1} choose not to draw")
+                        print(f"Player {i + 1} choose not to draw")
                 if not self.running:
                     break
         # end of game
@@ -334,15 +335,14 @@ class BlackJackGame(GameHandler):
                 if i == 0:
                     print("Your", end=' ')
                 else:
-                    print(f"Player {i+1}'s", end=' ')
+                    print(f"Player {i + 1}'s", end=' ')
                 print(f"handcard:", end='')
                 printCardList(self.player_list[i].handcard_display, 5)
         else:
             if num == 0:
                 print("Your", end=' ')
             else:
-                print(f"Player {num+1}'s", end=' ')
+                print(f"Player {num + 1}'s", end=' ')
             print(f"handcard: ", end='')
             # print actual cards
-            printCardList(self.player_list[num].handcard_display, 5) 
-           
+            printCardList(self.player_list[num].handcard_display, 5)
