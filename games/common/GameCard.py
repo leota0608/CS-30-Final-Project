@@ -11,8 +11,6 @@ comparison of different ranks. However methods for transition from
 code number to string is also provided.
 '''
 #######################################################################
-
-
 class GameCard:
     """ Internally represents a card game. The card is transformed
     to code according to the static dictionaries KINDS and RANKS.
