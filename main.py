@@ -26,7 +26,7 @@ import time
 
 class Game:
     """The game class  runs the entire game, it contains four
-    mini game objects, a shop object and aplayer object.
+    mini game objects, a shop object and ap layer object.
     It prints the rules and give instructions to player to 
     play the game."""
     def __init__(self):
@@ -74,7 +74,7 @@ class Game:
         print("Hi, I am your ecountant.")
         print("currently: ")
         print(f"your money: {self.player.money}")
-        print(f"amount you must pay: {self.player.debth}")
+        print(f"amount you must pay: {self.player.debt}")
 
     def handlePlayGame(self):
         """This method lets the player choose which game 
@@ -91,7 +91,7 @@ class Game:
             except (TypeError, ValueError):
                 print("You must enter a number idiot. Sorry for the language.")
             except IndexError:
-                print("Your option is literaly nonexistent.")
+                print("Your option is literally nonexistent.")
             else:
                 if choice == "exit":
                     print("Oh, I see, you are afraid like hell!")
@@ -111,13 +111,13 @@ class Game:
     def checkEnd(self):
         """This method checks if the player has earn enough 
         money to pay his debt, or if the player got his head cut off."""
-        if self.player.money >= self.player.debth:
+        if self.player.money >= self.player.debt:
             print()
             print("Wow ....")
-            print("You paid off the denth.")
-            print(f"you made {self.player.money} and your denth was \
-                  {self.player.debth}")
-            print(f"you will keep {self.player.money - self.player.debth}")
+            print("You paid off the debt.")
+            print(f"you made {self.player.money} and your debt was \
+                  {self.player.debt}")
+            print(f"you will keep {self.player.money - self.player.debt}")
             print("Congrats anyway, you bought your life.")
             print("Now get out ...")
             time.sleep(2)
@@ -134,7 +134,7 @@ class Game:
             return True
         else:
             print(f"you still need to pay something like \
-                  {self.player.debth - self.player.money}.")
+                  {self.player.debt - self.player.money}.")
             print("go on.")
             print()
             return False
@@ -189,7 +189,7 @@ class Game:
                         time.sleep(2)
                         break
                     else:
-                        print("contiue your game and do not come here again.")
+                        print("Continue your game and do not come here again.")
                     
     def load_game_anim(self, name: str):
         """This methods loads the load-game animation, which a 
