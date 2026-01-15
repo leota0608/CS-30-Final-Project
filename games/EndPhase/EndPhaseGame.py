@@ -216,13 +216,13 @@ class EndPhaseGame(GameHandler):
                         output += ' '
                 print(f"{card_name:<25}{output}|", end='')
             elif i == 2:
-                output = f"| Current handcards: {len(self.player[num].\
-                                                     handcards)}"
+                output = f"| Current handcards: \
+                    {len(self.player[num].handcards)}"
                 while len(output)<=35:
                     output += ' '
                 for p in range(1, len(self.player)):
-                    output += f"Current handcards: {len(self.player[p].\
-                                                        handcards)}"
+                    output += f"Current handcards: \
+                        {len(self.player[p].handcards)}"
                     while len(output)<=35+p*35:
                         output += ' '
                 print(f"{card_name:<25}{output}|", end='')
@@ -573,8 +573,8 @@ class EndPhaseGame(GameHandler):
                                 if k == num1 or not self.player[k].alive:
                                     continue
                                 self.player[k].enemy[num1]["health"] -= 1
-                            print(f"Your current health: {self.player[num1].\
-                                                          health}")
+                            print(f"Your current health: \
+                                  {self.player[num1].health}")
                             if self.player[num1].health == 0:
                                 self.nearly_dead(num1)                            
                             # Target loses 1 health
@@ -1421,8 +1421,8 @@ class EndPhaseGame(GameHandler):
                 if not self.running:
                     return
                 self.print_handcards(num)
-                print(f"Available moves:\n{len(self.player[num].handcards) \
-                                           + 1}. end turn")
+                print(f"Available moves:\n\
+                      {len(self.player[num].handcards) + 1}. end turn")
                 valid_choices = [str(i) for i in range(1, \
                                     len(self.player[num].handcards) + 2)]
                 valid_choices.append("admin")
@@ -1561,8 +1561,8 @@ class EndPhaseGame(GameHandler):
                     elif chosen_card.name in ["evasion"]:  # armor
                         if self.player[num].equipment["armor"] is None:
                             self.player[num].equipment["armor"] = chosen_card
-                            print(f"You successfully equiped {chosen_card.\
-                                                              name}")
+                            print(f"You successfully equiped \
+                                  {chosen_card.name}")
                             for i in range(1, len(self.player)):
                                 if i == num or not self.player[i].alive:
                                     continue
