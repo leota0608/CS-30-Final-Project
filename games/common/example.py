@@ -1,5 +1,4 @@
-"""
-This is just an illustration of how to use
+""" This is just an illustration of how to use
 the GameHandler and Character classes, correctly
 and efficiently.
 The example uses Rock Paper Scissor Shoot game
