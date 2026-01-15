@@ -12,8 +12,7 @@ from games.common.GameCard import GameCard
 
 
 class HeartsBot(Character):
-    """
-    HeartsBot defines the bot for the game of hearts. It follows a simple
+    """ HeartsBot defines the bot for the game of hearts. It follows a simple
     algorithm to come up with the best option to play.
     Here is a flowchart sudo-code like structure of this algorithm.
 

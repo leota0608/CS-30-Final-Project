@@ -133,8 +133,8 @@ class Game:
             print("we are going to take out all of your parts and sell them!")
             return True
         else:
-            print(f"you still need to pay something like {self.player.debth \
-                                            - self.player.money}.")
+            print(f"you still need to pay something like "
+                  f"{self.player.debth - self.player.money}.")
             print("go on.")
             print()
             return False
