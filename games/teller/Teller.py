@@ -35,9 +35,12 @@ class Teller:
         self.options = ["(WORD):", "(LETTER):", "(SENTENCE):", "(NORMAL):"]
 
     def loadDoc(self, filename):
-        with open(filename, 'r') as f:
-            lines = f.readlines()
-            self.lines = lines
+        try:
+            with open(filename, 'r') as f:
+                lines = f.readlines()
+                self.lines = lines
+        except:
+            print(f"Failed to load {filename}")
 
     @staticmethod
     def printList(list_, delay, bet=""):

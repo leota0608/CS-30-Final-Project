@@ -2066,8 +2066,11 @@ class EndPhaseGame(GameHandler):
         """
         os.system("cls")
         format.newline()
-        with open("games/EndPhase/rules1.txt", 'r') as rules:
-            text = rules.read()
+        try:
+            with open("games/EndPhase/rules1.txt", 'r') as rules:
+                text = rules.read()
+        except:
+            print("Failed to open rules1.txt")
         if not anim:
             print(text)
         else:
@@ -2095,8 +2098,11 @@ class EndPhaseGame(GameHandler):
         """This method prints out the card descriptions of all types of cards.
         anim is a bool value that indicates if the description needs to be printed with animation or not"""
         format.newline()
-        with open("games/EndPhase/rules2.txt", 'r') as rules:
-            text = rules.read()
+        try:
+            with open("games/EndPhase/rules2.txt", 'r') as rules:
+                text = rules.read()
+        except:
+            print("Failed to open rules2.txt")
         if not anim:
             print(text)
         else:
@@ -2126,7 +2132,10 @@ format = Format()
 # game.run()# also comment the output of bot handcards in main.py
 # this block of code opens card.json from games.EndPhase.card.json, 
 # it stores the card nums and card types.
-with open("games/EndPhase/card.json", 'r') as file:
-    content = json.load(file)
-    card = content["card"]
-    card_nums = content["card nums"]
+try:
+    with open("games/EndPhase/card.json", 'r') as file:
+        content = json.load(file)
+        card = content["card"]
+        card_nums = content["card nums"]
+except:
+    print("Failed to load card.json")

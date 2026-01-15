@@ -5,11 +5,14 @@ from games.EndPhase.choose import choose
 class Shop:
     def __init__(self, player):
         self.player = player
-        with open("player/PlayerStarterData.json", 'r') as content:
-                data = json.load(content)
-                self.bodyParts = data["bodyParts"]
-                self.prices = data["prices"]
-                self.probability = data["probability"]
+        try: 
+            with open("player/PlayerStarterData.json", 'r') as content:
+                    data = json.load(content)
+                    self.bodyParts = data["bodyParts"]
+                    self.prices = data["prices"]
+                    self.probability = data["probability"]
+        except:
+            print("Failed to open PlayerStarterData.json")
         self.items = []
             
     def refresh_store_items(self):

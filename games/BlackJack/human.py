@@ -62,5 +62,5 @@ class Human(Character):
                 p = json.load(file)
                 self.player_information = p[str(p["Total Player"])]
         except:
-            print("**Unable to open playingRecord.json**")
+            print("**Failed to open playingRecord.json**")
 

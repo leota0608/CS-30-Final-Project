@@ -59,8 +59,12 @@ class BlackJackGame(GameHandler):
         """
         Format().newline()
         # opens tules.txt and store it in text
-        with open("games/BlackJack/rules.txt", 'r') as rules:
-            text = rules.read()
+        try:
+            with open("games/BlackJack/rules.txt", 'r') as rules:
+                text = rules.read()
+        except:
+            print("Failed to load rules.txt")
+        
         if not anim:
             print(text)
         else:

@@ -19,8 +19,11 @@ def select_name(user_name, num):
     user_name: the human player's name. (str)
     num: number of names needed. (int)
     """
-    with open("games/common/robotNames.json", "r") as f:
-        names = json.load(f)["robot_names"]
+    try:
+        with open("games/common/robotNames.json", "r") as f:
+            names = json.load(f)["robot_names"]
+    except:
+        print("Failed to load robotNames.json")
     if user_name in names:
         names.remove(user_name)
     selected_names = []

@@ -144,32 +144,47 @@ ___
                                                     "Game 3": None,
                                                     "Game 4": None},
                                     "Lost body parts": []}
-        with open("player/playingRecord.json", 'w') as file:
-            json.dump(record, file, indent = 4)
+        try:
+            with open("player/playingRecord.json", 'w') as file:
+                json.dump(record, file, indent = 4)
+        except:
+            print("Failed to open playingRecord.json")
     
     def store_game_result(self, game_num, result):
         """This method stores game result of each game after the
         player finishes it."""
         # store information in playingRecord.json
-        with open("player/playingRecord.json", 'r') as file:
-            record = json.load(file)
+        try:
+            with open("player/playingRecord.json", 'r') as file:
+                record = json.load(file)
+        except:
+            print("Failed to open playingRecord.json")
         record[str(record["Total Player"])]["Game record"][f"Game {game_num}"]\
               = result
-        with open("player/playingRecord.json", 'w') as file:
-            json.dump(record, file, indent = 4)
+        try:
+            with open("player/playingRecord.json", 'w') as file:
+                json.dump(record, file, indent = 4)
+        except:
+            print("Failed to open playingRecord.json")
 
     def update_score(self):
         """This method update the score of the player according to
         the game results."""
         # update score in playingRecord.json
-        with open("player/playingRecord.json", 'r') as file:
-            record = json.load(file)
+        try:
+            with open("player/playingRecord.json", 'r') as file:
+                record = json.load(file)
+        except:
+            print("Failed to open playingRecord.json")
         for i, j in record[str(record["Total Player"])]["Game record"].\
             items():
             if j == True:
                 record[str(record["Total Player"])]["Score"] += 25
-        with open("player/playingRecord.json", 'w') as file:
-            json.dump(record, file, indent = 4)
+        try: 
+            with open("player/playingRecord.json", 'w') as file:
+                json.dump(record, file, indent = 4)
+        except:
+            print("Failed to open playingRecord.json")
 
     def choose_body_part(self):
         """This method chooses a body part from the player
@@ -187,25 +202,37 @@ ___
         it to playingRecord.json.
         body_part is a string perimeter"""
         self.lost_body_parts.append(body_part)
-        with open("player/playingRecord.json", 'r') as file:
-            record = json.load(file)
+        try: 
+            with open("player/playingRecord.json", 'r') as file:
+                record = json.load(file)
+        except:
+            print("Failed to open playingRecord.json")
         record[str(record["Total Player"])]["Lost body parts"].\
             append(body_part)
         # save changes to playerRecord.json
-        with open("player/playingRecord.json", 'w') as file:
-            json.dump(record, file, indent = 4)
+        try:
+            with open("player/playingRecord.json", 'w') as file:
+                json.dump(record, file, indent = 4)
+        except:
+            print("Failed to open playingRecord.json")
 
     def gain(self, body_part):
         """This method adds a body part to the player and update
         any other changes"""
         self.lost_body_parts.remove(body_part)
-        with open("player/playingRecord.json", 'r') as file:
-            record = json.load(file)
+        try: 
+            with open("player/playingRecord.json", 'r') as file:
+                record = json.load(file)
+        except:
+            print("Failed to open playingRecord.json")
         record[str(record["Total Player"])]["Lost body parts"].\
             remove(body_part)
         #save changes to playingRecord.json
-        with open("player/playingRecord.json", 'w') as file:
-            json.dump(record, file, indent = 4)
+        try:
+            with open("player/playingRecord.json", 'w') as file:
+                json.dump(record, file, indent = 4)
+        except:
+            print("Failed to open playingRecord.json")
 
     def indentLines(self, text: str, spaces: int):
         """This method makes indentations for printing bodyparts"""
@@ -359,8 +386,11 @@ ___
 
 # This function clears all playing records if there are too much
 def clear_all_playing_records():
-    with open("player/playingRecord.json", 'w') as file:
-        json.dump({"Total Player": 0}, file, indent=4)
+    try:
+        with open("player/playingRecord.json", 'w') as file:
+            json.dump({"Total Player": 0}, file, indent=4)
+    except:
+            print("Failed to open playingRecord.json")
 
 
 clear_all_playing_records()

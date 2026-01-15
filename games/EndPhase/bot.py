@@ -12,11 +12,13 @@ from games.EndPhase.human import Human
 
 
 # this code opens card.json stores the card and card_nums dictionary
-with open("games/EndPhase/card.json", 'r') as file:
-    content = json.load(file)
-    card = content["card"]
-    card_nums = content["card nums"]
-
+try:
+    with open("games/EndPhase/card.json", 'r') as file:
+        content = json.load(file)
+        card = content["card"]
+        card_nums = content["card nums"]
+except:
+    print("Failed to open card.json")
 class Bot(Human):
     """This class is inherited from Human class, these are the 
     perimeters:
