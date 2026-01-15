@@ -1,10 +1,10 @@
-###############################################################################
+##############################################################################
 # Coder: Leo
 # Last date modified: 1/14/2026
-###############################################################################
+##############################################################################
 """This module is the player module. It contains the player class, 
 which stores all information of the player"""
-###############################################################################
+##############################################################################
 import random
 from datetime import date
 import json
@@ -148,8 +148,11 @@ ___
         try:
             with open("player/playingRecord.json", 'w') as file:
                 json.dump(record, file, indent=4)
+        except FileNotFoundError:
+            print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json")
+            print("Failed to open playingRecord.json for some \
+                  unknown reason.")
 
     def store_game_result(self, game_num, result):
         """This method stores game result of each game after the
@@ -158,15 +161,20 @@ ___
         try:
             with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
+        except FileNotFoundError:
+            print("Failed to locate playingRecord.json")
         except:
             print("Failed to open playingRecord.json")
-        record[str(record["Total Player"])]["Game record"][f"Game {game_num}"] \
-            = result
+        record[str(record["Total Player"])]["Game record"]\
+            [f"Game {game_num}"] = result
         try:
             with open("player/playingRecord.json", 'w') as file:
                 json.dump(record, file, indent=4)
+        except FileNotFoundError:
+            print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json")
+            print("Failed to open playingRecord.json \
+                  for some unknown reason")
 
     def update_score(self):
         """This method update the score of the player according to
@@ -175,6 +183,9 @@ ___
         try:
             with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
+        except FileNotFoundError:
+            print("Failed to locate playingRecord.json for some \
+                unknown reason")
         except:
             print("Failed to open playingRecord.json")
         for i, j in record[str(record["Total Player"])]["Game record"]. \
@@ -184,8 +195,11 @@ ___
         try:
             with open("player/playingRecord.json", 'w') as file:
                 json.dump(record, file, indent=4)
+        except FileNotFoundError:
+            print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json")
+            print("Failed to open playingRecord.json\
+                  for some unknown reason")
 
     def choose_body_part(self):
         """This method chooses a body part from the player
@@ -206,16 +220,22 @@ ___
         try:
             with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
+        except FileNotFoundError:
+            print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json")
+            print("Failed to open playingRecord.json\
+                  for some unknown reason")
         record[str(record["Total Player"])]["Lost body parts"]. \
             append(body_part)
         # save changes to playerRecord.json
         try:
             with open("player/playingRecord.json", 'w') as file:
                 json.dump(record, file, indent=4)
+        except FileNotFoundError:
+            print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json")
+            print("Failed to open playingRecord.json for some \
+                  unknown reason")
 
     def gain(self, body_part):
         """This method adds a body part to the player and update
@@ -224,16 +244,22 @@ ___
         try:
             with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
+        except FileNotFoundError:
+            print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json")
+            print("Failed to open playingRecord.json\
+                  for some unknown reason")
         record[str(record["Total Player"])]["Lost body parts"]. \
             remove(body_part)
         # save changes to playingRecord.json
         try:
             with open("player/playingRecord.json", 'w') as file:
                 json.dump(record, file, indent=4)
+        except FileNotFoundError:
+            print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json")
+            print("Failed to open playingRecord.json\
+                  for some unknown reason")
 
     def indentLines(self, text: str, spaces: int):
         """This method makes indentations for printing bodyparts"""
@@ -392,8 +418,11 @@ def clear_all_playing_records():
     try:
         with open("player/playingRecord.json", 'w') as file:
             json.dump({"Total Player": 0}, file, indent=4)
+    except FileNotFoundError:
+        print("Failed to locate playingRecord.json")
     except:
-        print("Failed to open playingRecord.json")
+        print("Failed to open playingRecord.json for some\
+              unknown reason")
 
 
 clear_all_playing_records()

@@ -1,11 +1,11 @@
-###############################################################################
+##############################################################################
 # Coder: Leo
 # Last date modified: 1/14/2026
-###############################################################################
+##############################################################################
 """This module is the main code for the mini-game Black Jack. It
 imports other modules in EndPhase folder and is imported by the 
 main code."""
-###############################################################################
+##############################################################################
 from games.common.BodyPartsAnim import BodyPartsAnim
 import games.common.score as score
 from games.BlackJack.human import Human
@@ -63,8 +63,10 @@ class BlackJackGame(GameHandler):
         try:
             with open("games/BlackJack/rules.txt", 'r') as rules:
                 text = rules.read()
+        except FileNotFoundError:
+            print("Failed to locate rules.txt")
         except:
-            print("Failed to load rules.txt")
+            print("Failed to load rules.txt for some unknown reason")
 
         if not anim:
             print(text)
@@ -224,7 +226,8 @@ class BlackJackGame(GameHandler):
                                 self.alive = False
                                 break
                     if choice.lower() == "end":
-                        out = score.handleMidGameClose(self.player, self.money)
+                        out = score.handleMidGameClose(self.player,\
+                                                        self.money)
                         if out == True:
                             self.running = False
                             self.result = True

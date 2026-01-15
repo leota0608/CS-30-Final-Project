@@ -61,6 +61,9 @@ class Human(Character):
             with open("player/playingRecord.json", 'r') as file:
                 p = json.load(file)
                 self.player_information = p[str(p["Total Player"])]
+        except FileNotFoundError:
+            print("Failed to locate playingRecord.json")
         except:
-            print("**Failed to open playingRecord.json**")
+            print("**Failed to open playingRecord.json for\
+                  some unknown reason**")
 

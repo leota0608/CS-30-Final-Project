@@ -1,18 +1,18 @@
-###############################################################################
+##############################################################################
 #Title: Death Game
 #Class: CS 30
 #Assignment: final project
 #Coder: Leo, Amir
 #Last date modified: 6/18/2025
-###############################################################################
+##############################################################################
 '''
 This is the CS 30 final project main code.
 It imports the four mini game modules and runs the game,
 The code mainly includes Game class, which run the game.
 '''
-###############################################################################
+##############################################################################
 from games.EndPhase.EndPhaseGame import EndPhaseGame
-from games.BlackJack.BlackJackGame import BlackJackGame
+from games.BlackJack.blackJackGame import BlackJackGame
 from games.CourtPiece.CourtPieceGame import CourtPieceGame # game3 
 from games.Hearts.HeartsGame import HeartsGame # game4
 from player.player import Player
@@ -189,7 +189,8 @@ class Game:
                         time.sleep(2)
                         break
                     else:
-                        print("Continue your game and do not come here again.")
+                        print("Continue your game \
+                              and do not come here again.")
                     
     def load_game_anim(self, name: str):
         """This methods loads the load-game animation, which a 

@@ -1,11 +1,11 @@
-###############################################################################
+##############################################################################
 # Coder: Leo
 # Last date modified: 1/14/2026
-###############################################################################
+##############################################################################
 """This module is the bot module for mini game EndPhase.
 The code is imported by EndPhaseGame.py. It mainly contains the
 class Bot, which controls all movement of bot in the game."""
-###############################################################################
+##############################################################################
 import json
 import random
 from games.EndPhase.human import Human
@@ -16,8 +16,10 @@ try:
         content = json.load(file)
         card = content["card"]
         card_nums = content["card nums"]
+except FileNotFoundError:
+    print("Failed to locate card.json")
 except:
-    print("Failed to open card.json")
+    print("Failed to open card.json for some unknown reason")
 
 
 class Bot(Human):

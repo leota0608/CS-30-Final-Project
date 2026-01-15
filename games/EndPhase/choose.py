@@ -1,12 +1,12 @@
-###############################################################################
+##############################################################################
 #Coder: Leo
 #Last date modified: 1/14/2026
-###############################################################################
+##############################################################################
 """This module is the choose code for the mini game Black Jack. It is 
 imported by BlackJackGame.py. The code contains the choose function.
 Letting the player input based on an output, an optional input
 range and an optional confirmation"""
-###############################################################################
+##############################################################################
 def choose(output, input_range = "none", confirm = "no"):
     """
     output: a string, usually the question
