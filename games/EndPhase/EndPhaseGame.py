@@ -6,14 +6,12 @@
 modules in EndPhase folder and is imported by the main code."""
 ###############################################################################
 from games.common.score import *
-from games.common.Character import Character
 from games.common.format import Format
 from games.EndPhase.bot import Bot
 from games.EndPhase.choose import choose
 from games.EndPhase.human import Human
 from games.EndPhase.deck import Deck
 from games.EndPhase.card import Card
-from games.common.BodyPartsAnim import BodyPartsAnim
 from games.common.GameHandler import GameHandler
 import time
 import json
