@@ -87,7 +87,7 @@ ___
         self.date = date.today()
         self.score = 0
         self.money = 0
-        self.debth = 0
+        self.debt = 0
         self.lost_body_parts = []
         try:  # read player information from previously stored file
             with open("player/PlayerStarterData.json", 'r') as content:
@@ -95,7 +95,7 @@ ___
                 self.bodyParts = data["bodyParts"]
                 self.probability = data["probability"]
                 self.money = data["current money"]
-                self.debth = data["debth"]
+                self.debt = data["debt"]
         except FileNotFoundError:
             print("We didn't find any of your body parts, you died...")
             # file not found

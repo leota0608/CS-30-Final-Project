@@ -2,14 +2,18 @@
 # Coder: Amir
 # Last date modified: 1/14/2026
 ###############################################################################
-""" CPGameData is a class that defines all information the game handler
-and every bot need to have access to. This object of this class is globally
-shared with both game handler and bots, and it is, up to the characters and
-game handler to ensure correct usage."""
+"""This module contains the class CPGameData, it is imported by 
+CoutPieceGame.py and it defines all informaiton the gamehandler
+adn bot has access to."""
 ###############################################################################
 
 
 class CPGameData:
+    """ CPGameData is a class that defines all information the 
+    game handler and every bot need to have access to. This object 
+    of this class is globally shared with both game handler and bots, 
+    and it is, up to the characters and game handler to ensure 
+    correct usage."""
     def __init__(self):
         # a string that represents the suit that has been chosen
         # as the trump.

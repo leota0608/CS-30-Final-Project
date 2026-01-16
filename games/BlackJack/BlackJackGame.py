@@ -167,8 +167,8 @@ class BlackJackGame(GameHandler):
                             max_score = self.player_list[i].max_sum
                             max_index = i
                     if max_index == 0:  # win
-                        print("The judge came, and decided you are the\
-                               winner")
+                        print("The judge came, and decided you are the"
+                               "winner")
                         for i in range(3, 1, -1):
                             print(f"\rReturning to lobby in {i}s")
                             time.sleep(2)
@@ -176,8 +176,8 @@ class BlackJackGame(GameHandler):
                         self.result = True
                         break
                     else:  # lost
-                        print("The judge believes you are the problem and \
-                              declared you as lost...")
+                        print("The judge believes you are the problem and "
+                              "declared you as lost...")
                         for i in range(3, 1, -1):
                             print(f"\rReturning to lobby in {i}s")
                             time.sleep(1)
@@ -267,8 +267,8 @@ class BlackJackGame(GameHandler):
                         if choice.lower() == 'n' or choice.lower() == 'no':
                             pass
                         else:
-                            print("Your respond is seen as a No...\nRemember\
-                                   to answer correctly next time...")
+                            print("Your respond is seen as a No...\nRemember "
+                                   "to answer correctly next time...")
                         compare = True
                         for i in range(1, len(self.player_list)):
                             if self.player_list[i].alive and \
@@ -277,10 +277,10 @@ class BlackJackGame(GameHandler):
                                 compare = False
                                 break
                         if compare:
-                            print("You lost...\n Everyone else choose not\
-                                   to draw and has a high score than you\n\
-                                  Remember their is no backing down\n\
-                                  Returning to lobby in 3s...")
+                            print("You lost...\n Everyone else choose not "
+                                    "to draw and has a high score than you\n"
+                                  "Remember their is no backing down\n"
+                                  "Returning to lobby in 3s...")
                             time.sleep(2)
                             self.running = False
                             self.result = False
@@ -289,7 +289,7 @@ class BlackJackGame(GameHandler):
                 elif self.player_list[i].alive:
                     print(f"Player {i + 1}'s turn")
                     choice = self.player_list[i].evaluate_draw(human_draw,
-                                                               self.player_list, self.deck, i)
+                                        self.player_list, self.deck, i)
                     if choice:
                         if_draw = 0
                         time.sleep(0.7)
@@ -308,7 +308,8 @@ class BlackJackGame(GameHandler):
                             self.result = False
                             break
                         if r == 0:  # robot lost
-                            print(f"Player {i + 1} lost...\nRemaining player: "
+                            print(f"Player {i + 1} lost...\n"
+                                  "Remaining player: "
                                   , end='')
                             self.player_list[i].alive = False
                             for i in range(self.player_num):

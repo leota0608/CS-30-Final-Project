@@ -12,7 +12,7 @@ The code mainly includes Game class, which run the game.
 '''
 ##############################################################################
 from games.EndPhase.EndPhaseGame import EndPhaseGame
-from games.BlackJack.blackJackGame import BlackJackGame
+from games.BlackJack.BlackJackGame import BlackJackGame
 from games.CourtPiece.CourtPieceGame import CourtPieceGame # game3 
 from games.Hearts.HeartsGame import HeartsGame # game4
 from player.player import Player
@@ -71,7 +71,7 @@ class Game:
     def printMoney(self):
         """This method outputs the money the player has and the debt
         he has to pay."""
-        print("Hi, I am your ecountant.")
+        print("Hi, I am your acountant.")
         print("currently: ")
         print(f"your money: {self.player.money}")
         print(f"amount you must pay: {self.player.debt}")
@@ -99,8 +99,8 @@ class Game:
                     time.sleep(3)
                     break
                 else:
-                    confirm = choose(f"Are you sure you wanna play \
-                        {choice}?(y/n)", ["yes", 'y', "no", 'n'])
+                    confirm = choose(f"Are you sure you wanna play "
+                        f"{choice}?(y/n)", ["yes", 'y', "no", 'n'])
                     if confirm in ["yes", 'y']:
                         money = random.randint(2000, 6000)
                         print(f"If you win, you can get up tp ${money}")
@@ -115,8 +115,8 @@ class Game:
             print()
             print("Wow ....")
             print("You paid off the debt.")
-            print(f"you made {self.player.money} and your debt was \
-                  {self.player.debt}")
+            print(f"you made {self.player.money} and your debt was"
+                  "{self.player.debt}")
             print(f"you will keep {self.player.money - self.player.debt}")
             print("Congrats anyway, you bought your life.")
             print("Now get out ...")
@@ -176,11 +176,11 @@ class Game:
                 elif choice == "leave arcade":
                     print("you have not still paid your money.")
                     time.sleep(2)
-                    print("We would just kill you and then sell \
-                          your body for your debt.")
-                    print("Listen, we have no sympathy we only care \
-                          about money!")
-                    choice = choose("Do you really want that>(y/n)", \
+                    print("We would just kill you and then sell"
+                          "your body for your debt.")
+                    print("Listen, we have no sympathy we only care"
+                          "about money!")
+                    choice = choose("Do you really want that>(y/n)", 
                                     ["yes", 'y', "no", 'n'])
                     if choice == "y":
                         print("Ok, you bastard.")
@@ -189,8 +189,8 @@ class Game:
                         time.sleep(2)
                         break
                     else:
-                        print("Continue your game \
-                              and do not come here again.")
+                        print("Continue your game"
+                              "and do not come here again.")
                     
     def load_game_anim(self, name: str):
         """This methods loads the load-game animation, which a 

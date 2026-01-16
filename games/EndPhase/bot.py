@@ -29,7 +29,6 @@ class Bot(Human):
     health: the initial health of the bot
     enemy_num: the enemy number that bot has
     index: the index the bot has in the list of players"""
-
     def __init__(self, name, health, enemy_num, index):
         Human.__init__(self, name, health, index)
         self.enemy_num = enemy_num
@@ -71,7 +70,6 @@ class Bot(Human):
                 player_health.append([player[i].health, player[i].index])
             elif len(player[i].handcards) >= 1:
                 player_health.append([player[i].health, player[i].index])
-
         if len(targets_with_equipment) > 0:
             return random.choice(targets_with_equipment)
         player_health.sort(key=lambda x: x[0])
@@ -98,7 +96,6 @@ class Bot(Human):
                     self.handcards[i].name == "negate"):
                 # card_name, index
                 available_moves.append([self.handcards[i], i])
-
         # basic rules
         ## 1. if have peach and health is not full, use peach
         if self.health < self.max_health:
@@ -134,7 +131,8 @@ class Bot(Human):
             for j in equipment:
                 if i == j[0].name:
                     if (self.equipment["armor"] is not None and j[0].name \
-                        != self.equipment["armor"].name) or len(self.handcards) > self.max_handcards:
+                        != self.equipment["armor"].name) or \
+                        len(self.handcards) > self.max_handcards:
                         return {"card": self.handcards[j[1]], "target": -1, \
                                 "index": j[1]}
         ## 3.
@@ -150,7 +148,7 @@ class Bot(Human):
         if target != -1 and (len(player[target].handcards) > 0 or \
                              player[target].equipment["weapen"] \
                              is not None or not player[target]. \
-                                                        equipment["armor"] is None):
+                                        equipment["armor"] is None):
             trick_cards = ["snatch", "dismantle"]
             for j in trick_cards:
                 for i in available_moves:
@@ -175,7 +173,6 @@ class Bot(Human):
                         target = target[random.randint(1, len(target) - 1)]
                         return {"card": self.handcards[i[1]], \
                                 "target": target[1], "index": i[1]}
-
         if len(self.handcards) <= self.max_handcards and self.health <= 2:
             return -1
         # play slash
