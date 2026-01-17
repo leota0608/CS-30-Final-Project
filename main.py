@@ -47,7 +47,7 @@ class Game:
 
     def greeting(self):
         """This method prints greetings for player"""
-        self.story.display()
+        #self.story.display()
     
     def runGame(self, gameName, money):
         """This method runs one of the four games according to 
@@ -103,7 +103,7 @@ class Game:
                         f"{choice}?(y/n)", ["yes", 'y', "no", 'n'])
                     if confirm in ["yes", 'y']:
                         money = random.randint(2000, 6000)
-                        print(f"If you win, you can get up tp ${money}")
+                        print(f"If you win, you can get up to ${money}")
                         time.sleep(0.7)
                         self.runGame(choice, money)
                         break
@@ -133,8 +133,8 @@ class Game:
             print("we are going to take out all of your parts and sell them!")
             return True
         else:
-            print(f"you still need to pay something like \
-                  {self.player.debt - self.player.money}.")
+            print(f"you still need to pay something like "
+                  f"{self.player.debt - self.player.money}.")
             print("go on.")
             print()
             return False

@@ -1,15 +1,17 @@
 {
     "Total Player": 1,
     "1": {
-        "Name": "111",
-        "Date": "2026-01-15",
+        "Name": "Test",
+        "Date": "2026-01-17",
         "Score": 0,
         "Game record": {
             "Game 1": null,
             "Game 2": null,
-            "Game 3": null,
+            "Game 3": false,
             "Game 4": null
         },
-        "Lost body parts": []
+        "Lost body parts": [
+            "eye"
+        ]
     }
 }

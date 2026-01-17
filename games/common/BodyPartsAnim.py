@@ -56,8 +56,8 @@ class BodyPartsAnim:
         time.sleep(1.2)
         os.system("cls")
         time.sleep(1.8)
-        output = ["It hurts...", "", f"My {body_part}!", "", f"Where is my\
-                   {body_part}!", "", "Aaaaaaaaa!", "", ""]
+        output = ["It hurts...", "", f"My {body_part}!", "", f"Where is my "
+                   f"{body_part}!", "", "Aaaaaaaaa!", "", ""]
         for i in output:
             os.system("cls")
             print(i, end='', flush=True)
