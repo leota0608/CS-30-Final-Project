@@ -277,7 +277,7 @@ class BlackJackGame(GameHandler):
                                 compare = False
                                 break
                         if compare:
-                            print("You lost...\n Everyone else choose not "
+                            print("You lost...\nEveryone else choose not "
                                     "to draw and has a high score than you\n"
                                   "Remember their is no backing down\n"
                                   "Returning to lobby in 3s...")

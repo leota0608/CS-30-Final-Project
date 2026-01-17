@@ -62,7 +62,7 @@ class EndPhaseGame(GameHandler):
             time.sleep(0.7)
             self.print_card_description(True)
         print(f"(You can review the game rules and card descriptions "
-              "by entering {self.game_rule_key} and "
+              f"by entering {self.game_rule_key} and "
                 f"{self.card_description_key})")
         print("**Game starts**")
         time.sleep(0.7)
