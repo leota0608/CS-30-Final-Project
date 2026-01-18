@@ -6,7 +6,6 @@
 imports other modules in EndPhase folder and is imported by the 
 main code."""
 ##############################################################################
-from games.common.BodyPartsAnim import BodyPartsAnim
 import games.common.score as score
 from games.BlackJack.human import Human
 from games.common.GameHandler import GameHandler
@@ -25,7 +24,6 @@ class BlackJackGame(GameHandler):
     and money, which is the maximum reward the player will get 
     after finishing the game.
     """
-
     def __init__(self, player, money):
         self.player = player
         self.running = True
@@ -67,7 +65,6 @@ class BlackJackGame(GameHandler):
             print("Failed to locate rules.txt")
         except:
             print("Failed to load rules.txt for some unknown reason")
-
         if not anim:
             print(text)
         else:
@@ -324,8 +321,8 @@ class BlackJackGame(GameHandler):
         self.handle_game_result()
 
     def handle_game_result(self):
-        """This method handles the game result and update the score to the
-        player object"""
+        """This method handles the game result and update 
+        the score to the player object"""
         score.updateScore(self.result, self.player, self.money)
 
     def print_handcard(self, num):

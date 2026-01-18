@@ -62,7 +62,6 @@ class BodyPartsAnim:
             os.system("cls")
             print(i, end='', flush=True)
             time.sleep(1.1)
-
         print("\033[0m", end='')
         for i in range(2):
             for j in range(1, 4):

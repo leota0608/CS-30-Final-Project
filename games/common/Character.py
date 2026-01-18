@@ -1,18 +1,19 @@
-#######################################################################
+###############################################################################
 # Coder: Amir
 # Last date modified: 1/14/2026 
-#######################################################################
-""" Defines the supreme class for all players. It includes human player
-interfaces and bot classes. Ensure to read the docstring carefully and
-implement each method according to the design.
+###############################################################################
+""" Defines the supreme class for all players. It includes 
+human player interfaces and bot classes. Ensure to read the 
+docstring carefully and implement each method according to 
+the design.
 """
-#######################################################################
+###############################################################################
 
 
 class Character:
     def __init__(self, name):
         """
-        name: It is the name of the character. A unique identifier 
+        name: It is the name of the character. A unique identifier     
         in the game(string)
         """
         self.gameData = None

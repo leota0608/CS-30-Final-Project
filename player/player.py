@@ -2,7 +2,7 @@
 # Coder: Leo
 # Last date modified: 1/14/2026
 ##############################################################################
-"""This module is the player module. It contains the player class, 
+"""This module is the player module. It contains the Player class, 
 which stores all information of the player"""
 ##############################################################################
 import random
@@ -120,7 +120,8 @@ ___
                 return
 
     def store_player_information(self):
-        """This method stores player information in an external file."""
+        """This method stores player information in an 
+        external file."""
         # Add player information to existing records
         try:
             with open("player/playingRecord.json", 'r') as file:
@@ -151,8 +152,8 @@ ___
         except FileNotFoundError:
             print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json for some \
-                  unknown reason.")
+            print("Failed to open playingRecord.json for some "
+                  "unknown reason.")
 
     def store_game_result(self, game_num, result):
         """This method stores game result of each game after the
@@ -173,8 +174,8 @@ ___
         except FileNotFoundError:
             print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json \
-                  for some unknown reason")
+            print("Failed to open playingRecord.json "
+                  "for some unknown reason")
 
     def update_score(self):
         """This method update the score of the player according to
@@ -184,8 +185,8 @@ ___
             with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
         except FileNotFoundError:
-            print("Failed to locate playingRecord.json for some \
-                unknown reason")
+            print("Failed to locate playingRecord.json for some "
+                "unknown reason")
         except:
             print("Failed to open playingRecord.json")
         for i, j in record[str(record["Total Player"])]["Game record"]. \
@@ -234,8 +235,8 @@ ___
         except FileNotFoundError:
             print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json for some \
-                  unknown reason")
+            print("Failed to open playingRecord.json for some "
+                  "unknown reason")
 
     def gain(self, body_part):
         """This method adds a body part to the player and update
@@ -351,7 +352,7 @@ ___
             lines = ("" if element in missing_parts
                      else self.BODY_ELEMNTS[element]).split("\n")
             return self.removeLeadingSpace(lines)
-
+        
         # Prepration phase before printing.
         # ---------- HEAD ----------
         # check if any of the facial elements where removed!
@@ -379,7 +380,6 @@ ___
         # ---------- FEET ----------
         left_foot = configurePart("left foot")
         right_foot = configurePart("right foot")
-
         # printing body elements
         head = self.indentLines(head, 12)  # indent each line 12 spaces
         print(head)

@@ -33,8 +33,8 @@ class Human(Character):
                 (["club", "spade", "heart", "diamond"]), name))
 
     def find_sum(self):
-        """Checks the sum of current handcards, both the maximum and minimum 
-        sum and stores them"""
+        """Checks the sum of current handcards, both the 
+        maximum and minimum sum and stores them"""
         total = 0
         count_a = 0
         for i in self.handcard:

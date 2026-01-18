@@ -33,9 +33,9 @@ class Bot(Character):
                                 "spade", "heart", "diamond"]), name))
 
     def find_sum(self):
-        """This method checks the maximum  and minimum sum the bot already 
-        has(count 1 as in 11 and 1) and store them in self.max_sum and 
-        self.min_sum"""
+        """This method checks the maximum and minimum 
+        sum the bot already has(count 1 as in 11 and 1) 
+        and store them in self.max_sum and self.min_sum"""
         total = 0
         count_a = 0
         for i in self.handcard:
@@ -56,15 +56,16 @@ class Bot(Character):
                 break
 
     def evaluate_draw(self, human_draw, player_list, deck, index):
-        """This methods evaluates the move of the robot of choosing whether 
-        to draw.
+        """This methods evaluates the move of the robot of 
+        choosing whether to draw.
         Perimeter explanations:
-        human_draw: a boolean value indicating did the human player draw in 
-        this round
+        human_draw: a boolean value indicating did the 
+        human player draw in his round
         player_list: the list of player objects
         deck: the deck of remaining cards
         index: the bot's index in the list
-        The method returns true or false indicating to draw or not to draw
+        The method returns true or false indicating 
+        to draw or not to draw
         """
         # the unused perimeters are for future improvements on evaluating 
         # methods

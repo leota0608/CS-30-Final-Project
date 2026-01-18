@@ -454,7 +454,8 @@ class EndPhaseGame(GameHandler):
                              self.player[num2].health == 1):  
                             # AI only uses if health >= 2
                             print(f"Player {num1+1} "
-                                  "choose to lose 1 health to cause 1 damage.")
+                                  "choose to lose 1 health to" 
+                                  " cause 1 damage.")
                             time.sleep(0.7)
                             # Attacker loses 1 health
                             self.player[num1].health -= 1
@@ -548,7 +549,6 @@ class EndPhaseGame(GameHandler):
                 if self.player[num2].handcards[i].name == "dodge":
                     print(f"player {num2+1} uses [dodge]")
                     self.player[num2].handcards.pop(i)
-
                     for j in range(1, len(self.player)):
                         if j == num2:
                             continue
@@ -1011,8 +1011,8 @@ class EndPhaseGame(GameHandler):
         Perimeter explanations:
         num: the player who played  archery
         human=1: player is the card user, human = 0: AI played the card
-        the method checks all players except the player who played the card
-        for dodge and negate
+        the method checks all players except the player who 
+        played the card for dodge and negate
         """
         for i in range(0, len(self.player)):
             if i == num or not self.player[i].alive:
@@ -1070,7 +1070,7 @@ class EndPhaseGame(GameHandler):
                                           "archery-player1-dodge<0**")
                             self.player[0].handcards.pop(find_dodge)
                         else: # must be negate
-                            print("You played negate and countered archery")         
+                            print("You played negate and countered archery")
                             for j in range(1, len(self.player)):
                                 if j == num or not self.player[j].enemy[0]\
                                     ["alive"]:
@@ -1324,8 +1324,8 @@ class EndPhaseGame(GameHandler):
     def countDodge(self, num):
         """
         num is the index of the player being counted 
-        the method counts the number of dodge the player has and returns \
-            the number of dodge
+        the method counts the number of dodge the player 
+        has and returns the number of dodge
         """
         count_dodge = 0
         for j in range(len(self.player[num].handcards)):
@@ -1338,8 +1338,8 @@ class EndPhaseGame(GameHandler):
         This method has two perimeters: 
         num is the index of player who played the dodge
         index if the index of the dodge in the player's handcards
-        the method removes the dodge from the player's handcards and \
-            update robot prediction
+        the method removes the dodge from the player's handcards and
+        update robot prediction
         """
         for i in range(1, len(self.player)):                            
             if i == num or not self.player[i].alive:
@@ -1351,8 +1351,8 @@ class EndPhaseGame(GameHandler):
 
     def countSlash(self, num):
         """
-        This method has a perimeter num, which is the index of the player
-        being checked.
+        This method has a perimeter num, which is the index 
+        of the player being checked.
         it returns the number of slashed the player has
         """
         count_slash = 0
@@ -1458,7 +1458,6 @@ class EndPhaseGame(GameHandler):
                         self.running = False
                         self.result = True
                         self.player[0].alive = True
-
                 if not self.running:
                     return
                 choice = int(choice)
@@ -1537,18 +1536,18 @@ class EndPhaseGame(GameHandler):
                         else:
                             equiped_card_name = self.player[num].\
                                 equipment["weapen"].name
-                            replace_choice = choose(f"You have already "
-                                                f"equiped {equiped_card_name}, "
-                                                "do you want to replace"
-                                                f"it? y/n\n({equiped_card_name}"
-                                                "will be automatically "
-                                                "discarded)?\nChoice: ")
+                            replace_choice = \
+                                choose(f"You have already "
+                                f"equiped {equiped_card_name}, "
+                                "do you want to replace"
+                                f"it? y/n\n({equiped_card_name}"
+                                "will be automatically "
+                                "discarded)?\nChoice: ")
                             if replace_choice.lower() in ['y', 'yes']:
                                 self.player[num].equipment["weapen"] = \
                                     chosen_card
                                 print(f"You successfully equiped "
                                       f"{chosen_card.name}")
-
                                 for i in range(1, len(self.player)):
                                     if i == num or not self.player[i].alive:
                                         continue
@@ -1832,7 +1831,6 @@ class EndPhaseGame(GameHandler):
                         self.player[i].enemy[num]["handcard_num"] -= 1
                         self.player[i].enemy[num]["equipment"]["weapen"] \
                             = card.name
-
                         if self.player[i].enemy[num]["estimated_handcards"]\
                             [card.name] < 0:
                             print("**ERROR: 6function-start_phase-"

@@ -1,9 +1,10 @@
 # Alpha Testing Check List
-### Summery:  
+### Summery:    
 Here we have check list for every element of the game
 that needs testing. Follow these guidelines to test 
 the game rigorously.
-____
+
+---
 + Computer Player Logic Correctness:  
     Ensuring the correctness of Bot classes is a hard task as there are various different cases that can occur. To make testing easier, we would identify different cases, and computer player's expected response in return. 
     We would then construct these cases by skipping all the preliminary conditions of the game.
