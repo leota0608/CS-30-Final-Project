@@ -2,10 +2,10 @@
 # Coder: Amir
 # Last date modified: 1/14/2026
 ###############################################################################
-""" HeartsGameData is a class that defines all information the game handler
-and every bot need to have access to. This object of this class is globally
-shared with both game handler and bots, and it is, up to the characters and
-game handler to ensure correct usage."""
+""" HeartsGameData is a class that defines all information the 
+game handler and every bot need to have access to. This object of this 
+class is globally shared with both game handler and bots, and it is, up 
+to the characters and game handler to ensure correct usage."""
 ###############################################################################
 
 
@@ -13,7 +13,8 @@ class HeartsGameData:
     def __init__(self):
         # cards is a dictionary that defines the cards of every player
         # in this structure:
-        # {player name: {suit: [list of cards with that suit], ...}, ...}
+        # {player name: {suit: [list of cards with that suit],
+        #  ...}, ...}
         self.cards = dict()
         # it is list of cards currently played.
         # table is flushed after every round.

@@ -2,9 +2,9 @@
 # Coder: Amir
 # Last date modified: 1/14/2026
 ###############################################################################
-""" Implements the game handler for game of hearts. HeartsGame game handler
-ensures that game goes in the correct flow, prints interactive messages
-and can report results and report the winner."""
+""" Implements the game handler for game of hearts. HeartsGame 
+game handler ensures that game goes in the correct flow, prints 
+interactive messages and can report results and report the winner."""
 ###############################################################################
 import random as rd
 import time as tm
@@ -44,7 +44,8 @@ class HeartsGame(GameHandler):
     def __init__(self, user, money):
         """ user: it is an object of the Player class which contains
         all methods to modify the player. (Player)
-            money: the amount of money to pay the player if they won.(int)
+            money: the amount of money to pay the player if they 
+            won.(int)
         """
         # the actual user
         self.user = user
@@ -75,7 +76,8 @@ class HeartsGame(GameHandler):
         # initializing cards
         # construct the structure of self.data.cards
         # it is represented as following.
-        # {player name: {suit: [list of cards with that suit], ...}, ...}
+        # {player name: {suit: [list of cards with that suit],
+        #  ...}, ...}
         for player in self.players:
             self.data.cards.update({player.name: dict()})
             self.data.scores.update({player.name: 0})
@@ -149,7 +151,8 @@ class HeartsGame(GameHandler):
         print(" --- its time to exchange cards ---")
         cards_to_change = []
         for player in self.players:
-            print(f"player {player.name} please pick your three cards to exchange.")
+            print(f"player {player.name} please pick "
+                  "your three cards to exchange.")
             cards_to_change.append(player.provoke("exchange"))
             tm.sleep(1)
             print("thanks!")
@@ -158,7 +161,8 @@ class HeartsGame(GameHandler):
         for i in range(len(self.players) - 2, -1, -1):
             prev = i + 1
             self.addCards(cards_to_change[prev], self.players[i].name)
-        self.addCards(cards_to_change[0], self.players[len(self.players) - 1].name)
+        self.addCards(cards_to_change[0], \
+                      self.players[len(self.players) - 1].name)
         print("cards had been exchanged")
         print()
 
@@ -213,7 +217,8 @@ class HeartsGame(GameHandler):
             for i in range(starter, len(self.players)):
                 print(f"player {self.players[i].name}, put your card> ")
                 self.data.table[i] = self.players[i].provoke("play")
-                print(f"player {self.players[i].name} played {self.data.table[i]}.")
+                print(f"player {self.players[i].name} played "
+                      f"{self.data.table[i]}.")
             for i in range(0, starter):
                 print(f"player {self.players[i].name}, put your card> ")
                 self.data.table[i] = self.players[i].provoke("play")

@@ -101,7 +101,7 @@ class Game:
                     break
                 else:
                     confirm = choose(f"Are you sure you wanna play "
-                                     f"{choice}?(y/n)", ["yes", 'y', "no", 'n'])
+                                    f"{choice}?(y/n)", ["yes", 'y', "no", 'n'])
                     if confirm in ["yes", 'y']:
                         money = random.randint(2000, 6000)
                         print(f"If you win, you can get up to ${money}")
@@ -111,7 +111,8 @@ class Game:
 
     def checkEnd(self):
         """This method checks if the player has earn enough 
-        money to pay his debt, or if the player got his head cut off."""
+        money to pay his debt, or if the player got his head cut off.
+        """
         if self.player.money >= self.player.debt:
             print()
             print("Wow ....")

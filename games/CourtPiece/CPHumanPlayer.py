@@ -12,11 +12,11 @@ from games.common.GameCard import *
 
 
 class CPHumanPlayer(Character):
-    """ CPHumanPlayer shortened for Court Piece Human Player defines all the
-    logic needed to interact with the actual player.
-    First it will ask the user to give us the trump if the user was chosen
-    as the king. Then the rest of the game is about asking the player to
-    draw a card from their deck to play.
+    """ CPHumanPlayer shortened for Court Piece Human Player 
+    defines all the logic needed to interact with the actual player.
+    First it will ask the user to give us the trump if the user was 
+    chosen as the king. Then the rest of the game is about asking the 
+    player to draw a card from their deck to play.
     Here are the conditions that must be true about the player's chosen
     cards:
     - If they have the suit they must play it.
@@ -71,7 +71,8 @@ class CPHumanPlayer(Character):
         current_card: the card we want to see if exists.(GameCard)
         """
         # retrieve the list of cards of same suit as current_card
-        cards = self.gameData.cards[self.name][GameCard.getKindName(current_card.kind)]
+        cards = self.gameData.cards[self.name]\
+            [GameCard.getKindName(current_card.kind)]
         for i in range(len(cards)):
             card = cards[i]
             if card == current_card:
@@ -79,11 +80,11 @@ class CPHumanPlayer(Character):
         return -1
 
     def getCard(self):
-        """ asks the user about a card and makes sure the card correctly
-        matches the roles of Court Piece. Keeps asking the user
-        until they return the correct answer, and then it will return the
-        card. The returned card is removed from the player's deck and
-        is a GameCard object.
+        """ asks the user about a card and makes sure the card 
+        correctly matches the roles of Court Piece. Keeps asking 
+        the user until they return the correct answer, and then 
+        it will  return the card. The returned card is removed 
+        from the player's deck and is a GameCard object.
         """
         def isItACard(input_):
             """ Checks if the given pair(supposed
@@ -96,7 +97,8 @@ class CPHumanPlayer(Character):
                         return True
             return False
 
-        guideline = "Note: first enter the kind followed by comma followed by rank.\n" \
+        guideline = "Note: first enter the kind followed by " \
+                    "comma followed by rank.\n" \
                     "ex: Spade, One         Heart, King"
         # print cards only once.
         self.printCards()
@@ -119,7 +121,8 @@ class CPHumanPlayer(Character):
                     cards = self.gameData.cards[self.name]
                     # check if the chosen card comply to the game's
                     # rules
-                    last_card = self.gameData.table[self.gameData.last_winner_ind]
+                    last_card = self.gameData.table\
+                        [self.gameData.last_winner_ind]
                     if last_card is not None:
                         king_kind = GameCard.getKindName(last_card.kind)
                         # if the player has similar card to the
@@ -143,8 +146,8 @@ class CPHumanPlayer(Character):
 
     def provoke(self, action):
         """ it is the only function that is supposed to be called
-            by game handler directly. It would return the response based
-            on the request action.
+            by game handler directly. It would return the response \
+            based on the request action.
             action: if "trump" returns the trump of game. if
                     "pick" returns the next playing card.(str)
         """

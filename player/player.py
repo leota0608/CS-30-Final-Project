@@ -285,12 +285,10 @@ ___
         start = 0
         while start < len(lst) and lst[start] == "":
             start += 1
-
         # Find last non-empty string
         end = len(lst) - 1
         while end >= 0 and lst[end] == "":
             end -= 1
-
         # Slice the list
         return lst[start:end + 1] if start <= end else []
 
@@ -326,7 +324,6 @@ ___
         """
         missing_parts = self.lost_body_parts
         isSad = len(self.lost_body_parts) != 0
-
         def printBodyAcross(first, body_print_list, bet):
             """
             Prints the body line by line.
@@ -341,7 +338,6 @@ ___
             while didPrint:
                 didPrint = False
                 print(" " * first, end="")
-
                 for part in body_print_list:
                     p = part[0]  # configured body part
                     which = part[1]  # current print index
@@ -353,7 +349,6 @@ ___
                         print(" " * bet, end="")
                         didPrint = True
                     else:
-
                         print(" " * space, end="")
                         print(" " * bet, end="")
                     part[1] += 1
@@ -371,7 +366,6 @@ ___
             lines = ("" if element in missing_parts
                      else self.BODY_ELEMNTS[element]).split("\n")
             return self.removeLeadingSpace(lines)
-        
         # Preparation phase before printing.
         # ---------- HEAD ----------
         # check if any of the facial elements where removed!
@@ -428,7 +422,6 @@ ___
         # printing the feet
         body_print_list = [[left_foot, 0, 3], [right_foot, 0, 3]]
         printBodyAcross(14, body_print_list, 5)
-
         self.printPlayerMessage(isSad)
 
 

@@ -76,7 +76,8 @@ class CourtPieceGame(GameHandler):
             self.data.cards[player.name] = dict()
             self.data.scores.update({player.name: 0})
             # the game cards follow the following structure:
-            # {player name: {suit: [list of cards with that suit], ...}, ...}
+            # {player name: {suit: [list of cards with that suit], 
+            # ...}, ...}
             for kind in GameCard.KINDS:
                 self.data.cards[player.name].update({kind: []})
         self.data.table = [None] * len(self.players)

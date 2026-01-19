@@ -3,9 +3,9 @@
 # Last date modified: 1/14/2026
 ###############################################################################
 """ Creates an interface between the game handler and the actual user.
-By inheriting from the Character class, we make sure that character logic
-is separate from game handler, so later we can make this game to have multiple
-real players if we wish to."""
+By inheriting from the Character class, we make sure that character 
+logic is separate from game handler, so later we can make this game to 
+have multiple real players if we wish to."""
 ###############################################################################
 import time as tm
 
@@ -21,7 +21,6 @@ class HeartsHumanPlayer(Character):
     to choose their card. Interactive guidance is developed to let the
     user know if their choice is illegal and that what they should do.
     """
-
     def __init__(self, name):
         """ name is the name of the player. It is needed
         as unique identifier of this player.
@@ -65,7 +64,6 @@ class HeartsHumanPlayer(Character):
             print()
             print(guideline)
             print()
-
         while True:
             inp = input("pick a card> ").lower()
             inp = inp.replace(" ", "")
@@ -132,7 +130,8 @@ class HeartsHumanPlayer(Character):
                 if suit_card.kind != card.kind:
                     suit_name = GameCard.getKindName(suit_card.kind)
                     if len(self.gameData.cards[self.name][suit_name]) != 0:
-                        print("idiot, don't you know that your card must match the game suit")
+                        print("idiot, don't you know that your " \
+                        "card must match the game suit")
                         print("try again, you cheater!")
                     else:
                         return card
