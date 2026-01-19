@@ -228,6 +228,7 @@ class CourtPieceGame(GameHandler):
         for name in self.data.scores:
             print(f"{name}: {self.data.scores[name]}")
         # self.printPlayerCards()
+        tm.sleep(2)
 
     def getWinner(self):
         """ finds the player with maximum score and returns it

@@ -11,6 +11,10 @@ the design.
 
 
 class Character:
+    """ the parent class of all objects that play a game.
+    You must implement the provoke method, as well as the different actions
+    you are expected to respond to.
+    """
     def __init__(self, name):
         """
         name: It is the name of the character. A unique identifier     

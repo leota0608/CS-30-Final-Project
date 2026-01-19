@@ -214,10 +214,12 @@ class HeartsGame(GameHandler):
                 print(f"player {self.players[i].name}, put your card> ")
                 self.data.table[i] = self.players[i].provoke("play")
                 print(f"player {self.players[i].name} played {self.data.table[i]}.")
+                tm.sleep(2)
             for i in range(0, starter):
                 print(f"player {self.players[i].name}, put your card> ")
                 self.data.table[i] = self.players[i].provoke("play")
                 print(self.data.table[i])
+                tm.sleep(2)
             # decide the round winner by computing the scores
             self.data.starter_player = self.decideRoundWinner()
             name = self.players[self.data.starter_player].name
@@ -231,6 +233,7 @@ class HeartsGame(GameHandler):
             print("scores: ")
             for name in self.data.scores:
                 print(f"{name}: {self.data.scores[name]}")
+            tm.sleep(1)
 
     def findWinner(self):
         """ The winner of the whole game is the one who has
