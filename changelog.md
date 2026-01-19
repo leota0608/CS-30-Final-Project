@@ -14,6 +14,7 @@ example:
   - added a file to check which classes and functions are missing
   docstring.
   - removed test files.
+  - a file that contains missing docstring classes and methods was added.
 + 0.4.3.6:
   - All files now have header of length 79.
   - A code to this automatically was written.
