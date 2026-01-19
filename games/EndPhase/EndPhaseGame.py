@@ -341,7 +341,7 @@ class EndPhaseGame(GameHandler):
                 self.player[num1].equipment["weapen"].name == "crossblade":
                     if human == 1:  # Player is attacker
                         choice = choose(f"Do you choose to lose one health "
-                                        "point to let Player {num2+1} lose "
+                                        f"point to let Player {num2+1} lose "
                                         "one health point?(y/n): ")
                         if choice.lower() in ['y', 'yes']:
                             time.sleep(0.7)
@@ -587,7 +587,7 @@ class EndPhaseGame(GameHandler):
                                     continue
                                 self.player[k].enemy[num2]["health"] -= 1
                             print(f"Player {num2+1} loses one health point\n"
-                                  "current health: {self.player[num2].health}")
+                                  f"current health: {self.player[num2].health}")
                             time.sleep(0.7)
                             if self.player[num2].health == 0:
                                 self.nearly_dead(num2)
