@@ -10,6 +10,8 @@ example:
 + 0.1.1 means amir committed his first commit to version 1.  
 ## Change Log
 
++ 0.4.5:
+ - comments were added extensively.
 + 0.4.4:
   - added a file to check which classes and functions are missing
   docstring.

@@ -1,13 +1,16 @@
 ###############################################################################
-#Coder: Leo
-#Last date modified: 1/14/2026
+# Coder: Leo
+# Last date modified: 1/14/2026
 ###############################################################################
 """This module is the format module. Right now it only contains one 
 kind of formatting"""
 ###############################################################################
+
+
 class Format:
     """This is the Format class which is used to help with formatting
     output."""
+
     def __init__(self):
         pass
 

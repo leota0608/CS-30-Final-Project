@@ -46,8 +46,12 @@ class Game:
                       "Hearts": HeartsGame}
 
     def greeting(self):
-        """This method prints greetings for player"""
+        """This method prints gretings for player"""
         self.story.display()
+        print()
+        print(f"you have a debt of {self.player.debt}.")
+        print("pay it off, get your self out.")
+        print()
 
     def runGame(self, gameName, money):
         """This method runs one of the four games according to 
@@ -65,7 +69,7 @@ class Game:
     @staticmethod
     def printOptions(options):
         """This method prints options for the player to choose.
-        options is a list of strings to be printed."""
+        options: is a list of strings to be printed.(list)"""
         for i in range(len(options)):
             print(f"{i + 1}. {options[i]}")
 
@@ -167,8 +171,10 @@ class Game:
                     input("\rpress any key to continue...")
                     os.system("cls")
                 elif choice == "check money":
+                    os.system("cls")
                     self.printMoney()
                     input("\rpress any key to continue...")
+                    os.system("cls")
                 elif choice == "play game":
                     os.system("cls")
                     self.handlePlayGame()
@@ -195,8 +201,9 @@ class Game:
                               "and do not come here again.")
 
     def load_game_anim(self, name: str):
-        """This methods loads the load-game animation, which a 
-        percentage inside a pair of middle brackets."""
+        """These methods load the load-game animation, which a
+        percentage inside a pair of middle brackets.
+        name: the name of the game. (str)"""
         load = 0
         while load < 100:
             progress = random.randint(10, 25)
