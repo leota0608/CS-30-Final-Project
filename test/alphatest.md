@@ -69,4 +69,7 @@ the game rigorously.
 
 <br>
 
-**All requirements met.**
+## Summary
+**All requirements met.**  
+The game can now function properly. Still need to keep testing to find smaller bugs inside mini-games.
+Might want to add some formating to output and adjust time.sleep time to make the game smoother.

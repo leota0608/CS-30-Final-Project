@@ -15,6 +15,7 @@ from games.common.GameHandler import GameHandler
 from games.common.format import Format
 from games.common.GameCard import printCardList
 import time
+import os
 
 
 class BlackJackGame(GameHandler):
@@ -118,6 +119,7 @@ class BlackJackGame(GameHandler):
     def run(self):
         """This method runs the entire game, including printing game 
         rules, starting game and dealing with game results."""
+        os.system("cls")
         if self.player.name.lower() == "test":
             self.print_rules(False)
         else:

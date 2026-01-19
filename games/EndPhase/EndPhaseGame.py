@@ -53,6 +53,7 @@ class EndPhaseGame(GameHandler):
         result, punishments or rewards"""
         # checks if print the game rules and card description 
         # with animation
+        os.system("cls")
         if self.user.name.lower() == "test":
             self.print_rules(False) # no animation
             time.sleep(0.7)
