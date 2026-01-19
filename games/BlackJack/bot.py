@@ -1,8 +1,8 @@
 ###############################################################################
-#Coder: Leo
-#Last date modified: 1/14/2026
+# Coder: Leo
+# Last date modified: 1/14/2026
 ###############################################################################
-"""This module is the bot code for the mini game Black Jack. It is 
+"""This module is the bot code for the mini-game Black Jack. It is
 imported by BlackJackGame.py. The code contains the Bot class.
 The class controls all movements of the bot in the game"""
 ###############################################################################
@@ -15,6 +15,7 @@ class Bot(Character):
     """This is the bot method that evaluate all bot moves in the game 
     Black Jack. It inherits from CHaracter class. It includes the 
     strategy of whether or not the robot choose to draw a card."""
+
     def __init__(self):
         self.handcard = []
         self.alive = True
@@ -26,11 +27,11 @@ class Bot(Character):
         name if the perimeter which is an integer from 1 to 13 
         (ace to king)"""
         self.handcard.append(name)
-        card = ["ace", "two", "three", "four", "five", "six", "seven",\
-                 "eight", "nine", "ten", "jack", "queen", "king"]
-        name = card[name-1]
+        card = ["ace", "two", "three", "four", "five", "six", "seven", \
+                "eight", "nine", "ten", "jack", "queen", "king"]
+        name = card[name - 1]
         self.handcard_display.append(GameCard(random.choice(["club", \
-                                "spade", "heart", "diamond"]), name))
+                                                             "spade", "heart", "diamond"]), name))
 
     def find_sum(self):
         """This method checks the maximum and minimum 
@@ -78,9 +79,9 @@ class Bot(Character):
                 return True
             else:
                 return False
-        choice = random.randint(1,10)
+        choice = random.randint(1, 10)
         if choice <= 2:
-            return True # 20% chance to draw no matter what
+            return True  # 20% chance to draw no matter what
         if self.max_sum > player_list[0].max_sum:
             if self.max_sum >= 17:
                 return False

@@ -1,10 +1,10 @@
-##############################################################################
+###############################################################################
 # Coder: Leo
 # Last date modified: 1/14/2026
-##############################################################################
+###############################################################################
 """This module is the player module. It contains the Player class, 
 which stores all information of the player"""
-##############################################################################
+###############################################################################
 import random
 from datetime import date
 import json
@@ -262,13 +262,15 @@ ___
             print("Failed to open playingRecord.json\
                   for some unknown reason")
 
-    def indentLines(self, text: str, spaces: int):
+    @staticmethod
+    def indentLines(text: str, spaces: int):
         """This method makes indentations for printing bodyparts"""
         padding = " " * spaces
         # Split into lines, prepend spaces, then join back
         return "\n".join(padding + line for line in text.splitlines())
 
-    def removeLeadingSpace(self, lst):
+    @staticmethod
+    def removeLeadingSpace(lst):
         # Find first non-empty string
         start = 0
         while start < len(lst) and lst[start] == "":
@@ -353,7 +355,7 @@ ___
                      else self.BODY_ELEMNTS[element]).split("\n")
             return self.removeLeadingSpace(lines)
         
-        # Prepration phase before printing.
+        # Preparation phase before printing.
         # ---------- HEAD ----------
         # check if any of the facial elements where removed!
         eye = (self.HEAD_PARTS["blind_eye"]
@@ -388,7 +390,7 @@ ___
         # printing list prepares each round of body parts
         # for printing.
         # [configured body part, current_line_index, replacement_spaces]
-        # configuted body part:
+        # configured body part:
         # refers to the list of lines the body part has.
         # current_line_index:
         # the current index that should be removed.

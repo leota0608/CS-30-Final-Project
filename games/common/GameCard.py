@@ -1,20 +1,22 @@
-#######################################################################
+###############################################################################
 # Coder: Amir
 # Last date modified: 1/14/2026
-#######################################################################
+###############################################################################
 """ This module defines a class for standard playing cards. This class
 standardize playing cards by facilitating comparison of different cards
 with different ranks. It also allows you to print the cards in a nice
 rectangular manner.
 Cards are internally represented using code numbers to facilitate
-comparison of different ranks. However methods for transition from
+comparison of different ranks. However, methods for transition from
 code number to string is also provided.
 """
-#######################################################################
+###############################################################################
+
+
 class GameCard:
     """ Internally represents a card game. The card is transformed
     to code according to the static dictionaries KINDS and RANKS.
-    Operators of __eq__, __gt__, __lt__, __le___ and __ge__ are overloaded
+    Operators of __eq__, __gt__, __lt__, __le___ and __ge__ are overloaded,
     and they allow for comparison of the cards.
     __str__ function would print a card in a rectangular box much
     like a real card once provoked.

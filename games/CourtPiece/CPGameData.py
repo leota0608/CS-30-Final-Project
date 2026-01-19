@@ -3,7 +3,7 @@
 # Last date modified: 1/14/2026
 ###############################################################################
 """This module contains the class CPGameData, it is imported by 
-CoutPieceGame.py and it defines all informaiton the gamehandler
+CourtPieceGame.py, and it defines all information the game-handler
 adn bot has access to."""
 ###############################################################################
 

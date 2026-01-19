@@ -1,20 +1,19 @@
-##############################################################################
-#Title: Death Game
-#Class: CS 30
-#Assignment: final project
-#Coder: Leo, Amir
-#Last date modified: 6/18/2025
-##############################################################################
-'''
-This is the CS 30 final project main code.
-It imports the four mini game modules and runs the game,
+###############################################################################
+# Title: Death Game
+# Class: CS 30
+# Assignment: final project
+# Coder: Leo, Amir
+# Last date modified: 1/18/2025
+###############################################################################
+""" This is the CS 30 final project main code.
+It imports the four mini-game modules and runs the game,
 The code mainly includes Game class, which run the game.
-'''
-##############################################################################
+"""
+###############################################################################
 from games.EndPhase.EndPhaseGame import EndPhaseGame
 from games.BlackJack.BlackJackGame import BlackJackGame
-from games.CourtPiece.CourtPieceGame import CourtPieceGame # game3 
-from games.Hearts.HeartsGame import HeartsGame # game4
+from games.CourtPiece.CourtPieceGame import CourtPieceGame  # game3
+from games.Hearts.HeartsGame import HeartsGame  # game4
 from player.player import Player
 from games.teller.Teller import Teller
 from games.EndPhase.choose import choose
@@ -26,9 +25,10 @@ import time
 
 class Game:
     """The game class  runs the entire game, it contains four
-    mini game objects, a shop object and ap layer object.
+    mini-game objects, a shop object and ap layer object.
     It prints the rules and give instructions to player to 
     play the game."""
+
     def __init__(self):
         self.player = Player()
         self.shop = Shop(self.player)
@@ -47,13 +47,13 @@ class Game:
 
     def greeting(self):
         """This method prints greetings for player"""
-        #self.story.display()
-    
+        # self.story.display()
+
     def runGame(self, gameName, money):
         """This method runs one of the four games according to 
         the two perimeters:
         gameName is a string indicating the name of the game.
-        money is a integer which is the maximum reward the
+        money is an integer which is the maximum reward the
         player can get finishing the game. """
         print("Game starts")
         # game1
@@ -62,7 +62,8 @@ class Game:
         game.run()
         self.player.update_score()
 
-    def printOptions(self, options):
+    @staticmethod
+    def printOptions(options):
         """This method prints options for the player to choose.
         options is a list of strings to be printed."""
         for i in range(len(options)):
@@ -100,7 +101,7 @@ class Game:
                     break
                 else:
                     confirm = choose(f"Are you sure you wanna play "
-                        f"{choice}?(y/n)", ["yes", 'y', "no", 'n'])
+                                     f"{choice}?(y/n)", ["yes", 'y', "no", 'n'])
                     if confirm in ["yes", 'y']:
                         money = random.randint(2000, 6000)
                         print(f"If you win, you can get up to ${money}")
@@ -180,7 +181,7 @@ class Game:
                           "your body for your debt.")
                     print("Listen, we have no sympathy we only care"
                           "about money!")
-                    choice = choose("Do you really want that>(y/n)", 
+                    choice = choose("Do you really want that>(y/n)",
                                     ["yes", 'y', "no", 'n'])
                     if choice == "y":
                         print("Ok, you bastard.")
@@ -191,7 +192,7 @@ class Game:
                     else:
                         print("Continue your game"
                               "and do not come here again.")
-                    
+
     def load_game_anim(self, name: str):
         """This methods loads the load-game animation, which a 
         percentage inside a pair of middle brackets."""
@@ -201,8 +202,8 @@ class Game:
             load += progress
             if load > 100:
                 load = 100
-            print(f"\rLoading {name}: [{load}%]", end='', flush = True)
-            time.sleep(random.randint(50, 80)/100)
+            print(f"\rLoading {name}: [{load}%]", end='', flush=True)
+            time.sleep(random.randint(50, 80) / 100)
         print(f"\r{name.capitalize()} successfully loaded...")
         time.sleep(0.7)
         print(f"\r{name.capitalize()} starts ... Good luck...")
@@ -215,6 +216,7 @@ class Game:
         self.player.get_name()
         self.player.store_player_information()
         self.lobby()
+
 
 # run the game
 if __name__ == "__main__":

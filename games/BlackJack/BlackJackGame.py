@@ -1,11 +1,11 @@
-##############################################################################
+###############################################################################
 # Coder: Leo
 # Last date modified: 1/14/2026
-##############################################################################
+###############################################################################
 """This module is the main code for the mini-game Black Jack. It
 imports other modules in EndPhase folder and is imported by the 
 main code."""
-##############################################################################
+###############################################################################
 import games.common.score as score
 from games.BlackJack.human import Human
 from games.common.GameHandler import GameHandler

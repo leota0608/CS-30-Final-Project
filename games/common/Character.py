@@ -31,7 +31,7 @@ class Character:
         """ triggers the character to return the
         next move in the game. 
         Note: The return datatype of provoke is 
-        not restricted and it must be communicated
+        not restricted, and it must be communicated
         between GameHandlers and players
         before development.
         action: a parameter to notify the current player about

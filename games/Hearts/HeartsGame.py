@@ -218,7 +218,7 @@ class HeartsGame(GameHandler):
                 print(f"player {self.players[i].name}, put your card> ")
                 self.data.table[i] = self.players[i].provoke("play")
                 print(self.data.table[i])
-            # decide the round winner by computing the socres
+            # decide the round winner by computing the scores
             self.data.starter_player = self.decideRoundWinner()
             name = self.players[self.data.starter_player].name
             self.findScore(name)

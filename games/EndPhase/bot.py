@@ -1,11 +1,11 @@
-##############################################################################
+###############################################################################
 # Coder: Leo
 # Last date modified: 1/14/2026
-##############################################################################
-"""This module is the bot module for mini game EndPhase.
+###############################################################################
+"""This module is the bot module for mini-game EndPhase.
 The code is imported by EndPhaseGame.py. It mainly contains the
 class Bot, which controls all movement of bot in the game."""
-##############################################################################
+###############################################################################
 import json
 import random
 from games.EndPhase.human import Human

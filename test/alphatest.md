@@ -60,16 +60,16 @@ the game rigorously.
         and find the solution. It might happen when the hearts bot cannot find a solution
         maybe because a special case was not considered.
 
-    * General: 
-        - Can player exit all four game and return to lobby
-        - Does both winning condition and lost condition leads to reward and punishment
-        - Can player buy lost body parts from shop
-        - does shop class check if the player have enough money, and does player not have that body part
-        - can main code direct player to all four games
+* General: 
+    - Can player exit all four game and return to lobby
+    - Does both winning condition and lost condition leads to reward and punishment
+    - Can player buy lost body parts from shop
+    - does shop class check if the player have enough money, and does player not have that body part
+    - can main code direct player to all four games
 
 <br>
 
 ## Summary
 **All requirements met.**  
 The game can now function properly. Still need to keep testing to find smaller bugs inside mini-games.
-Might want to add some formating to output and adjust time.sleep time to make the game smoother.
+Might want to add some formatting to output and adjust time.sleep time to make the game smoother.
