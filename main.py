@@ -183,11 +183,12 @@ class Game:
                     if self.checkEnd():
                         break
                 elif choice == "leave arcade":
+                    os.system("cls")
                     print("you have not still paid your money.")
                     time.sleep(2)
-                    print("We would just kill you and then sell"
+                    print("We would just kill you and then sell "
                           "your body for your debt.")
-                    print("Listen, we have no sympathy we only care"
+                    print("Listen, we have no sympathy we only care "
                           "about money!")
                     choice = choose("Do you really want that>(y/n)",
                                     ["yes", 'y', "no", 'n'])
@@ -200,6 +201,8 @@ class Game:
                     else:
                         print("Continue your game"
                               "and do not come here again.")
+                        time.sleep(3)
+                    os.system("cls")
 
     def load_game_anim(self, name: str):
         """These methods load the load-game animation, which a
