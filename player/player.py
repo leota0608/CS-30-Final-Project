@@ -115,7 +115,7 @@ ___
         while True:
             string = input("Write down your name: ")
             confirm = input("Is this really your name?(y/n)")
-            if (confirm.lower() == "y" or confirm.lower() == "yes"):
+            if confirm.lower() == "y" or confirm.lower() == "yes":
                 self.name = string
                 return
 
@@ -407,7 +407,7 @@ ___
         # the current index that should be removed.
         # Note: if the index is out of bounds, it will only
         # be advanced and instead " " * replacement_spaces
-        # will be printed until a inbound index is reached.
+        # will be printed until an inbound index is reached.
         # replacement_spaces:
         # number of spaces to be printed when there is body element
         # line to print. 

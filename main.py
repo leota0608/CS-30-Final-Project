@@ -46,7 +46,7 @@ class Game:
                       "Hearts": HeartsGame}
 
     def greeting(self):
-        """This method prints gretings for player"""
+        """This method prints greetings for player"""
         self.story.display()
         print()
         print(f"you have a debt of {self.player.debt}.")
@@ -77,7 +77,7 @@ class Game:
     def printMoney(self):
         """This method outputs the money the player has and the debt
         he has to pay."""
-        print("Hi, I am your acountant.")
+        print("Hi, I am your accountant.")
         print("currently: ")
         print(f"your money: {self.player.money}")
         print(f"amount you must pay: {self.player.debt}")
@@ -115,7 +115,7 @@ class Game:
                         break
 
     def checkEnd(self):
-        """This method checks if the player has earn enough 
+        """This method checks if the player has earned enough
         money to pay his debt, or if the player got his head cut off.
         """
         if self.player.money >= self.player.debt:

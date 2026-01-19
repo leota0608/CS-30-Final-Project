@@ -36,7 +36,7 @@ class Shop:
                 self.items.append(self.bodyParts[i])
 
     def print_shop(self):
-        """This method prints the shop and bodyparts for 
+        """This method prints the shop and body parts for
         the player to see"""
         print("**Shop**")
         if len(self.items) == 0:
@@ -77,14 +77,14 @@ class Shop:
             if not body_part in self.player.lost_body_parts:
                 print()
                 print("you bastard!")
-                print("check what you have and what you do not " \
+                print("check what you have and what you do not "
                       "have before coming here.")
                 print(f"You already have {body_part}")
                 print()
             elif self.player.money >= self.prices[body_part]:
                 # buy
                 self.player.money -= self.prices[body_part]
-                print(f"{body_part} successfully attatched to your body...")
+                print(f"{body_part} successfully attached to your body...")
                 time.sleep(0.7)
                 self.player.gain(body_part)
                 self.items.remove(body_part)

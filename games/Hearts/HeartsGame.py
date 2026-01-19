@@ -89,7 +89,7 @@ class HeartsGame(GameHandler):
         """ randomly shuffle cards and distribute them among
         all the players to fill up their decks.
         """
-        deck = generateDeck()       # generate a ordered deck
+        deck = generateDeck()       # generate an ordered deck
         rd.shuffle(deck)
         # compute each player's number of cards.
         count = len(deck) // len(self.players)
