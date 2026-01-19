@@ -10,6 +10,9 @@ example:
 + 0.1.1 means amir committed his first commit to version 1.  
 ## Change Log
 
++ 0.4.3.6:
++ All files now have header of length 79.
++ A code to this automatically was written.
 + 0.4.3.5:
   - commented game handler file.
 + 0.4.3.4:
