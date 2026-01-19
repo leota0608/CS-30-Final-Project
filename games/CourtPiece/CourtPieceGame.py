@@ -10,6 +10,7 @@ damage to the player.
 ###############################################################################
 import random as rd
 import time as tm
+import os
 
 import games.common.score as score
 from games.teller.Teller import Teller
@@ -156,6 +157,7 @@ class CourtPieceGame(GameHandler):
         print()
         print(f" --- round {round} begin ---")
         print()
+        tm.sleep(2)
 
         def ask(i_):
             """ provokes a player to pick a card.
@@ -229,7 +231,6 @@ class CourtPieceGame(GameHandler):
         for name in self.data.scores:
             print(f"{name}: {self.data.scores[name]}")
         # self.printPlayerCards()
-        tm.sleep(2)
 
     def getWinner(self):
         """ finds the player with maximum score and returns it
@@ -247,7 +248,9 @@ class CourtPieceGame(GameHandler):
         """ It is the only function supposed to be called from outside.
         It runs the game in the correct order as it is supposed to.
         """
+        os.system("cls")
         self.rules.display()
+        os.system("cls")
         self.decideKing()
         distribution_deck = generateDeck()
         rd.shuffle(distribution_deck)

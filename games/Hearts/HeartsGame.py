@@ -8,6 +8,7 @@ interactive messages and can report results and report the winner."""
 ###############################################################################
 import random as rd
 import time as tm
+import os
 
 import games.common.score as score
 from games.common.GameHandler import GameHandler
@@ -211,6 +212,7 @@ class HeartsGame(GameHandler):
         rounds = 52 // len(self.players)
         for round_ in range(rounds):
             print(f"------ round {round_} --------")
+            tm.sleep(2)
             # self.printPlayerCards()
             starter = self.data.starter_player
             # ask each player to draw their cards
@@ -219,6 +221,7 @@ class HeartsGame(GameHandler):
                 self.data.table[i] = self.players[i].provoke("play")
                 print(f"player {self.players[i].name} played "
                       f"{self.data.table[i]}.")
+                tm.sleep(2)
             for i in range(0, starter):
                 print(f"player {self.players[i].name}, put your card> ")
                 self.data.table[i] = self.players[i].provoke("play")
@@ -237,7 +240,6 @@ class HeartsGame(GameHandler):
             print("scores: ")
             for name in self.data.scores:
                 print(f"{name}: {self.data.scores[name]}")
-            tm.sleep(1)
 
     def findWinner(self):
         """ The winner of the whole game is the one who has
@@ -263,7 +265,9 @@ class HeartsGame(GameHandler):
         be called from any handler. It runs the game in the
         correct order.
         """
+        os.system("cls")
         self.rules.display()
+        os.system("cls")
         self.distributeCards()
         self.exchangeCards()
         self.findStarterPlayer()

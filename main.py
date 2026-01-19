@@ -50,6 +50,7 @@ class Game:
         self.story.display()
         print()
         print(f"you have a debt of {self.player.debt}.")
+        print(f"you have {self.player.money}$ in your pocket.")
         print("pay it off, get your self out.")
         print()
 
@@ -122,7 +123,7 @@ class Game:
             print("Wow ....")
             print("You paid off the debt.")
             print(f"you made {self.player.money} and your debt was"
-                  "{self.player.debt}")
+                  f"{self.player.debt}")
             print(f"you will keep {self.player.money - self.player.debt}")
             print("Congrats anyway, you bought your life.")
             print("Now get out ...")
