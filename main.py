@@ -47,7 +47,7 @@ class Game:
 
     def greeting(self):
         """This method prints greetings for player"""
-        # self.story.display()
+        self.story.display()
 
     def runGame(self, gameName, money):
         """This method runs one of the four games according to 

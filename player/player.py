@@ -263,14 +263,24 @@ ___
                   for some unknown reason")
 
     @staticmethod
-    def indentLines(text: str, spaces: int):
-        """This method makes indentations for printing bodyparts"""
+    def indentLines(text: str, spaces):
+        """This method makes indentations for printing body
+        parts.
+        text: a string that represents a body part.
+              contains split lines. (str)
+        spaces: number of spaces to add.(int)"""
         padding = " " * spaces
-        # Split into lines, prepend spaces, then join back
         return "\n".join(padding + line for line in text.splitlines())
 
     @staticmethod
     def removeLeadingSpace(lst):
+        """ removes leading spaces from the list.
+        it removes both from the end and beginning.
+        lst: a list of strings.(list)
+        ex:
+        input: ["", "", "ddd", "dddd", " ", "ddd", " ", " "]
+        output: ["ddd", "dddd", " ", "ddd"]
+        """
         # Find first non-empty string
         start = 0
         while start < len(lst) and lst[start] == "":
@@ -285,6 +295,10 @@ ___
         return lst[start:end + 1] if start <= end else []
 
     def printPlayerMessage(self, isSad):
+        """ prints a message describing player's
+        situation.
+        isSad: true or false, weather they are sad or not.(bool)
+        """
         print(f"my name is {self.name}")
         if isSad:
             print("I am not feeling good.")
@@ -302,13 +316,16 @@ ___
             print("Let's crush this game.")
 
     def addMoney(self, add):
+        """ adds money to the current player.
+        """
         self.money += add
 
     def printBodyShape(self):
+        """ prints the shape of the player's
+        body.
+        """
         missing_parts = self.lost_body_parts
         isSad = len(self.lost_body_parts) != 0
-        """
-        """
 
         def printBodyAcross(first, body_print_list, bet):
             """
@@ -417,6 +434,8 @@ ___
 
 # This function clears all playing records if there are too much
 def clear_all_playing_records():
+    """ clears playing records.
+    """
     try:
         with open("player/playingRecord.json", 'w') as file:
             json.dump({"Total Player": 0}, file, indent=4)
