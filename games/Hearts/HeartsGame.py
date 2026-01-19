@@ -9,7 +9,6 @@ interactive messages and can report results and report the winner."""
 import random as rd
 import time as tm
 import os
-
 import games.common.score as score
 from games.common.GameHandler import GameHandler
 from games.Hearts.HeartsGameData import HeartsGameData

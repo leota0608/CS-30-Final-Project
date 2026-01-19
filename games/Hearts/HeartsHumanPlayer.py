@@ -8,7 +8,6 @@ logic is separate from game handler, so later we can make this game to
 have multiple real players if we wish to."""
 ###############################################################################
 import time as tm
-
 from games.common.Character import Character
 from games.common.GameCard import *
 
@@ -21,7 +20,6 @@ class HeartsHumanPlayer(Character):
     to choose their card. Interactive guidance is developed to let the
     user know if their choice is illegal and that what they should do.
     """
-
     def __init__(self, name):
         """ name is the name of the player. It is needed
         as unique identifier of this player.

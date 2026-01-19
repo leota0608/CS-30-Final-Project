@@ -777,7 +777,6 @@ class EndPhaseGame(GameHandler):
             for i in range(len(self.player[num2].handcards)):
                 print(f"{i+1}. [xxx]")
                 valid_choice.append(str(i+1))
-
             weapen_name = "Not equipped" if self.player[num2].equipment\
                 ['weapen'] is None else self.player[num2].\
                     equipment['weapen'].name

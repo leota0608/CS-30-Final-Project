@@ -11,13 +11,12 @@ import random
 
 class Deck:
     """This method creates a deck of cards, 52 cards, 4*1-13"""
-
     def __init__(self):
         self.card_list = []
         self.remaining = 52
 
     def initialise(self):
-        # initialising the deck of cards
+        """initialising the deck of cards"""
         for i in range(1, 14):
             for j in range(4):
                 self.card_list.append(i)

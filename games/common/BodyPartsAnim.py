@@ -14,7 +14,6 @@ import random
 class BodyPartsAnim:
     """This is the animation class, player is the perimeter of the 
     player object."""
-
     def __init__(self, player):
         self.player = player
 

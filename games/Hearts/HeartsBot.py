@@ -6,7 +6,6 @@
  outlined design structure of the Character class."""
 ###############################################################################
 import random as rd
-
 from games.common.Character import Character
 from games.common.GameCard import GameCard
 
@@ -40,7 +39,6 @@ class HeartsBot(Character):
         - Otherwise pick a random card, prioritising, heart and the 
         queen of spade, over club, diamond and other cards of spade.
     """
-
     def __init__(self, name):
         """ name: the name of bot.(string)
         """
