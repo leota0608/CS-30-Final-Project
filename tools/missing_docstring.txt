@@ -1,0 +1,65 @@
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\BlackJack\BlackJackGame.py------------
+function __init__ at line 28.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\BlackJack\bot.py------------
+function __init__ at line 19.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\BlackJack\card.py------------
+function __init__ at line 15.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\BlackJack\deck.py------------
+function __init__ at line 15.
+function initialise at line 19.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\BlackJack\human.py------------
+function __init__ at line 18.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\common\BodyPartsAnim.py------------
+function __init__ at line 18.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\common\Character.py------------
+class Character at line 13.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\common\format.py------------
+function __init__ at line 11.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\common\GameCard.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\common\GameHandler.py------------
+class GameHandler at line 12.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\common\Name.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\common\score.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\CourtPiece\CourtPieceGame.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\CourtPiece\CPBot.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\CourtPiece\CPGameData.py------------
+function __init__ at line 17.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\CourtPiece\CPHumanPlayer.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\EndPhase\bot.py------------
+function __init__ at line 21.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\EndPhase\card.py------------
+function __init__ at line 12.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\EndPhase\choose.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\EndPhase\deck.py------------
+function __init__ at line 15.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\EndPhase\EndPhaseGame.py------------
+function __init__ at line 32.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\EndPhase\human.py------------
+function __init__ at line 18.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\Hearts\HeartsBot.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\Hearts\HeartsGame.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\Hearts\HeartsGameData.py------------
+class HeartsGameData at line 12.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\Hearts\HeartsHumanPlayer.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\games\teller\Teller.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\main.py------------
+function __init__ at line 32.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\player\player.py------------
+function __init__ at line 86.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\player\shop.py------------
+function __init__ at line 19.
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\tools\docChecher.py------------
+all good!
+------------checking file C:/Users/KAVOSH/PycharmProjects/CS-30-Final-Project\tools\headerhashtagfixer.py------------
+all good!
