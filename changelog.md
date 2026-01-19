@@ -10,7 +10,7 @@ example:
 + 0.1.1 means amir committed his first commit to version 1.  
 ## Change Log
 
-+ 0.4.6:
++ 0.4.6 and 0.4.6.2:
  - comments were added.
  - delays were adjusted.
  - A bug in hearts human player, were choosing a wrong card

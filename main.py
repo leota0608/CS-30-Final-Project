@@ -123,7 +123,7 @@ class Game:
             print("Wow ....")
             print("You paid off the debt.")
             print(f"you made {self.player.money} and your debt was"
-                  f"{self.player.debt}")
+                  f" {self.player.debt}")
             print(f"you will keep {self.player.money - self.player.debt}")
             print("Congrats anyway, you bought your life.")
             print("Now get out ...")
