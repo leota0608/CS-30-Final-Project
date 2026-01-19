@@ -1,10 +1,10 @@
-##############################################################################
+###############################################################################
 #Coder: Leo
 #Last date modified: 1/14/2026
-##############################################################################
+###############################################################################
 """This module is the main code for the mini game EndPhase. It imports other 
 modules in EndPhase folder and is imported by the main code."""
-##############################################################################
+###############################################################################
 from games.common.score import *
 from games.common.format import Format
 from games.EndPhase.bot import Bot
@@ -53,6 +53,7 @@ class EndPhaseGame(GameHandler):
         result, punishments or rewards"""
         # checks if print the game rules and card description 
         # with animation
+        os.system("cls")
         if self.user.name.lower() == "test":
             self.print_rules(False) # no animation
             time.sleep(0.7)
@@ -61,9 +62,9 @@ class EndPhaseGame(GameHandler):
             self.print_rules(True) # need animation
             time.sleep(0.7)
             self.print_card_description(True)
-        print(f"(You can review the game rules and card descriptions \
-              by entering {self.game_rule_key} and \
-                {self.card_description_key})")
+        print(f"(You can review the game rules and card descriptions "
+              f"by entering {self.game_rule_key} and "
+                f"{self.card_description_key})")
         print("**Game starts**")
         time.sleep(0.7)
         # This while loop loops infinitely till the game ends
@@ -86,8 +87,8 @@ class EndPhaseGame(GameHandler):
                     # update enemy estimation
                 if not self.running:
                     self.result = True
-                    print("You fought to the end, there are no cards"
-                          "left.\nThe judeg came and decided you are the"
+                    print("You fought to the end, there are no cards "
+                          "left.\nThe judeg came and decided you are the "
                           "winner...")
                     for i in range(3, 1, -1):
                         print(f"\rReturning to lobby in {i}s")
@@ -171,8 +172,8 @@ class EndPhaseGame(GameHandler):
         newly_drawn_cards = self.deck.draw(2)
         if num == 0:
             print(f"[{newly_drawn_cards[0].name},"
-                  f" {newly_drawn_cards[1].name}]"
-                  f"newly added to your handcards")
+                  f" {newly_drawn_cards[1].name}] "
+                  "newly added to your handcards")
             time.sleep(0.7)
         self.player[num].handcards.extend(newly_drawn_cards)
         for i in range(1, len(self.player)):
@@ -189,8 +190,8 @@ class EndPhaseGame(GameHandler):
               is None else self.player[num].equipment['weapen'].name
         armor_name = "Not equipped" if self.player[num].equipment['armor'] \
             is None else self.player[num].equipment['armor'].name
-        print(f"Your handcards:           (Review Game Rules: q)  \
-              (Review Card Descriptions: w)")
+        print(f"Your handcards:           (Review Game Rules: q)  "
+              "(Review Card Descriptions: w)")
         for i in range(max(len(self.player[num].handcards), 7)):
             if i < len(self.player[num].handcards):
                 card_name = f"{i+1}. {self.player[num].handcards[i].name}"
@@ -216,13 +217,13 @@ class EndPhaseGame(GameHandler):
                         output += ' '
                 print(f"{card_name:<25}{output}|", end='')
             elif i == 2:
-                output = f"| Current handcards: \
-                    {len(self.player[num].handcards)}"
+                output = f"| Current handcards: " + \
+                    f"{len(self.player[num].handcards)}"
                 while len(output)<=35:
                     output += ' '
                 for p in range(1, len(self.player)):
-                    output += f"Current handcards: \
-                        {len(self.player[p].handcards)}"
+                    output += f"Current handcards: " + \
+                        f"{len(self.player[p].handcards)}"
                     while len(output)<=35+p*35:
                         output += ' '
                 print(f"{card_name:<25}{output}|", end='')
@@ -280,7 +281,7 @@ class EndPhaseGame(GameHandler):
         for i in range(len(self.player[num].handcards)):
             if self.player[num].handcards[i].name == "peach":
                 # relpace player 1 with You
-                print(f"player {num+1} uses a [peach] and gaines one point"
+                print(f"player {num+1} uses a [peach] and gaines one point "
                       "of health")
                 time.sleep(0.7)
                 self.player[num].health = 1
@@ -300,7 +301,7 @@ class EndPhaseGame(GameHandler):
             self.result = False
             self.running = False
             self.player[num].alive = False
-            print("You died...\n Returning to lobby in 3s")
+            print("You died...\nReturning to lobby in 3s")
             time.sleep(2)
             return
         print(f"player {num+1} died...")# enemy_num-1
@@ -333,7 +334,7 @@ class EndPhaseGame(GameHandler):
                 if num2 == 0:
                     print("Your [evasion] armor dodged the [slash]")
                 else:
-                    print(f"Player {num2+1}'s [evasion] armor dodged the"
+                    print(f"Player {num2+1}'s [evasion] armor dodged the "
                           "[slash]")
                 time.sleep(1.5)
                 # Check if attacker has crossblade for the crossblade effect
@@ -352,8 +353,8 @@ class EndPhaseGame(GameHandler):
                                 if k == num1 or not self.player[k].alive:
                                     continue
                                 self.player[k].enemy[num1]["health"] -= 1
-                            print(f"Your current health: \
-                                  {self.player[num1].health}")
+                            print(f"Your current health: "
+                                  f"{self.player[num1].health}")
                             if self.player[num1].health == 0:
                                 self.nearly_dead(num1)                          
                             # Target loses 1 health
@@ -364,11 +365,11 @@ class EndPhaseGame(GameHandler):
                                     continue
                                 self.player[k].enemy[num2]["health"] -= 1
                             if num2 == 0:
-                                print(f"You lose one health point\ncurrent"
+                                print(f"You lose one health point\ncurrent "
                                       f"health: {self.player[num2].health}")
                             else:
-                                print(f"Player {num2+1} loses one health"
-                                      "point\ncurrent health:"
+                                print(f"Player {num2+1} loses one health "
+                                      "point\ncurrent health: "
                                       f"{self.player[num2].health}")
                             time.sleep(0.7)
                             if self.player[num2].health == 0:
@@ -377,7 +378,7 @@ class EndPhaseGame(GameHandler):
                         if self.player[num1].health >= 3 or \
                             (self.player[num1].health >= 2 and 
                              self.player[num2].health == 1):
-                            print(f"Player {num1+1} choose to lose 1"
+                            print(f"Player {num1+1} choose to lose 1 "
                                   "health to cause 1 damage")
                             time.sleep(0.7)
                             # Attacker loses 1 health
@@ -387,7 +388,7 @@ class EndPhaseGame(GameHandler):
                                 if k == num1 or not self.player[k].alive:
                                     continue
                                 self.player[k].enemy[num1]["health"] -= 1
-                            print(f"Player {num1+1}'s current health:"
+                            print(f"Player {num1+1}'s current health: "
                                   f"{self.player[num1].health}")
                             if self.player[num1].health == 0:
                                 self.nearly_dead(num1)                           
@@ -399,7 +400,7 @@ class EndPhaseGame(GameHandler):
                                     continue
                                 self.player[k].enemy[num2]["health"] -= 1
                             if num2 == 0:
-                                print(f"You lose one health point\ncurrent"
+                                print(f"You lose one health point\ncurrent "
                                       f"health: {self.player[num2].health}")
                             else:
                                 print(f"Player {num2+1} loses one health "
@@ -454,7 +455,8 @@ class EndPhaseGame(GameHandler):
                              self.player[num2].health == 1):  
                             # AI only uses if health >= 2
                             print(f"Player {num1+1} "
-                                  "choose to lose 1 health to cause 1 damage.")
+                                  "choose to lose 1 health to" 
+                                  " cause 1 damage.")
                             time.sleep(0.7)
                             # Attacker loses 1 health
                             self.player[num1].health -= 1
@@ -463,7 +465,7 @@ class EndPhaseGame(GameHandler):
                                 if i == num1 or not self.player[i].alive:
                                     continue
                                 self.player[i].enemy[num1]["health"] -= 1
-                            print(f"Player {num1+1}'s current health:"
+                            print(f"Player {num1+1}'s current health: "
                                   f"{self.player[num1].health}")
                             if self.player[num1].health == 0:
                                 self.nearly_dead(num1)                     
@@ -474,7 +476,7 @@ class EndPhaseGame(GameHandler):
                                 if i == num2 or not self.player[i].alive:
                                     continue
                                 self.player[i].enemy[num2]["health"] -= 1
-                            print(f"You lose one health point\ncurrent"
+                            print(f"You lose one health point\ncurrent "
                                   f"health: {self.player[num2].health}")
                             time.sleep(0.7)
                             if self.player[num2].health == 0:
@@ -515,7 +517,7 @@ class EndPhaseGame(GameHandler):
                                 (self.player[num1].health >= 2 and \
                                  self.player[num2].health == 1):  
                                     # AI only uses if health >= 2
-                                print(f"Player {num1+1} choose to"
+                                print(f"Player {num1+1} choose to "
                                       "lose 1 health to cause 1 damage")
                                 time.sleep(0.7)
                                 # Attacker loses 1 health
@@ -548,7 +550,6 @@ class EndPhaseGame(GameHandler):
                 if self.player[num2].handcards[i].name == "dodge":
                     print(f"player {num2+1} uses [dodge]")
                     self.player[num2].handcards.pop(i)
-
                     for j in range(1, len(self.player)):
                         if j == num2:
                             continue
@@ -564,7 +565,7 @@ class EndPhaseGame(GameHandler):
                         and self.player[num1].equipment["weapen"].name == \
                             "crossblade":
                         choice = choose(f"Do you choose to lose one health "
-                                        f"point to let Player {num2+1} lose"
+                                        f"point to let Player {num2+1} lose "
                                         "one health point?(y/n): ")
                         if choice.lower() in ['y', 'yes']:
                             time.sleep(0.7)
@@ -587,7 +588,7 @@ class EndPhaseGame(GameHandler):
                                     continue
                                 self.player[k].enemy[num2]["health"] -= 1
                             print(f"Player {num2+1} loses one health point\n"
-                                  f"current health: {self.player[num2].health}")
+                                "current health: {self.player[num2].health}")
                             time.sleep(0.7)
                             if self.player[num2].health == 0:
                                 self.nearly_dead(num2)
@@ -731,7 +732,7 @@ class EndPhaseGame(GameHandler):
                     player = f"player {num2+1}"
                 if human == -1:
                     player = f"you"
-                print(f"The card player Player {num1} chose is "
+                print(f"The card player Player {num1+1} chose is "
                       f"[{self.player[num2].equipment['weapen'].name}]")
                 print(f"[{self.player[num2].equipment['weapen'].name}] "
                       f"dismantled from {player}")
@@ -746,7 +747,7 @@ class EndPhaseGame(GameHandler):
                     player = f"player {num2+1}"
                 if human == -1:
                     player = f"you"
-                print(f"The card player Player {num1} chose is "
+                print(f"The card player Player {num1+1} chose is "
                       "[{self.player[num2].equipment['armor'].name}]")
                 print(f"[{self.player[num2].equipment['armor'].name}] "
                       "dismantled from {player}")
@@ -770,13 +771,12 @@ class EndPhaseGame(GameHandler):
                         [card_choice.name] -= 1 # update bot's prediction
                     self.player[i].enemy[num2]["handcard_num"] -= 1
         else: # human dismantle AI
-            print(f"Player {num2 + 1} has {len(self.player[num2].handcards)}"
+            print(f"Player {num2 + 1} has {len(self.player[num2].handcards)} "
                    "handcards, which one do you want to dismantle?")
             valid_choice = []
             for i in range(len(self.player[num2].handcards)):
                 print(f"{i+1}. [xxx]")
                 valid_choice.append(str(i+1))
-
             weapen_name = "Not equipped" if self.player[num2].equipment\
                 ['weapen'] is None else self.player[num2].\
                     equipment['weapen'].name
@@ -847,10 +847,10 @@ class EndPhaseGame(GameHandler):
         num1 snatches to its handcards."""
         if human <= 0: # AI dismantle human or AI
             if not self.player[num2].equipment["weapen"] is None:
-                print(f"The card player Player {num1} chose is "
-                      "[{self.player[num2].equipment['weapen'].name}]")
+                print(f"The card player Player {num1+1} chose is "
+                      f"[{self.player[num2].equipment['weapen'].name}]")
                 print(f"[{self.player[num2].equipment['weapen'].name}] "
-                      "added to Player {num1}'s handcards")
+                      f"added to Player {num1+1}'s handcards")
                 self.player[num1].handcards.append(self.player[num2].\
                                                    equipment["weapen"])
                 for i in range(1, len(self.player)):
@@ -868,10 +868,10 @@ class EndPhaseGame(GameHandler):
                     self.player[i].enemy[num1]["handcard_num"] += 1      
                 self.player[num2].equipment["weapen"] = None
             elif not self.player[num2].equipment["armor"] is None:
-                print(f"The card player Player {num1} chose is "
-                      "[{self.player[num2].equipment['armor'].name}]")
+                print(f"The card player Player {num1+1} chose is "
+                      f"[{self.player[num2].equipment['armor'].name}]")
                 print(f"[{self.player[num2].equipment['armor'].name}] "
-                      "added to Player {num1}'s handcards")
+                      f"added to Player {num1+1}'s handcards")
                 self.player[num1].handcards.append(self.player[num2].\
                                                    equipment["armor"])
                 for i in range(1, len(self.player)):
@@ -893,7 +893,7 @@ class EndPhaseGame(GameHandler):
                                                      handcards)-1)
                 card_choice = self.player[num2].handcards[random_index]
                 print(f"The card Player {num1+1} chose is {card_choice.name}")
-                print(f"[{card_choice.name}] added to Player {num1}'s "
+                print(f"[{card_choice.name}] added to Player {num1+1}'s "
                       "handcards")
                 self.player[num1].handcards.append(card_choice)
                 self.player[num2].handcards.pop(random_index)
@@ -1011,8 +1011,8 @@ class EndPhaseGame(GameHandler):
         Perimeter explanations:
         num: the player who played  archery
         human=1: player is the card user, human = 0: AI played the card
-        the method checks all players except the player who played the card
-        for dodge and negate
+        the method checks all players except the player who 
+        played the card for dodge and negate
         """
         for i in range(0, len(self.player)):
             if i == num or not self.player[i].alive:
@@ -1046,7 +1046,7 @@ class EndPhaseGame(GameHandler):
                     if find_negate != -1:
                         output += f"{n}. negate\n"
                         n += 1
-                    output += f"{n}. pass(lose one health point)"
+                    output += f"{n}. pass (lose one health point)"
                     n += 1
                     print(output)
                     valid_choice = []
@@ -1070,7 +1070,7 @@ class EndPhaseGame(GameHandler):
                                           "archery-player1-dodge<0**")
                             self.player[0].handcards.pop(find_dodge)
                         else: # must be negate
-                            print("You played negate and countered archery")         
+                            print("You played negate and countered archery")
                             for j in range(1, len(self.player)):
                                 if j == num or not self.player[j].enemy[0]\
                                     ["alive"]:
@@ -1324,8 +1324,8 @@ class EndPhaseGame(GameHandler):
     def countDodge(self, num):
         """
         num is the index of the player being counted 
-        the method counts the number of dodge the player has and returns \
-            the number of dodge
+        the method counts the number of dodge the player 
+        has and returns the number of dodge
         """
         count_dodge = 0
         for j in range(len(self.player[num].handcards)):
@@ -1338,8 +1338,8 @@ class EndPhaseGame(GameHandler):
         This method has two perimeters: 
         num is the index of player who played the dodge
         index if the index of the dodge in the player's handcards
-        the method removes the dodge from the player's handcards and \
-            update robot prediction
+        the method removes the dodge from the player's handcards and
+        update robot prediction
         """
         for i in range(1, len(self.player)):                            
             if i == num or not self.player[i].alive:
@@ -1351,8 +1351,8 @@ class EndPhaseGame(GameHandler):
 
     def countSlash(self, num):
         """
-        This method has a perimeter num, which is the index of the player
-        being checked.
+        This method has a perimeter num, which is the index 
+        of the player being checked.
         it returns the number of slashed the player has
         """
         count_slash = 0
@@ -1458,7 +1458,6 @@ class EndPhaseGame(GameHandler):
                         self.running = False
                         self.result = True
                         self.player[0].alive = True
-
                 if not self.running:
                     return
                 choice = int(choice)
@@ -1537,18 +1536,18 @@ class EndPhaseGame(GameHandler):
                         else:
                             equiped_card_name = self.player[num].\
                                 equipment["weapen"].name
-                            replace_choice = choose(f"You have already "
-                                                f"equiped {equiped_card_name}, "
-                                                "do you want to replace"
-                                                f"it? y/n\n({equiped_card_name}"
-                                                "will be automatically "
-                                                "discarded)?\nChoice: ")
+                            replace_choice = \
+                                choose(f"You have already "
+                                f"equiped {equiped_card_name}, "
+                                "do you want to replace"
+                                f"it? y/n\n({equiped_card_name}"
+                                "will be automatically "
+                                "discarded)?\nChoice: ")
                             if replace_choice.lower() in ['y', 'yes']:
                                 self.player[num].equipment["weapen"] = \
                                     chosen_card
                                 print(f"You successfully equiped "
                                       f"{chosen_card.name}")
-
                                 for i in range(1, len(self.player)):
                                     if i == num or not self.player[i].alive:
                                         continue
@@ -1832,7 +1831,6 @@ class EndPhaseGame(GameHandler):
                         self.player[i].enemy[num]["handcard_num"] -= 1
                         self.player[i].enemy[num]["equipment"]["weapen"] \
                             = card.name
-
                         if self.player[i].enemy[num]["estimated_handcards"]\
                             [card.name] < 0:
                             print("**ERROR: 6function-start_phase-"

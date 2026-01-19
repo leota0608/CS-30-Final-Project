@@ -1,6 +1,6 @@
 ###############################################################################
-#Coder: Leo
-#Last date modified: 1/14/2026
+# Coder: Leo
+# Last date modified: 1/14/2026
 ###############################################################################
 """This module is the deck code for the mini game Black Jack. It is 
 imported by BlackJackGame.py. The code contains the Deck class.
@@ -16,15 +16,15 @@ class Deck:
         self.remaining = 52
 
     def initialise(self):
-        # initialising the deck of cards
+        """initialising the deck of cards"""
         for i in range(1, 14):
             for j in range(4):
                 self.card_list.append(i)
-    
+
     def shuffle(self):
         """Using random's shuffle method to randomize the list"""
         random.shuffle(self.card_list)
-        
+
     def draw(self):
         """draws a card. The method returns the last element of the 
         card list and removes it."""

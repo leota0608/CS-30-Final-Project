@@ -1,10 +1,10 @@
-##############################################################################
+###############################################################################
 # Coder: Leo
 # Last date modified: 1/14/2026
-##############################################################################
-"""This module is the player module. It contains the player class, 
+###############################################################################
+"""This module is the player module. It contains the Player class, 
 which stores all information of the player"""
-##############################################################################
+###############################################################################
 import random
 from datetime import date
 import json
@@ -115,12 +115,13 @@ ___
         while True:
             string = input("Write down your name: ")
             confirm = input("Is this really your name?(y/n)")
-            if (confirm.lower() == "y" or confirm.lower() == "yes"):
+            if confirm.lower() == "y" or confirm.lower() == "yes":
                 self.name = string
                 return
 
     def store_player_information(self):
-        """This method stores player information in an external file."""
+        """This method stores player information in an 
+        external file."""
         # Add player information to existing records
         try:
             with open("player/playingRecord.json", 'r') as file:
@@ -151,8 +152,8 @@ ___
         except FileNotFoundError:
             print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json for some \
-                  unknown reason.")
+            print("Failed to open playingRecord.json for some "
+                  "unknown reason.")
 
     def store_game_result(self, game_num, result):
         """This method stores game result of each game after the
@@ -173,8 +174,8 @@ ___
         except FileNotFoundError:
             print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json \
-                  for some unknown reason")
+            print("Failed to open playingRecord.json "
+                  "for some unknown reason")
 
     def update_score(self):
         """This method update the score of the player according to
@@ -184,8 +185,8 @@ ___
             with open("player/playingRecord.json", 'r') as file:
                 record = json.load(file)
         except FileNotFoundError:
-            print("Failed to locate playingRecord.json for some \
-                unknown reason")
+            print("Failed to locate playingRecord.json for some "
+                "unknown reason")
         except:
             print("Failed to open playingRecord.json")
         for i, j in record[str(record["Total Player"])]["Game record"]. \
@@ -234,8 +235,8 @@ ___
         except FileNotFoundError:
             print("Failed to locate playingRecord.json")
         except:
-            print("Failed to open playingRecord.json for some \
-                  unknown reason")
+            print("Failed to open playingRecord.json for some "
+                  "unknown reason")
 
     def gain(self, body_part):
         """This method adds a body part to the player and update
@@ -261,27 +262,41 @@ ___
             print("Failed to open playingRecord.json\
                   for some unknown reason")
 
-    def indentLines(self, text: str, spaces: int):
-        """This method makes indentations for printing bodyparts"""
+    @staticmethod
+    def indentLines(text: str, spaces):
+        """This method makes indentations for printing body
+        parts.
+        text: a string that represents a body part.
+              contains split lines. (str)
+        spaces: number of spaces to add.(int)"""
         padding = " " * spaces
-        # Split into lines, prepend spaces, then join back
         return "\n".join(padding + line for line in text.splitlines())
 
-    def removeLeadingSpace(self, lst):
+    @staticmethod
+    def removeLeadingSpace(lst):
+        """ removes leading spaces from the list.
+        it removes both from the end and beginning.
+        lst: a list of strings.(list)
+        ex:
+        input: ["", "", "ddd", "dddd", " ", "ddd", " ", " "]
+        output: ["ddd", "dddd", " ", "ddd"]
+        """
         # Find first non-empty string
         start = 0
         while start < len(lst) and lst[start] == "":
             start += 1
-
         # Find last non-empty string
         end = len(lst) - 1
         while end >= 0 and lst[end] == "":
             end -= 1
-
         # Slice the list
         return lst[start:end + 1] if start <= end else []
 
     def printPlayerMessage(self, isSad):
+        """ prints a message describing player's
+        situation.
+        isSad: true or false, weather they are sad or not.(bool)
+        """
         print(f"my name is {self.name}")
         if isSad:
             print("I am not feeling good.")
@@ -299,14 +314,16 @@ ___
             print("Let's crush this game.")
 
     def addMoney(self, add):
+        """ adds money to the current player.
+        """
         self.money += add
 
     def printBodyShape(self):
+        """ prints the shape of the player's
+        body.
+        """
         missing_parts = self.lost_body_parts
         isSad = len(self.lost_body_parts) != 0
-        """
-        """
-
         def printBodyAcross(first, body_print_list, bet):
             """
             Prints the body line by line.
@@ -321,7 +338,6 @@ ___
             while didPrint:
                 didPrint = False
                 print(" " * first, end="")
-
                 for part in body_print_list:
                     p = part[0]  # configured body part
                     which = part[1]  # current print index
@@ -333,7 +349,6 @@ ___
                         print(" " * bet, end="")
                         didPrint = True
                     else:
-
                         print(" " * space, end="")
                         print(" " * bet, end="")
                     part[1] += 1
@@ -351,8 +366,7 @@ ___
             lines = ("" if element in missing_parts
                      else self.BODY_ELEMNTS[element]).split("\n")
             return self.removeLeadingSpace(lines)
-
-        # Prepration phase before printing.
+        # Preparation phase before printing.
         # ---------- HEAD ----------
         # check if any of the facial elements where removed!
         eye = (self.HEAD_PARTS["blind_eye"]
@@ -379,7 +393,6 @@ ___
         # ---------- FEET ----------
         left_foot = configurePart("left foot")
         right_foot = configurePart("right foot")
-
         # printing body elements
         head = self.indentLines(head, 12)  # indent each line 12 spaces
         print(head)
@@ -388,13 +401,13 @@ ___
         # printing list prepares each round of body parts
         # for printing.
         # [configured body part, current_line_index, replacement_spaces]
-        # configuted body part:
+        # configured body part:
         # refers to the list of lines the body part has.
         # current_line_index:
         # the current index that should be removed.
         # Note: if the index is out of bounds, it will only
         # be advanced and instead " " * replacement_spaces
-        # will be printed until a inbound index is reached.
+        # will be printed until an inbound index is reached.
         # replacement_spaces:
         # number of spaces to be printed when there is body element
         # line to print. 
@@ -409,12 +422,13 @@ ___
         # printing the feet
         body_print_list = [[left_foot, 0, 3], [right_foot, 0, 3]]
         printBodyAcross(14, body_print_list, 5)
-
         self.printPlayerMessage(isSad)
 
 
 # This function clears all playing records if there are too much
 def clear_all_playing_records():
+    """ clears playing records.
+    """
     try:
         with open("player/playingRecord.json", 'w') as file:
             json.dump({"Total Player": 0}, file, indent=4)

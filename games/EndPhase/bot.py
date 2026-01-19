@@ -1,25 +1,14 @@
-##############################################################################
+###############################################################################
 # Coder: Leo
 # Last date modified: 1/14/2026
-##############################################################################
-"""This module is the bot module for mini game EndPhase.
+###############################################################################
+"""This module is the bot module for mini-game EndPhase.
 The code is imported by EndPhaseGame.py. It mainly contains the
 class Bot, which controls all movement of bot in the game."""
-##############################################################################
+###############################################################################
 import json
 import random
 from games.EndPhase.human import Human
-
-# this code opens card.json stores the card and card_nums dictionary
-try:
-    with open("games/EndPhase/card.json", 'r') as file:
-        content = json.load(file)
-        card = content["card"]
-        card_nums = content["card nums"]
-except FileNotFoundError:
-    print("Failed to locate card.json")
-except:
-    print("Failed to open card.json for some unknown reason")
 
 
 class Bot(Human):
@@ -218,3 +207,15 @@ class Bot(Human):
             if self.handcards[i].name == "peach":
                 return i
         return random.randint(0, len(self.handcards) - 1)
+
+
+# this code opens card.json stores the card and card_nums dictionary
+try:
+    with open("games/EndPhase/card.json", 'r') as file:
+        content = json.load(file)
+        card = content["card"]
+        card_nums = content["card nums"]
+except FileNotFoundError:
+    print("Failed to locate card.json")
+except:
+    print("Failed to open card.json for some unknown reason")

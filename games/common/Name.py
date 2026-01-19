@@ -1,12 +1,12 @@
-#######################################################################
+###############################################################################
 # Coder: Leo
 # Last date modified: 1/14/2026
-#######################################################################
-''' This module defines all the functions that are needed to handle
-player names. Currently it only has one function that chooses name
+###############################################################################
+""" This module defines all the functions that are needed to handle
+player names. Currently, it only has one function that chooses name
 for bots while avoiding choosing the human player.
-'''
-#######################################################################
+"""
+###############################################################################
 
 import json
 import random
@@ -14,7 +14,7 @@ import random
 
 def select_name(user_name, num):
     """The function picks names randomly and avoid 
-    picking the same name as the user name. Then, it 
+    picking the same name as the username. Then, it
     returns the list of names picked.
     user_name: the human player's name. (str)
     num: number of names needed. (int)

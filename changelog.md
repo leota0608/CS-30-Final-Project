@@ -10,6 +10,28 @@ example:
 + 0.1.1 means amir committed his first commit to version 1.  
 ## Change Log
 
++ 0.4.6.5:
+ - added player info to gitignore.
++ 0.4.6.4:
+ - timing issues solved.
+ - solved spelling mistake.
++ 0.4.6.3:
+ - comments added and PEP8 checked.
++ 0.4.6 and 0.4.6.2:
+ - comments were added.
+ - delays were adjusted.
+ - A bug in hearts human player, were choosing a wrong card
+   resulted in removal of cards solved.
++ 0.4.5:
+ - comments were added extensively.
++ 0.4.4:
+  - added a file to check which classes and functions are missing
+  docstring.
+  - removed test files.
+  - a file that contains missing docstring classes and methods was added.
++ 0.4.3.6:
+  - All files now have header of length 79.
+  - A code to this automatically was written.
 + 0.4.3.5:
   - commented game handler file.
 + 0.4.3.4:
@@ -196,8 +218,9 @@ demonstrate the use of this framework.
 - 1.4.6
   - update alphatest.md
 
->1.15 1.4.7 - 1.4.11
-- Fix PEP8 and general optimization
+>1.15 - 1.18 
+- 1.4.7 - 1.4.16
+  + Fix PEP8 and general optimization
 
 
 ---

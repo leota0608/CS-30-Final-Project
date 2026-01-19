@@ -12,25 +12,27 @@ import random as rd
 
 
 class CPBot(Character):
-    """ CPBot short for Court Piece Bot defines the logic for a computer
-    player in the game of Court Piece. Each Computer Player operates independently
-    which is the advantage of the Character/Game Handler design.
-
-    Here is the flow chart sudo code for how the algorithm of CPBot works.
+    """ CPBot short for Court Piece Bot defines the logic for a 
+    computer player in the game of Court Piece. Each Computer Player 
+    operates independently which is the advantage of the Character/Game
+    Handler design.
+    Here is the flow chart sudo code for how the algorithm of CPBot 
+    works.
 
     # Choosing Trump:
-    - if the current Bot the king, choose the suit that you have the most
-      as your trump.
+    - if the current Bot the king, choose the suit that you have 
+    the most as your trump.
     # Playing:
-    - if we are the first player of the game, then return any random card
-      back.
+    - if we are the first player of the game, then return any random 
+    card back.
     - otherwise if we are a middle player:
         - first determine the suit or king kind of the game.
-        - if we have cards of this type then find the maximum and minimum
-          ranks.
-            - if the max card is higher than one of cards placed already on
-              the table draw the max card.
-            - otherwise use the min card to avoid losing the max card.
+        - if we have cards of this type then find the maximum and 
+        minimum ranks.
+            - if the max card is higher than one of cards placed 
+            already on the table draw the max card.
+            - otherwise use the min card to avoid losing the max 
+            card.
         - otherwise, we look into using a trump. If we have a trump
           card, pick the smallest trump card that we have.
         - or else, just pick any random card!

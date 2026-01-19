@@ -1,20 +1,19 @@
-##############################################################################
-#Title: Death Game
-#Class: CS 30
-#Assignment: final project
-#Coder: Leo, Amir
-#Last date modified: 6/18/2025
-##############################################################################
-'''
-This is the CS 30 final project main code.
-It imports the four mini game modules and runs the game,
+###############################################################################
+# Title: Death Game
+# Class: CS 30
+# Assignment: final project
+# Coder: Leo, Amir
+# Last date modified: 1/18/2025
+###############################################################################
+""" This is the CS 30 final project main code.
+It imports the four mini-game modules and runs the game,
 The code mainly includes Game class, which run the game.
-'''
-##############################################################################
+"""
+###############################################################################
 from games.EndPhase.EndPhaseGame import EndPhaseGame
 from games.BlackJack.BlackJackGame import BlackJackGame
-from games.CourtPiece.CourtPieceGame import CourtPieceGame # game3 
-from games.Hearts.HeartsGame import HeartsGame # game4
+from games.CourtPiece.CourtPieceGame import CourtPieceGame  # game3
+from games.Hearts.HeartsGame import HeartsGame  # game4
 from player.player import Player
 from games.teller.Teller import Teller
 from games.EndPhase.choose import choose
@@ -26,9 +25,10 @@ import time
 
 class Game:
     """The game class  runs the entire game, it contains four
-    mini game objects, a shop object and ap layer object.
+    mini-game objects, a shop object and ap layer object.
     It prints the rules and give instructions to player to 
     play the game."""
+
     def __init__(self):
         self.player = Player()
         self.shop = Shop(self.player)
@@ -48,12 +48,17 @@ class Game:
     def greeting(self):
         """This method prints greetings for player"""
         self.story.display()
-    
+        print()
+        print(f"you have a debt of {self.player.debt}.")
+        print(f"you have {self.player.money}$ in your pocket.")
+        print("pay it off, get your self out.")
+        print()
+
     def runGame(self, gameName, money):
         """This method runs one of the four games according to 
         the two perimeters:
         gameName is a string indicating the name of the game.
-        money is a integer which is the maximum reward the
+        money is an integer which is the maximum reward the
         player can get finishing the game. """
         print("Game starts")
         # game1
@@ -62,16 +67,17 @@ class Game:
         game.run()
         self.player.update_score()
 
-    def printOptions(self, options):
+    @staticmethod
+    def printOptions(options):
         """This method prints options for the player to choose.
-        options is a list of strings to be printed."""
+        options: is a list of strings to be printed.(list)"""
         for i in range(len(options)):
             print(f"{i + 1}. {options[i]}")
 
     def printMoney(self):
         """This method outputs the money the player has and the debt
         he has to pay."""
-        print("Hi, I am your acountant.")
+        print("Hi, I am your accountant.")
         print("currently: ")
         print(f"your money: {self.player.money}")
         print(f"amount you must pay: {self.player.debt}")
@@ -100,23 +106,24 @@ class Game:
                     break
                 else:
                     confirm = choose(f"Are you sure you wanna play "
-                        f"{choice}?(y/n)", ["yes", 'y', "no", 'n'])
+                                    f"{choice}?(y/n)", ["yes", 'y', "no", 'n'])
                     if confirm in ["yes", 'y']:
                         money = random.randint(2000, 6000)
-                        print(f"If you win, you can get up tp ${money}")
+                        print(f"If you win, you can get up to ${money}")
                         time.sleep(0.7)
                         self.runGame(choice, money)
                         break
 
     def checkEnd(self):
-        """This method checks if the player has earn enough 
-        money to pay his debt, or if the player got his head cut off."""
+        """This method checks if the player has earned enough
+        money to pay his debt, or if the player got his head cut off.
+        """
         if self.player.money >= self.player.debt:
             print()
             print("Wow ....")
             print("You paid off the debt.")
             print(f"you made {self.player.money} and your debt was"
-                  "{self.player.debt}")
+                  f" {self.player.debt}")
             print(f"you will keep {self.player.money - self.player.debt}")
             print("Congrats anyway, you bought your life.")
             print("Now get out ...")
@@ -133,8 +140,8 @@ class Game:
             print("we are going to take out all of your parts and sell them!")
             return True
         else:
-            print(f"you still need to pay something like \
-                  {self.player.debt - self.player.money}.")
+            print(f"you still need to pay something like "
+                  f"{self.player.debt - self.player.money}.")
             print("go on.")
             print()
             return False
@@ -165,8 +172,10 @@ class Game:
                     input("\rpress any key to continue...")
                     os.system("cls")
                 elif choice == "check money":
+                    os.system("cls")
                     self.printMoney()
                     input("\rpress any key to continue...")
+                    os.system("cls")
                 elif choice == "play game":
                     os.system("cls")
                     self.handlePlayGame()
@@ -174,13 +183,14 @@ class Game:
                     if self.checkEnd():
                         break
                 elif choice == "leave arcade":
+                    os.system("cls")
                     print("you have not still paid your money.")
                     time.sleep(2)
-                    print("We would just kill you and then sell"
+                    print("We would just kill you and then sell "
                           "your body for your debt.")
-                    print("Listen, we have no sympathy we only care"
+                    print("Listen, we have no sympathy we only care "
                           "about money!")
-                    choice = choose("Do you really want that>(y/n)", 
+                    choice = choose("Do you really want that>(y/n)",
                                     ["yes", 'y', "no", 'n'])
                     if choice == "y":
                         print("Ok, you bastard.")
@@ -191,18 +201,21 @@ class Game:
                     else:
                         print("Continue your game"
                               "and do not come here again.")
-                    
+                        time.sleep(3)
+                    os.system("cls")
+
     def load_game_anim(self, name: str):
-        """This methods loads the load-game animation, which a 
-        percentage inside a pair of middle brackets."""
+        """These methods load the load-game animation, which a
+        percentage inside a pair of middle brackets.
+        name: the name of the game. (str)"""
         load = 0
         while load < 100:
             progress = random.randint(10, 25)
             load += progress
             if load > 100:
                 load = 100
-            print(f"\rLoading {name}: [{load}%]", end='', flush = True)
-            time.sleep(random.randint(50, 80)/100)
+            print(f"\rLoading {name}: [{load}%]", end='', flush=True)
+            time.sleep(random.randint(50, 80) / 100)
         print(f"\r{name.capitalize()} successfully loaded...")
         time.sleep(0.7)
         print(f"\r{name.capitalize()} starts ... Good luck...")
@@ -215,6 +228,7 @@ class Game:
         self.player.get_name()
         self.player.store_player_information()
         self.lobby()
+
 
 # run the game
 if __name__ == "__main__":

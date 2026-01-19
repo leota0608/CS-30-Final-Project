@@ -1,9 +1,10 @@
 # Alpha Testing Check List
-### Summery:  
+### Summery:    
 Here we have check list for every element of the game
 that needs testing. Follow these guidelines to test 
 the game rigorously.
-____
+
+---
 + Computer Player Logic Correctness:  
     Ensuring the correctness of Bot classes is a hard task as there are various different cases that can occur. To make testing easier, we would identify different cases, and computer player's expected response in return. 
     We would then construct these cases by skipping all the preliminary conditions of the game.
@@ -59,13 +60,16 @@ ____
         and find the solution. It might happen when the hearts bot cannot find a solution
         maybe because a special case was not considered.
 
-    * General: 
-        - Can player exit all four game and return to lobby
-        - Does both winning condition and lost condition leads to reward and punishment
-        - Can player buy lost body parts from shop
-        - does shop class check if the player have enough money, and does player not have that body part
-        - can main code direct player to all four games
+* General: 
+    - Can player exit all four game and return to lobby
+    - Does both winning condition and lost condition leads to reward and punishment
+    - Can player buy lost body parts from shop
+    - does shop class check if the player have enough money, and does player not have that body part
+    - can main code direct player to all four games
 
 <br>
 
-**All requirements met.**
+## Summary
+**All requirements met.**  
+The game can now function properly. Still need to keep testing to find smaller bugs inside mini-games.
+Might want to add some formatting to output and adjust time.sleep time to make the game smoother.

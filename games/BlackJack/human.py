@@ -1,6 +1,6 @@
 ###############################################################################
-#Coder: Leo
-#Last date modified: 1/14/2026
+# Coder: Leo
+# Last date modified: 1/14/2026
 ###############################################################################
 """This module is the human code for the mini game Black Jack. It is 
 imported by BlackJackGame.py. The code contains the Human class."""
@@ -14,6 +14,7 @@ from games.common.GameCard import GameCard
 class Human(Character):
     """The class inherits from Character class.
     it creates a human object."""
+
     def __init__(self):
         self.load_current_player_information()
         self.handcard = []
@@ -28,13 +29,13 @@ class Human(Character):
         self.handcard.append(name)
         card = ["ace", "two", "three", "four", "five", "six", "seven", \
                 "eight", "nine", "ten", "jack", "queen", "king"]
-        name = card[name-1]
-        self.handcard_display.append(GameCard(random.choice\
-                (["club", "spade", "heart", "diamond"]), name))
+        name = card[name - 1]
+        self.handcard_display.append(GameCard(random.choice \
+                                                  (["club", "spade", "heart", "diamond"]), name))
 
     def find_sum(self):
-        """Checks the sum of current handcards, both the maximum and minimum 
-        sum and stores them"""
+        """Checks the sum of current handcards, both the 
+        maximum and minimum sum and stores them"""
         total = 0
         count_a = 0
         for i in self.handcard:
@@ -66,4 +67,3 @@ class Human(Character):
         except:
             print("**Failed to open playingRecord.json for\
                   some unknown reason**")
-

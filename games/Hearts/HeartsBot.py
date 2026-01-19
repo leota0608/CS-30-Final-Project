@@ -6,14 +6,13 @@
  outlined design structure of the Character class."""
 ###############################################################################
 import random as rd
-
 from games.common.Character import Character
 from games.common.GameCard import GameCard
 
 
 class HeartsBot(Character):
-    """ HeartsBot defines the bot for the game of hearts. It follows a simple
-    algorithm to come up with the best option to play.
+    """ HeartsBot defines the bot for the game of hearts. It follows
+    a simple algorithm to come up with the best option to play.
     Here is a flowchart sudo-code like structure of this algorithm.
 
     # card exchange phase:
@@ -25,20 +24,21 @@ class HeartsBot(Character):
 
     # play phase:
     - if we are the first player:
-        - check if we can play the queen of spade (it means that if we play
-          queen of spade, there is at least one player with a higher rank,
-          ex: king of spade.) In that case play the queen of spade.
-        - Otherwise check if we can play a heart. (At least someone must have
-          higher rank than our least heart rank.) In this case play a heart.
-        - Otherwise pick a random card, prioritizing, club and diamond over
-          spade and heart.
+        - check if we can play the queen of spade (it means that if 
+        we play queen of spade, there is at least one player with a 
+        higher rank, ex: king of spade.) In that case play the queen 
+        of spade.
+        - Otherwise check if we can play a heart. (At least someone 
+        must have higher rank than our least heart rank.) In this case 
+        play a heart.
+        - Otherwise pick a random card, prioritizing, club and diamond
+        over spade and heart.
     - if we are a middle player(just not the first):
-        - if we have the same suit as the first player, then pick the smallest
-          rank and put on the table.
-        - Otherwise pick a random card, prioritising, heart and the queen
-          of spade, over club, diamond and other cards of spade.
+        - if we have the same suit as the first player, then pick the 
+        smallest rank and put on the table.
+        - Otherwise pick a random card, prioritising, heart and the 
+        queen of spade, over club, diamond and other cards of spade.
     """
-
     def __init__(self, name):
         """ name: the name of bot.(string)
         """
@@ -262,7 +262,7 @@ class HeartsBot(Character):
         else:
             # get the suit of the game also known as king kind.
             suit = GameCard.getKindName(self.gameData.
-                                        table[self.gameData.starter_player].kind)
+                            table[self.gameData.starter_player].kind)
             # retrieve current player's cards
             cards = self.gameData.cards[self.name]
             if len(cards[suit]) != 0:

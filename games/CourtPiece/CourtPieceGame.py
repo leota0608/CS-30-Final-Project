@@ -10,6 +10,7 @@ damage to the player.
 ###############################################################################
 import random as rd
 import time as tm
+import os
 
 import games.common.score as score
 from games.teller.Teller import Teller
@@ -76,7 +77,8 @@ class CourtPieceGame(GameHandler):
             self.data.cards[player.name] = dict()
             self.data.scores.update({player.name: 0})
             # the game cards follow the following structure:
-            # {player name: {suit: [list of cards with that suit], ...}, ...}
+            # {player name: {suit: [list of cards with that suit], 
+            # ...}, ...}
             for kind in GameCard.KINDS:
                 self.data.cards[player.name].update({kind: []})
         self.data.table = [None] * len(self.players)
@@ -155,6 +157,7 @@ class CourtPieceGame(GameHandler):
         print()
         print(f" --- round {round} begin ---")
         print()
+        tm.sleep(2)
 
         def ask(i_):
             """ provokes a player to pick a card.
@@ -245,7 +248,9 @@ class CourtPieceGame(GameHandler):
         """ It is the only function supposed to be called from outside.
         It runs the game in the correct order as it is supposed to.
         """
+        os.system("cls")
         self.rules.display()
+        os.system("cls")
         self.decideKing()
         distribution_deck = generateDeck()
         rd.shuffle(distribution_deck)

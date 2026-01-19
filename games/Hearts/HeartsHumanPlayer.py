@@ -3,12 +3,11 @@
 # Last date modified: 1/14/2026
 ###############################################################################
 """ Creates an interface between the game handler and the actual user.
-By inheriting from the Character class, we make sure that character logic
-is separate from game handler, so later we can make this game to have multiple
-real players if we wish to."""
+By inheriting from the Character class, we make sure that character 
+logic is separate from game handler, so later we can make this game to 
+have multiple real players if we wish to."""
 ###############################################################################
 import time as tm
-
 from games.common.Character import Character
 from games.common.GameCard import *
 
@@ -21,7 +20,6 @@ class HeartsHumanPlayer(Character):
     to choose their card. Interactive guidance is developed to let the
     user know if their choice is illegal and that what they should do.
     """
-
     def __init__(self, name):
         """ name is the name of the player. It is needed
         as unique identifier of this player.
@@ -53,10 +51,11 @@ class HeartsHumanPlayer(Character):
                 return True
         return False
 
-    def getCard(self, print_guide=True):
+    def getCard(self, print_guide=True, rem=True):
         """ Asks the user to play a card.
         print_guide: if true a simple guide about hoe input works
-        is displayed at the beginning.
+        is displayed at the beginning.(bool)
+        rem: do you want the card to be removed.(bool)
         """
         guideline = "Note: first enter the kind followed by comma " \
                     "followed by rank.\n" \
@@ -65,7 +64,6 @@ class HeartsHumanPlayer(Character):
             print()
             print(guideline)
             print()
-
         while True:
             inp = input("pick a card> ").lower()
             inp = inp.replace(" ", "")
@@ -78,9 +76,12 @@ class HeartsHumanPlayer(Character):
                 # checking card existance in the deck
                 ans = self.doesCardExist(current_card)
                 if ans != -1:
-                    self.gameData.cards[self.name] \
-                      [GameCard.getKindName(current_card.kind)].pop(ans)
-                    return current_card
+                    if rem:
+                        self.gameData.cards[self.name] \
+                            [GameCard.getKindName(current_card.kind)].pop(ans)
+                        return current_card
+                    else:
+                        return ans, current_card
                 else:
                     print("this card does not exist in your deck my friend.")
                     print("Try again")
@@ -114,6 +115,13 @@ class HeartsHumanPlayer(Character):
             exchange_cards.append(self.getCard(i == 0))
         return exchange_cards
 
+    def removeCard(self, suit, index):
+        """ removes the card from player's deck.
+        suit: the code of suit.(int)
+        index: index of the card.(int)
+        """
+        self.gameData.cards[self.name][GameCard.getKindName(suit)].pop(index)
+
     def choosePlayingCard(self):
         """ Asks the user to choose their play card.
         It forces the user to play suit when they have it.
@@ -121,10 +129,10 @@ class HeartsHumanPlayer(Character):
         other card.
         """
         print_guide = True
-        self.printCards()   # print cards only once
+        self.printCards()  # print cards only once
         print()
         while True:
-            card = self.getCard(print_guide)
+            ind, card = self.getCard(print_guide, False)
             suit_card = self.gameData.table[self.gameData.starter_player]
             # there is a suit in the game
             # card must match its suit
@@ -132,15 +140,19 @@ class HeartsHumanPlayer(Character):
                 if suit_card.kind != card.kind:
                     suit_name = GameCard.getKindName(suit_card.kind)
                     if len(self.gameData.cards[self.name][suit_name]) != 0:
-                        print("idiot, don't you know that your card must match the game suit")
+                        print("idiot, don't you know that your "
+                              "card must match the game suit")
                         print("try again, you cheater!")
                     else:
+                        self.removeCard(card.kind, ind)
                         return card
                 else:
                     # suit and chosen card match
+                    self.removeCard(card.kind, ind)
                     return card
             else:
                 # no suit in the game
+                self.removeCard(card.kind, ind)
                 return card
             # reset it so guideline is not printed over and over!
             print_guide = False
